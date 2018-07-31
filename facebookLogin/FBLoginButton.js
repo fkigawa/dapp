@@ -29,6 +29,7 @@ export default class FBLoginButton extends React.Component {
               } else if (result.isCancelled) {
                 console.log("login is cancelled.");
               } else {
+                
               }
             }
           }
