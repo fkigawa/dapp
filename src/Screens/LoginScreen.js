@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import FBLoginButton from '../facebookLogin/FBLoginButton'
+import FBLoginButton from '../components/Login/FBLoginButton'
 
 export default class App extends React.Component {
   render() {
