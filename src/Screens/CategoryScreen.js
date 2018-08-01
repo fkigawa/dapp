@@ -8,13 +8,14 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import ProductCategoryButton from "../components/Product_Category/ProductCategoryButton";
 
 type Props = {};
-export default class ProductsScreen extends Component<Props> {
+export default class CategoryScreen extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>haaaaaay</Text>
+        <View style={styles.container}>
+        <ProductCategoryButton />
       </View>
     );
   }
@@ -23,9 +24,10 @@ export default class ProductsScreen extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    backgroundColor: 'white',
+      flexDirection: "row"
   },
   welcome: {
     fontSize: 20,
