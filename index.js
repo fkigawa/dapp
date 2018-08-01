@@ -3,6 +3,7 @@ import {registerScreens} from './src/Screens/index';
 import {LoginScreen} from './src/Screens/LoginScreen';
 import {CategoryScreen} from './src/Screens/CategoryScreen';
 import {CartScreen} from './src/Screens/CartScreen';
+import {AccountScreen} from './src/Screens/AccountScreen';
 
 registerScreens(); // this is where you register all of your app's screens
 
