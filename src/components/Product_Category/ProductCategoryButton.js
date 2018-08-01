@@ -1,5 +1,6 @@
 import React from "react"
 import {Platform, Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import productsNavigator from '../../Screens/MainTabs/ProductsNavigator'
 import drinkImage from "../../assets/can-of-coke.jpg"
 let products = [
     {
@@ -12,12 +13,13 @@ let products = [
                 title: "Cups"
             }
     }];
+
 export default class ProductCategoryButton extends React.Component{
     constructor(props){
-        super(props)
+      super(props)
     }
     onPressTile(){
-        alert("you clicked me");
+      productsNavigator();
     }
     render() {
         return (
