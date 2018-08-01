@@ -17,8 +17,13 @@ export default class FBLoginButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
-      loggedIn: false
+      loggedIn: false,
+      accessToken: ''
     })
+  }
+
+  componentDidMount() {
+    console.log('is it logged?', result)
   }
 
   getProductsScreen = () => {
@@ -40,6 +45,13 @@ export default class FBLoginButton extends React.Component {
                 } else if (result.isCancelled) {
                   console.log("login is cancelled.");
                 } else if (result.grantedPermissions){
+                  AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                      this.setState({
+                        accessToken: data
+                      })
+                    }
+                  )
                   this.setState({
                     loggedIn: true
                   })
