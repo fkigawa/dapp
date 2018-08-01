@@ -8,7 +8,7 @@ import {
   TextInput,
   ListView,
   Alert,
-  Button
+  Button,
 } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/MainTabs/MainNavigator'
@@ -18,6 +18,7 @@ export default class FBLoginButton extends React.Component {
     super(props);
     this.state = ({
       loggedIn: false,
+      checked: false,
       accessToken: ''
     })
   }
@@ -26,13 +27,32 @@ export default class FBLoginButton extends React.Component {
     startNavigator();
   }
 
+  saveToken = () => {
+    AsyncStorage.setItem('accessToken', this.state.accessToken);
+  }
+
+  componentDidMount = async () => {
+    try {
+      let accessToken = await AsyncStorage.getItem('accessToken')
+      if (accessToken) {
+        this.setState({
+          checked: true
+        })
+        this.getProductsScreen();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+
+  }
+
   render() {
     return (
       <View>
         {this.state.loggedIn ?
-          <Button onPress={() => this.getProductsScreen()} title='Shop!'/>
+          <Text>Loading Shop...</Text>
           :
-          <LoginButton
+          this.state.checked ? <LoginButton
             readPermissions={["public_profile", 'email']}
             onLoginFinished={
               (error, result) => {
@@ -44,17 +64,21 @@ export default class FBLoginButton extends React.Component {
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
                       this.setState({
-                        accessToken: data
-                      })
+                          loggedIn: true,
+                          accessToken: data.accessToken
+                        }, () => {
+                          console.log('got auth token; rerouting')
+                          this.getProductsScreen()
+                        })
+                      this.saveToken()
                     }
                   )
-                  this.setState({
-                    loggedIn: true
-                  })
                 }
               }
             }
             onLogoutFinished={() => alert("Logged Out")}/>
+            :
+            null
         }
       </View>
     );

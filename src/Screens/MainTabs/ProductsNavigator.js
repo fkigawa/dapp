@@ -1,6 +1,7 @@
 import { Navigation } from 'react-native-navigation';
 
 const productsNavigator = () => {
+  console.log('Navigation.startTabBasedApp PRODUCTS')
   Navigation.startTabBasedApp({
     tabs: [
       {
