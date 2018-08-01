@@ -22,10 +22,6 @@ export default class FBLoginButton extends React.Component {
     })
   }
 
-  componentDidMount() {
-    console.log('is it logged?', result)
-  }
-
   getProductsScreen = () => {
     startNavigator();
   }
