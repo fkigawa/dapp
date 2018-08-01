@@ -26,24 +26,25 @@ export default class FBLoginButton extends React.Component {
   getProductsScreen = () => {
     startNavigator();
   }
-
   saveToken = () => {
     AsyncStorage.setItem('accessToken', this.state.accessToken);
   }
 
   componentDidMount = async () => {
     try {
-      let accessToken = await AsyncStorage.getItem('accessToken')
+      let accessToken = await AsyncStorage.getItem('accessToken');
       if (accessToken) {
         this.setState({
           checked: true
         })
         this.getProductsScreen();
       }
-    } catch (error) {
-      console.log(error.message);
-    }
+      else{
 
+      }
+    } catch (error) {
+      console.log("ERRORRR!!!!!!!",error.message);
+    }
   }
 
   render() {
@@ -52,7 +53,7 @@ export default class FBLoginButton extends React.Component {
         {this.state.loggedIn ?
           <Text>Loading Shop...</Text>
           :
-          this.state.checked ? <LoginButton
+           <LoginButton
             readPermissions={["public_profile", 'email']}
             onLoginFinished={
               (error, result) => {
@@ -77,8 +78,7 @@ export default class FBLoginButton extends React.Component {
               }
             }
             onLogoutFinished={() => alert("Logged Out")}/>
-            :
-            null
+
         }
       </View>
     );
