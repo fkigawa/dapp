@@ -9,6 +9,7 @@ registerScreens(); // this is where you register all of your app's screens
 
 // start the app
 
+console.log('Navigation.startSingleScreenApp')
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'LoginScreen', // unique ID registered with Navigation.registerScreen
