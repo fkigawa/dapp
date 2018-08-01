@@ -7,14 +7,20 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import categoryNavigator from "./MainTabs/CategoryNavigator"
 
 type Props = {};
 export default class ProductsScreen extends Component<Props> {
+    buttonClicked()
+    {
+        categoryNavigator()
+    }
   render() {
+
     return (
       <View style={styles.container}>
-        <Text>haaaaaay</Text>
+        <Button onPress={()=>this.buttonClicked()} title="Back"/>
       </View>
     );
   }

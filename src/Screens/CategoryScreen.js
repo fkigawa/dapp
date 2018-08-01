@@ -12,31 +12,19 @@ import ProductCategoryButton from "../components/Product_Category/ProductCategor
 
 type Props = {};
 export default class CategoryScreen extends Component<Props> {
-  render() {
-    return (
-        <View style={styles.container}>
-        <ProductCategoryButton />
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <ProductCategoryButton />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    backgroundColor: 'white',
-      flexDirection: "row"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        flexDirection: "row"
+    }
 });
