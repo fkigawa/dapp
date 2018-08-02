@@ -1,4 +1,3 @@
-import {registerScreens} from './src/Screens/index';
 import {LoginScreen} from './src/Screens/LoginScreen';
 import {CategoryScreen} from './src/Screens/CategoryScreen';
 import {CartScreen} from './src/Screens/CartScreen';
@@ -45,5 +44,3 @@ AppRegistry.registerComponent("dapp", () => RNRedux);
 // this is where you register all of your app's screens
 
 // start the app
-
-

@@ -18,7 +18,6 @@ export default class FBLoginButton extends React.Component {
     super(props);
     this.state = ({
       loggedIn: false,
-      checked: false,
       accessToken: ''
     })
   }
@@ -34,13 +33,8 @@ export default class FBLoginButton extends React.Component {
     try {
       let accessToken = await AsyncStorage.getItem('accessToken');
       if (accessToken) {
-        this.setState({
-          checked: true
-        })
+        console.log('this is da accesss', accessToken)
         this.getProductsScreen();
-      }
-      else{
-
       }
     } catch (error) {
       console.log("ERRORRR!!!!!!!",error.message);
