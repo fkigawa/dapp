@@ -4,7 +4,7 @@ import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART} from "../actions/actionTypes"
 const initialState = {
     userLoggedIn : false,
     currentCategory: "",
-    cartItems: ["Fruit", "Drinks", "Cups"]
+    cartItems: []
 };
 
 const reducer = (state=initialState,action) => {

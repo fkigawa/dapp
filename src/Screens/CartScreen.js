@@ -9,7 +9,8 @@ class CartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Cart!</Text>
-        <Text>Here is the current state: {this.props.cartItems} </Text>
+        <Text> Here is the current state: {this.props.cartItems} </Text>
+          {console.log(this.props.cartItems)}
       </View>
     );
   }
