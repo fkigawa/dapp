@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import FBLoginButton from '../components/Login/FBLoginButton'
+import FBLoginButton from '../../components/Login/FBLoginButton'
 
 export default class LoginScreen extends React.Component {
   render() {

@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import categoryNavigator from "./MainTabs/CategoryNavigator"
 import {connect} from "react-redux"
-import drinkImage from "../assets/can-of-coke.png"
-import cupImage from "../assets/solo-cup.png"
-import snackImage from "../assets/snacks.png"
-import ProductButton from "../components/Product_Page/ProductButton"
+import drinkImage from "../../assets/can-of-coke.png"
+import cupImage from "../../assets/solo-cup.png"
+import snackImage from "../../assets/snacks.png"
+import ProductButton from "../../components/Product_Page/ProductButton"
 type Props = {};
 
 let drinks = [{
