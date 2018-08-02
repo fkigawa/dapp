@@ -9,9 +9,9 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import categoryNavigator from "./MainTabs/CategoryNavigator"
-
+import {connect} from "react-redux"
 type Props = {};
-export default class ProductsScreen extends Component<Props> {
+class ProductsScreen extends Component<Props> {
     buttonClicked()
     {
         categoryNavigator()
@@ -21,10 +21,17 @@ export default class ProductsScreen extends Component<Props> {
     return (
       <View style={styles.container}>
         <Button style={styles.button} onPress={()=>this.buttonClicked()} title="Back"/>
+        <Text>{this.props.currentPage}</Text>
       </View>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    currentPage: state.root.currentCategory
+  }
+};
+export default connect(mapStateToProps)(ProductsScreen)
 
 const styles = StyleSheet.create({
   container: {

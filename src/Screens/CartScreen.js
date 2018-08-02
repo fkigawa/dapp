@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, ListView} from 'react-native';
 import {connect} from "react-redux"
-import {addCart} from "../store/actions";
+import {addCart} from "../store/actions/products";
 
 
 class CartScreen extends React.Component {

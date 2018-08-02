@@ -4,8 +4,10 @@ import drinkImage from "../../assets/can-of-coke.png"
 import cupImage from "../../assets/solo-cup.png"
 import snacks from "../../assets/snacks.png"
 import productsNavigator from "../../Screens/MainTabs/ProductsNavigator"
+import {currentCategory} from "../../store/actions/products";
+import connect from "react-redux"
 
-let products = [
+export let products = [
     {
         image: drinkImage,
         title: "Drinks"
@@ -24,7 +26,8 @@ export default class ProductCategoryButton extends React.Component{
     constructor(props){
         super(props)
     }
-    onPressTile(){
+    onPressTile(title){
+        this.props.changeCategory(title)
         productsNavigator()
     }
     render() {
@@ -32,7 +35,7 @@ export default class ProductCategoryButton extends React.Component{
             <View style={styles.container}>
                 {products.map((data,i)=>{
                     return (
-                        <TouchableOpacity key={i} onPress={()=>this.onPressTile()} style={styles.button}>
+                        <TouchableOpacity key={i} onPress={()=>this.onPressTile(data.title)} style={styles.button} >
                             <Image source={data.image} style={styles.imageSize}/>
                             <Text>{data.title}</Text>
                         </TouchableOpacity>
@@ -42,6 +45,7 @@ export default class ProductCategoryButton extends React.Component{
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
