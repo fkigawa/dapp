@@ -1,1 +1,1 @@
-export {addPlace,deletePlace,deselectPlace,selectPlace} from './places'
+export {loggingIn, currentCategory, addCart} from './products'

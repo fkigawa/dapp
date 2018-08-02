@@ -1,15 +1,32 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View, ListView} from 'react-native';
+import {connect} from "react-redux"
+import {addCart} from "../store/actions";
 
-export default class CartScreen extends React.Component {
+
+class CartScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Cart!</Text>
+        <Text>Here is the current state: {this.props.cartItems} </Text>
       </View>
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    cartItems: state.root.cartItems
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: (item) => dispatch(addCart(item))
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(CartScreen)
 
 const styles = StyleSheet.create({
   container: {

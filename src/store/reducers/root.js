@@ -1,16 +1,28 @@
-import {ADD_PLACE,DELETE_PLACE,DESELECT_PLACE,SELECT_PLACE} from "../actions/actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART} from "../actions/actionTypes"
+
 
 const initialState = {
     userLoggedIn : false,
-    clickedCategory: false,
-    cartItems: []
+    currentCategory: "",
+    cartItems: ["Fruit", "Drinks", "Cups"]
 };
 
 const reducer = (state=initialState,action) => {
     switch (action.type){
-        case ADD_PLACE:
+        case LOGGING_IN:
             return {
-                ...state
+                ...state,
+                userLoggedIn: true
+            };
+        case CURRENT_CATEGORY:
+            return{
+                ...state,
+                currentCategory: action.category
+            };
+        case ADD_CART:
+            return{
+                ...state,
+                cartItems: state.cartItems.push(action.item)
             };
         default:
             return state;

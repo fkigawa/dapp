@@ -1,13 +1,18 @@
-import {createStore, combineReducers} from "redux";
+import {createStore, combineReducers, compose} from "redux";
 
-import myRootReducer from "./reducers/root"
+import reducer from "./reducers/root"
 
 const rootReducer = combineReducers({
-    root: myRootReducer
+    root: reducer
 });
 
+// const configureStore = () => {
+//   return createStore(rootReducer);
+// };
+
+let composeEnhancers = compose;
 const configureStore = () => {
-  return createStore(rootReducer);
+  return createStore(rootReducer, composeEnhancers());
 };
 
 export default configureStore;

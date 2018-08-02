@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-export default class Accountscreen extends React.Component {
+export default class AccountScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>

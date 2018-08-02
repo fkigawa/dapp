@@ -20,7 +20,7 @@ export default class ProductsScreen extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <Button onPress={()=>this.buttonClicked()} title="Back"/>
+        <Button style={styles.button} onPress={()=>this.buttonClicked()} title="Back"/>
       </View>
     );
   }
@@ -29,8 +29,8 @@ export default class ProductsScreen extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -43,4 +43,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+    button:{
+    alignItems: "flex-start"
+    }
 });
