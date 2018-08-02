@@ -10,9 +10,28 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import categoryNavigator from "./MainTabs/CategoryNavigator"
 import {connect} from "react-redux"
+import drinkImage from "../assets/can-of-coke.png"
+import cupImage from "../assets/solo-cup.png"
+import snackImage from "../assets/snacks.png"
 type Props = {};
+let drinks = [{
+  productName: "Sprite",
+    price: 1.99,
+    image: drinkImage
+}];
+let cups = [{
+  productName: "Red Solo Cup",
+    price: 10.99,
+    image: cupImage
+}];
+let snacks = [{
+  productName: "Cliff Bar",
+    price: 2.99,
+    image: snackImage
+}];
+
 class ProductsScreen extends Component<Props> {
-    buttonClicked()
+    backToCategory()
     {
         categoryNavigator()
     }
@@ -20,7 +39,7 @@ class ProductsScreen extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <Button style={styles.button} onPress={()=>this.buttonClicked()} title="Back"/>
+        <Button style={styles.button} onPress={()=>this.backToCategory()} title="Back"/>
         <Text>{this.props.currentPage}</Text>
       </View>
     );
