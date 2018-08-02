@@ -11,6 +11,7 @@ export const currentCategory = (category) => {
     };
 };
 export const addCart = (item) => {
+    console.log("Item is ",item);
   return {
       type: ADD_CART,
       item: item
