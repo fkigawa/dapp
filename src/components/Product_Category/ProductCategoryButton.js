@@ -3,7 +3,7 @@ import {Platform, Text, View, StyleSheet, TouchableOpacity, Image} from 'react-n
 import drinkImage from "../../assets/can-of-coke.png"
 import cupImage from "../../assets/solo-cup.png"
 import snacks from "../../assets/snacks.png"
-import productsNavigator from "../../Screens/MainTabs/ProductsNavigator"
+import productsNavigator from "../../Screens/clientSide/MainTabs/ProductsNavigator"
 import {currentCategory} from "../../store/actions/products";
 import connect from "react-redux"
 

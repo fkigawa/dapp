@@ -1,12 +1,12 @@
 import React from "react";
 import {Navigation} from "react-native-navigation"
 import {Provider} from "react-redux"
-import LoginScreen from './src/Screens/LoginScreen';
-import CategoryScreen from './src/Screens/CategoryScreen';
-import CartScreen from './src/Screens/CartScreen';
-import AccountScreen from './src/Screens/AccountScreen';
+import LoginScreen from './src/Screens/clientSide/LoginScreen';
+import CategoryScreen from './src/Screens/clientSide/CategoryScreen';
+import CartScreen from './src/Screens/clientSide/CartScreen';
+import AccountScreen from './src/Screens/clientSide/AccountScreen';
 import configureStore from "./src/store/configureStore"
-import ProductsScreen from "./src/Screens/ProductsScreen";
+import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 const store = configureStore();
 
 Navigation.registerComponent('LoginScreen', () => LoginScreen,store,Provider);
