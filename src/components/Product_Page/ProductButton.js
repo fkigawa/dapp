@@ -8,19 +8,22 @@ class ProductButton extends React.Component{
     }
     onPressTile(data){
         alert("item added");
+        console.log("Data in press tile is", data);
         this.props.addToCart(data);
     }
     render(){
         return (
         <View style={styles.container}>
             {this.props.products.map((data,i)=>{
-                console.log(data);
+                console.log("Data in render is", data);
                 return (
+
                     <View>
+
                     <Image source={data.image} style={styles.imageSize}/>
                         <Text>{data.productName}</Text>
                         <Text>{data.price}</Text>
-                    <TouchableOpacity key={i} onPress={(data)=>this.onPressTile(data)} style={styles.button} >
+                    <TouchableOpacity key={i} onPress={()=>this.onPressTile(data)} style={styles.button} >
                         <Text style={styles.addToCart}> Add To Cart </Text>
                     </TouchableOpacity>
                     </View>
