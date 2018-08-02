@@ -20,9 +20,11 @@ const reducer = (state=initialState,action) => {
                 currentCategory: action.category
             };
         case ADD_CART:
+            let newArray = state.cartItems.slice();
+            newArray.push(action.item);
             return{
                 ...state,
-                cartItems: state.cartItems.push(action.item)
+                cartItems: newArray
             };
         default:
             return state;
