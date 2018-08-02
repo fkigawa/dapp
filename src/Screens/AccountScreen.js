@@ -5,14 +5,7 @@ import homeNavigator from './MainTabs/HomeNavigator'
 
 export default class AccountScreen extends React.Component {
 
-  logout = async (key) => {
-     try {
-       await AsyncStorage.removeItem(key);
-       return true;
-     }
-     catch(exception) {
-       return false;
-     }
+  logout = () => {
     homeNavigator();
   }
 
@@ -20,7 +13,7 @@ export default class AccountScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Account boi</Text>
-        <Button onPress={() => this.logout()} title="logout"/>
+        <LoginButton onLogoutFinished={() => this.logout()} />
       </View>
     );
   }

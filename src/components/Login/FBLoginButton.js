@@ -30,15 +30,26 @@ export default class FBLoginButton extends React.Component {
   }
 
   componentDidMount = async () => {
-    try {
-      let accessToken = await AsyncStorage.getItem('accessToken');
-      if (accessToken) {
-        console.log('this is da accesss', accessToken)
-        this.getProductsScreen();
+    AccessToken.getCurrentAccessToken().then(
+      async (data) => {
+        if (data) {
+          try {
+            let accessToken = await AsyncStorage.getItem('accessToken');
+            if (accessToken) {
+              this.getProductsScreen();
+            }
+          } catch (error) {
+            console.log("ERRORRR!!!!!!!",error.message);
+          }
+        }
       }
-    } catch (error) {
-      console.log("ERRORRR!!!!!!!",error.message);
-    }
+    )
+  }
+
+  componentWillUnmount = () => {
+    this.setState({
+      accessToken: ''
+    })
   }
 
   render() {
@@ -72,7 +83,6 @@ export default class FBLoginButton extends React.Component {
               }
             }
             onLogoutFinished={() => alert("Logged Out")}/>
-
         }
       </View>
     );
