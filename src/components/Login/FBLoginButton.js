@@ -11,7 +11,7 @@ import {
   Button,
 } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
-import startNavigator from '../../Screens/MainTabs/MainNavigator'
+import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator'
 
 export default class FBLoginButton extends React.Component {
   constructor(props) {

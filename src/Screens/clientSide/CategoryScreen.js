@@ -8,8 +8,8 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import ProductCategoryButton from "../components/Product_Category/ProductCategoryButton";
-import {currentCategory} from "../store/actions/products";
+import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
+import {currentCategory} from "../../store/actions/products";
 import {connect} from "react-redux"
 type Props = {};
 class CategoryScreen extends Component<Props> {
