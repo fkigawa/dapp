@@ -5,6 +5,7 @@ import LoginScreen from './src/Screens/clientSide/LoginScreen';
 import CategoryScreen from './src/Screens/clientSide/CategoryScreen';
 import CartScreen from './src/Screens/clientSide/CartScreen';
 import AccountScreen from './src/Screens/clientSide/AccountScreen';
+import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 const store = configureStore();
@@ -14,6 +15,7 @@ Navigation.registerComponent("CategoryScreen", ()=> CategoryScreen,store,Provide
 Navigation.registerComponent('ProductsScreen', () => ProductsScreen,store,Provider);
 Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
+Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);
 
 Navigation.startSingleScreenApp({
     screen: {
