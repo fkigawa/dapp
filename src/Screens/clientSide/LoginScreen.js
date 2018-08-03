@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import FBLoginButton from '../../components/Login/FBLoginButton'
 
 export default class LoginScreen extends React.Component {
@@ -7,6 +7,8 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Delivery!</Text>
+        <Button title='Login'/>
+        <Button title='Register'/>
         <FBLoginButton />
       </View>
     );
