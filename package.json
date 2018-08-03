@@ -21,10 +21,12 @@
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-fbsdk": "^0.7.0",
+    "react-native-form-builder": "^1.0.15",
     "react-native-navigation": "^1.1.478",
     "react-native-navigator": "^0.4.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "tcomb-form-native": "^0.6.15",
     "xcode": "^1.0.0"
   },
   "devDependencies": {
