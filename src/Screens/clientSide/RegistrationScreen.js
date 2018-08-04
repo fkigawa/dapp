@@ -3,16 +3,56 @@ import {TextInput, View, StyleSheet, TouchableOpacity, Text} from "react-native"
 
 
 export default class RegistrationScreen extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            firstName: "First Name",
+            lastName: "",
+            email: "",
+            password: "",
+            repeatPassword: "",
+        }
+
+    }
+    changeFirstName(event){
+        this.setState({firstName:event})
+    }
+    changeLastName(){
+
+    }
+    onEmail(){
+
+    }
+    onPassword(){
+
+    }
+    onRepeatPassword(){
+
+    }
     render(){
         return (
-            <View style={styles.container}>
-                <Text style={styles.textStyle}>Email: </Text>
-                <TextInput style={styles.inputStyle} placeholder="Enter Email"/>
-                <Text style={styles.textStyle}>Password: </Text>
-                <TextInput style={styles.inputStyle} placeholder="Enter Password"/>
-                <Text style={styles.textStyle}>Repeat Password: </Text>
-                <TextInput style={styles.inputStyle} placeholder="Repeat Password"/>
-                {/*<TouchableOpacity style={styles.button}><Text style={{color:"white"}}>Submit Phone Number</Text></TouchableOpacity>*/}
+            <View>
+                <View style={styles.container}>
+
+                    <Text style={styles.textStyle}>First Name: </Text>
+                    <TextInput style={styles.inputStyle} placeholder="Enter First Name" value={this.state.firstName} onChangeText={(event)=>this.changeFirstName(event)}/>
+                    {console.log(this.state.firstName)}
+                    <Text style={styles.textStyle}>Last Name: </Text>
+                    <TextInput style={styles.inputStyle} placeholder="Enter Last Name"/>
+
+                    <Text style={styles.textStyle}>Email: </Text>
+                    <TextInput style={styles.inputStyle} placeholder="Enter Email"/>
+
+                    <Text style={styles.textStyle}>Password: </Text>
+                    <TextInput style={styles.inputStyle} secureTextEntry={true} placeholder="Enter Password" type="password"/>
+
+                    <Text style={styles.textStyle}>Repeat Password: </Text>
+                    <TextInput style={styles.inputStyle} secureTextEntry={true} placeholder="Repeat Password"/>
+
+
+                </View>
+
+                <TouchableOpacity style={styles.button}><Text style={{color:"white"}}>Submit Information</Text></TouchableOpacity>
 
             </View>
         )
