@@ -2,7 +2,8 @@ import React from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
-
+import homeNavigator from "./MainTabs/HomeNavigator";
+let urlLink = "https://80450a40.ngrok.io";
 
 export default class LoginScreen extends React.Component {
   constructor(props){
@@ -28,8 +29,38 @@ export default class LoginScreen extends React.Component {
     return (!this.state.password || !this.state.email)
     }
 
-    onSignIn(){
+    onSignIn() {
+        if (this.state.password && this.state.email) {
+            fetch(`${urlLink}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                mode: "cors",
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password
+                })
+            }).then((response) => {
+                console.log(response);
+                return response.json();
+            })
+                .then((response) => {
+                    console.log(response);
+                    if (response.success === true) {
+                        this.props.loggedIn();
 
+                    }
+                })
+                .then(() => {
+                    homeNavigator()
+                })
+                .catch((err) => {
+                    console.log("The error is", err);
+                    this.setState({error: true});
+                })
+        }
     }
 
   render() {
@@ -38,7 +69,7 @@ export default class LoginScreen extends React.Component {
         <Text style={styles.welcome}>Welcome to Delivery!</Text>
 
           <TextInput style={styles.inputStyle} placeholder="Enter Email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)}/>
-          <TextInput style={styles.inputStyle} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
+          <TextInput style={styles.inputStyle} secureTextEntry={true} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
 
         <TouchableOpacity style={this.isFilled() ? styles.buttonSignInNotFilled : styles.buttonSignIn} disabled={this.isFilled()} onPress={()=>this.onSignIn()}><Text style={styles.text}>Sign in with Email</Text></TouchableOpacity>
           <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Register with Email"/>
