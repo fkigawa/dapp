@@ -24,6 +24,6 @@ const categoryNavigator = () => {
             navBarComponentAlignment: 'center'
         },
     });
-}
+};
 
 export default categoryNavigator

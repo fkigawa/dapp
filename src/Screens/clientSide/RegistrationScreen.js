@@ -3,6 +3,7 @@ import {TextInput, View, StyleSheet, TouchableOpacity, Text} from "react-native"
 import {connect} from "react-redux";
 import {changingFirstName,changingLastName,changingEmail,loggingIn} from "../../store/actions/products"
 import {urlLink} from "../../../App"
+import homeNavigator from "./MainTabs/HomeNavigator";
 class RegistrationScreen extends React.Component{
     constructor(props){
         super(props);
@@ -36,7 +37,11 @@ class RegistrationScreen extends React.Component{
                     console.log(response);
                     if (response.success === true) {
                         this.props.loggedIn();
+
                     }
+                })
+                .then(()=>{
+                    homeNavigator()
                 })
                 .catch((err) => {
                     console.log("The error is", err);
@@ -80,7 +85,6 @@ class RegistrationScreen extends React.Component{
 
                     <Text style={styles.textStyle}>First Name: </Text>
                     <TextInput style={styles.inputStyle} placeholder="Enter First Name" value={this.props.firstName} onChangeText={(event)=>this.changeFirstName(event)}/>
-
 
                     <Text style={styles.textStyle}>Last Name: </Text>
                     <TextInput style={styles.inputStyle} placeholder="Enter Last Name" value={this.props.lastName} onChangeText={(event)=>this.changeLastName(event)}/>

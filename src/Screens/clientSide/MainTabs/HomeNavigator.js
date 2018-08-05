@@ -1,7 +1,4 @@
 import { Navigation } from 'react-native-navigation';
-
-
-
 const homeNavigator = () => {
   Navigation.startSingleScreenApp({
       screen: {
@@ -9,6 +6,6 @@ const homeNavigator = () => {
           title: 'Welcome', // title of the screen as appears in the nav bar (optional)
       },
   });
-}
+};
 
 export default homeNavigator
