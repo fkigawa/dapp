@@ -8,6 +8,9 @@ import AccountScreen from './src/Screens/clientSide/AccountScreen';
 import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
+
+export const urlLink = "https://80450a40.ngrok.io";
+
 const store = configureStore();
 
 Navigation.registerComponent('LoginScreen', () => LoginScreen,store,Provider);

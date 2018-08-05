@@ -1,10 +1,13 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART} from "../actions/actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL} from "../actions/actionTypes"
 
 
 const initialState = {
     userLoggedIn : false,
     currentCategory: "",
-    cartItems: []
+    cartItems: [],
+    email: "",
+    firstName: "",
+    lastName: ""
 };
 
 const reducer = (state=initialState,action) => {
@@ -25,6 +28,21 @@ const reducer = (state=initialState,action) => {
             return{
                 ...state,
                 cartItems: newArray
+            };
+        case CHANGE_EMAIL:
+            return{
+                ...state,
+                email: action.newEmail
+            };
+        case CHANGE_FIRSTNAME:
+            return{
+                ...state,
+                firstName: action.newFirstName
+            };
+        case CHANGE_LASTNAME:
+            return{
+                ...state,
+                lastName: action.newLastName
             };
         default:
             return state;

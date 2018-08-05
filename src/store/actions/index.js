@@ -1,1 +1,1 @@
-export {loggingIn, currentCategory, addCart} from './products'
+export {loggingIn, currentCategory, addCart, changingEmail,changingFirstName,changingLastName} from './products'

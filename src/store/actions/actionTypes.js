@@ -1,3 +1,7 @@
 export const LOGGING_IN = "LOGGING_IN";
 export const CURRENT_CATEGORY = "CURRENT_CATEGORY";
 export const ADD_CART = "ADD_CART";
+export const CHANGE_FIRSTNAME = "CHANGE_FIRSTNAME";
+export const CHANGE_LASTNAME = "CHANGE_LASTNAME";
+export const CHANGE_EMAIL = "CHANGE_EMAIL";
+

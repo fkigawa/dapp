@@ -1,4 +1,4 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART} from "./actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME} from "./actionTypes"
 export const loggingIn = () => {
   return {
       type: LOGGING_IN
@@ -11,10 +11,27 @@ export const currentCategory = (category) => {
     };
 };
 export const addCart = (item) => {
-    console.log("Item is ",item);
   return {
       type: ADD_CART,
       item: item
   };
+};
+export const changingEmail = (newEmail) => {
+    return {
+        type: CHANGE_EMAIL,
+        newEmail: newEmail
+    }
+};
+export const changingFirstName = (newFirstName) => {
+    return {
+        type: CHANGE_FIRSTNAME,
+        newFirstName: newFirstName
+    }
+};
+export const changingLastName = (newLastName) => {
+    return {
+        type: CHANGE_LASTNAME,
+        newLastName: newLastName
+    }
 };
 
