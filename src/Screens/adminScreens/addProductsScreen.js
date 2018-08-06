@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View, ListView} from 'react-native';
+import {StyleSheet, Text, TextInput, View, ListView, TouchableOpacity} from 'react-native';
+import {urlLink} from "../../../App"
 
 
-class addProducts extends React.Component {
+class addProductsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
@@ -39,36 +40,34 @@ class addProducts extends React.Component {
       console.log("The error is", err);
       this.setState({error: true});
     })
-    else {
-      this.setState({formFilled: "false"})
-    }
   }
 
   changeName(event){
     this.setState({
-      name: event.target.value
+      name: event
     })
   }
 
   changeDescription(event){
     this.setState({
-      description: event.target.value
+      description: event
     })
   }
 
   changePrice(event){
     this.setState({
-      price: event.target.value
+      price: event
     })
   }
 
   changeImageUrl(event){
     this.setState({
-      imageUrl: event.target.value
+      imageUrl: event
     })
   }
 
   formFilled(){
+      console.log(this.state.name,this.state.description,this.state.price,this.state.imageUrl)
       if (!this.state.name || !this.state.description || !this.state.price || !this.state.imageUrl){
           return true
       }
@@ -83,7 +82,7 @@ class addProducts extends React.Component {
       <View>
         <View style={styles.container}>
 
-          <Text style={styles.welcome}>Here's your Cart!</Text>
+          <Text style={styles.welcome}>Add A New Product</Text>
 
           <Text style={styles.textStyle}>Enter name of product: </Text>
           <TextInput
@@ -130,6 +129,8 @@ class addProducts extends React.Component {
     );
   }
 }
+
+export default addProductsScreen
 
 const styles = StyleSheet.create({
     container:{
