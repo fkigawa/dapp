@@ -36,12 +36,8 @@ class RegistrationScreen extends React.Component{
                 .then((response) => {
                     console.log(response);
                     if (response.success === true) {
-                        this.props.loggedIn();
-
+                        homeNavigator()
                     }
-                })
-                .then(()=>{
-                    homeNavigator()
                 })
                 .catch((err) => {
                     console.log("The error is", err);
@@ -113,7 +109,6 @@ const mapStateToProps = state => {
         firstName: state.root.firstName,
         lastName: state.root.lastName,
         email: state.root.email,
-        loggedIn: state.root.userLoggedIn
     }
 };
 const mapDispatchToProps = dispatch => {
@@ -121,7 +116,6 @@ const mapDispatchToProps = dispatch => {
         changeFirstName: (newFirstName) => dispatch(changingFirstName(newFirstName)),
         changeLastName: (newLastName)=> dispatch(changingLastName(newLastName)),
         changeEmail: (newEmail)=> dispatch(changingEmail(newEmail)),
-        loggedIn: ()=> dispatch(loggingIn()),
     }
 };
 

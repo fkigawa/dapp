@@ -4,7 +4,7 @@ import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
-import {changingEmail, changingFirstName, changingLastName, loggingIn} from "../../store/actions/products";
+import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId} from "../../store/actions/products";
 import {connect} from "react-redux"
 let urlLink = "http://localhost:1337";
 
@@ -26,8 +26,7 @@ class LoginScreen extends React.Component {
     });
 
     let json = await result.json()
-    console.log('user:', json)
-    if (json) {
+    if (json.user) {
       categoryNavigator()
     }
   }
@@ -53,7 +52,6 @@ class LoginScreen extends React.Component {
         addProductNavigator()
         return true;
       }
-      console.log("Went in sign in button");
       if (this.state.password && this.state.email) {
           fetch(`${urlLink}/login`, {
               method: "POST",
@@ -66,13 +64,11 @@ class LoginScreen extends React.Component {
                   password: this.state.password
               })
           }).then((response) => {
-              console.log(response);
               return response.json();
           })
               .then((response) => {
-                  console.log(response);
                   if (response.success === true) {
-                      this.props.loggedIn();
+                    this.props.addingUserId(response.userId)
                   }
               })
               .then(() => {
@@ -104,20 +100,13 @@ class LoginScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return{
-    loggedIn: state.root.userLoggedIn
-  }
-}
-
 const mapDispatchToProps = dispatch => {
     return{
-        loggedIn: ()=> dispatch(loggingIn()),
-        addingUserId: ()=> dispatch(addingUserId())
+        addingUserId: (userId)=> dispatch(addingUserId(userId))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(null, mapDispatchToProps)(LoginScreen)
 
 const styles = StyleSheet.create({
   container: {

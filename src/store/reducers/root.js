@@ -16,7 +16,7 @@ const reducer = (state=initialState,action) => {
         case LOGGING_IN:
             return {
                 ...state,
-                userLoggedIn: true
+                userLoggedIn: !state.userLoggedIn
             };
         case CURRENT_CATEGORY:
             return{
