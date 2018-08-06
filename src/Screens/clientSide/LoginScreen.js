@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} fr
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
 import homeNavigator from "./MainTabs/HomeNavigator";
-let urlLink = "https://80450a40.ngrok.io";
+let urlLink = "http://localhost:1337";
 
 export default class LoginScreen extends React.Component {
   constructor(props){
@@ -39,7 +39,7 @@ export default class LoginScreen extends React.Component {
                 mode: "cors",
                 credentials: "same-origin",
                 body: JSON.stringify({
-                    email: this.state.email,
+                    username: this.state.email,
                     password: this.state.password
                 })
             }).then((response) => {

@@ -9,7 +9,7 @@ import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 
-export let urlLink = "https://80450a40.ngrok.io";
+export let urlLink = "http://localhost:1337";
 
 const store = configureStore();
 
