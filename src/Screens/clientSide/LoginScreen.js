@@ -16,6 +16,22 @@ class LoginScreen extends React.Component {
         password: ""
     }
   }
+
+  async componentDidMount () {
+    let result = await fetch(`${urlLink}/user`, {
+      headers: {
+          "Content-Type": "application/json; charset=utf-8",
+      },
+      credentials: "include",
+    });
+
+    let json = await result.json()
+    console.log('user:', json)
+    if (json) {
+      categoryNavigator()
+    }
+  }
+
     onPhoneNumberButton(){
         RegistrationNavigator()
     }
@@ -44,8 +60,7 @@ class LoginScreen extends React.Component {
               headers: {
                   "Content-Type": "application/json; charset=utf-8",
               },
-              mode: "cors",
-              credentials: "same-origin",
+              credentials: "include",
               body: JSON.stringify({
                   username: this.state.email,
                   password: this.state.password
@@ -89,13 +104,20 @@ class LoginScreen extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return{
+    loggedIn: state.root.userLoggedIn
+  }
+}
+
 const mapDispatchToProps = dispatch => {
     return{
         loggedIn: ()=> dispatch(loggingIn()),
+        addingUserId: ()=> dispatch(addingUserId())
     }
 };
 
-export default connect(null, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME} from "./actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID} from "./actionTypes"
 export const loggingIn = () => {
   return {
       type: LOGGING_IN
@@ -34,4 +34,9 @@ export const changingLastName = (newLastName) => {
         newLastName: newLastName
     }
 };
-
+export const addingUserId = (userId) => {
+  return{
+    type: ADD_USERID,
+    userId: userId
+  }
+}

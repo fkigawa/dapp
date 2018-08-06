@@ -2,14 +2,45 @@ import React from "react"
 import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {addCart} from "../../store/actions/products";
 import {connect} from "react-redux"
+import {urlLink} from "../../../App"
+
+
 class ProductButton extends React.Component{
     constructor(props){
         super(props);
     }
     onPressTile(data){
-        alert("item added");
-        console.log("Data in press tile is", data);
-        this.props.addToCart(data);
+      console.log(data)
+      // 
+      // fetch(`${urlLink}/addToCart`, {
+      //   method: "POST",
+      //   headers: {
+      //       "Content-Type": "application/json; charset=utf-8",
+      //   },
+      //   mode: "cors",
+      //   credentials: "same-origin",
+      //   body: JSON.stringify({
+      //       name: this.state.name,
+      //       description: this.state.description,
+      //       price: this.state.price,
+      //       imageUrl: this.state.imageUrl
+      //   })
+      // }).then((response) => {
+      //   console.log(response);
+      //   return response.json();
+      // }).then((response) => {
+      //   console.log(response);
+      //   if (response.success === true) {
+      //     console.log('product created')
+      //   }
+      // }).catch((err) => {
+      //   console.log("The error is", err);
+      //   this.setState({error: true});
+      // })
+
+      alert("item added");
+      console.log("Data in press tile is", data);
+      this.props.addToCart(data);
     }
     render(){
         return (
