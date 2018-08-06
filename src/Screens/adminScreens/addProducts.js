@@ -81,9 +81,7 @@ class addProducts extends React.Component {
   render() {
     return (
       <View>
-
         <View style={styles.container}>
-
 
           <Text style={styles.welcome}>Here's your Cart!</Text>
 
