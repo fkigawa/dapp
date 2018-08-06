@@ -2,10 +2,12 @@ import React from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
-import homeNavigator from "./MainTabs/HomeNavigator";
+import categoryNavigator from "./MainTabs/CategoryNavigator";
+import {changingEmail, changingFirstName, changingLastName, loggingIn} from "../../store/actions/products";
+import {connect} from "react-redux"
 let urlLink = "http://localhost:1337";
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -30,6 +32,7 @@ export default class LoginScreen extends React.Component {
     }
 
     onSignIn() {
+      console.log("Went in sign in button");
         if (this.state.password && this.state.email) {
             fetch(`${urlLink}/login`, {
                 method: "POST",
@@ -50,11 +53,10 @@ export default class LoginScreen extends React.Component {
                     console.log(response);
                     if (response.success === true) {
                         this.props.loggedIn();
-
                     }
                 })
                 .then(() => {
-                    homeNavigator()
+                    categoryNavigator()
                 })
                 .catch((err) => {
                     console.log("The error is", err);
@@ -81,6 +83,14 @@ export default class LoginScreen extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+    return{
+        loggedIn: ()=> dispatch(loggingIn()),
+    }
+};
+
+export default connect(null,mapDispatchToProps)(LoginScreen)
 
 const styles = StyleSheet.create({
   container: {
