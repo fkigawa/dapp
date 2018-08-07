@@ -29,7 +29,7 @@ class CartScreen extends React.Component {
         <View style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Cart!</Text>
-          {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.productName} {data.price}</Text>)}
+          {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
       </View>
             <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.checkoutButtonHandler()}><Text>Checkout</Text></TouchableOpacity>
         </View>
