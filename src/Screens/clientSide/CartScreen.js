@@ -1,10 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View, ListView, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, ListView, TouchableOpacity, Button} from 'react-native';
 import {connect} from "react-redux"
 import {addCart} from "../../store/actions/products";
 let urlLink = "http://localhost:1337";
+import checkoutNavigator from "./MainTabs/CheckoutNavigator";
 
 class CartScreen extends React.Component {
+
+  toCheckoutScreen = () => {
+    checkoutNavigator()
+  }
+
   checkoutButtonHandler(){
       fetch(`${urlLink}/checkout`, {
           method: "POST",
@@ -26,13 +32,15 @@ class CartScreen extends React.Component {
   }
   render() {
     return (
-        <View style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.welcome}>Here's your Cart!</Text>
-          {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
-      </View>
-            <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.checkoutButtonHandler()}><Text>Checkout</Text></TouchableOpacity>
+        <View style={styles.container}>
+          <Text style={styles.welcome}>Here's your Cart!</Text>
+            {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
+            <Button onPress={() => this.toCheckoutScreen()} title='To Checkout Page'/>
         </View>
+
+        <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.checkoutButtonHandler()}><Text>Checkout</Text></TouchableOpacity>
+      </View>
     );
   }
 }
