@@ -23,8 +23,8 @@ class ProductButton extends React.Component{
 
                     <View>
 
-                    <Image source={data.image} style={styles.imageSize}/>
-                        <Text>{data.productName}</Text>
+                    <Image source={data.imageUrl} style={styles.imageSize}/>
+                        <Text>{data.name}</Text>
                         <Text>{data.price}</Text>
                     <TouchableOpacity key={i} onPress={()=>this.onPressTile(data)} style={styles.button} >
                         <Text style={styles.addToCart}> Add To Cart </Text>

@@ -6,41 +6,52 @@ import snacks from "../../assets/snacks.png"
 import productsNavigator from "../../Screens/clientSide/MainTabs/ProductsNavigator"
 import {currentCategory} from "../../store/actions/products";
 import connect from "react-redux"
+import {urlLink} from "../../../App"
 
-export let products = [
-    {
-        image: drinkImage,
-        title: "Drinks"
-    },
-    {
-        image: cupImage,
-        title: "Cups"
+var categoryArray = [];
 
-    },
-    {
-        image: snacks,
-        title: "Snacks"
-
-    }];
 export default class ProductCategoryButton extends React.Component{
     constructor(props){
-        super(props)
+      super(props);
+      this.state = ({
+        categories: []
+      })
     }
-    onPressTile(title){
-        this.props.changeCategory(title)
+
+    componentDidMount = () => {
+      fetch(`${urlLink}/categories`, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+          },
+          credentials: "include"
+      }).then((response) => {
+          return response.json();
+      }).then((response) => {
+          categoryArray = this.state.categories.slice()
+          categoryArray = response.categories
+          this.setState ({
+            categories: categoryArray
+          })
+      })
+    }
+
+    onPressTile(name){
+        this.props.changeCategory(name)
         productsNavigator()
     }
+
     render() {
         return (
             <View style={styles.container}>
-                {products.map((data,i)=>{
-                    return (
-                        <TouchableOpacity key={i} onPress={()=>this.onPressTile(data.title)} style={styles.button} >
-                            <Image source={data.image} style={styles.imageSize}/>
-                            <Text>{data.title}</Text>
-                        </TouchableOpacity>
-                    )
-                })}
+              {this.state.categories.map((data,i)=>{
+                  return (
+                      <TouchableOpacity key={i} onPress={()=>this.onPressTile(data.name)} style={styles.button} >
+                          <Image source={data.imageUrl} style={styles.imageSize}/>
+                          <Text>{data.name}</Text>
+                      </TouchableOpacity>
+                  )
+              })}
             </View>
         )
     }

@@ -6,6 +6,7 @@ import drinkImage from "../../assets/can-of-coke.png"
 import cupImage from "../../assets/solo-cup.png"
 import snackImage from "../../assets/snacks.png"
 import ProductButton from "../../components/Product_Page/ProductButton"
+import {urlLink} from "../../../App"
 type Props = {};
 
 let drinks = [{
@@ -25,22 +26,47 @@ let snacks = [{
 }];
 
 class ProductsScreen extends Component<Props> {
-    backToCategory()
-    {
-        categoryNavigator()
-    }
+  constructor(props) {
+    super(props);
+    this.state = ({
+      products: []
+    })
+  }
+
+  componentDidMount = () => {
+    fetch(`${urlLink}/products/:${this.props.currentPage}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+        },
+        credentials: "include"
+    }).then((response) => {
+        return response.json();
+    }).then((response) => {
+      var productArray = this.state.products.slice()
+      productArray = response.products
+      this.setState ({
+        products: productArray
+      })
+    })
+  }
+
+  backToCategory = () => {
+    categoryNavigator()
+  }
+
   render() {
 
     return (
       <View style={styles.container}>
         <Button style={styles.button} onPress={()=>this.backToCategory()} title="Back"/>
-          {this.props.currentPage === "Drinks" ? <ProductButton products={drinks}/> : null}
-          {this.props.currentPage === "Snacks" ? <ProductButton products={snacks}/> : null}
-          {this.props.currentPage === "Cups" ? <ProductButton products={cups}/> : null}
+          <ProductButton products={this.state.products}/>
       </View>
     );
   }
 }
+
+
 const mapStateToProps = state => {
   return {
     currentPage: state.root.currentCategory

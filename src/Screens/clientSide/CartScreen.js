@@ -18,12 +18,11 @@ class CartScreen extends React.Component {
           })
       }).then((response) => {
           return response.json();
-      })
-          .then((response) => {
-              if (response.success === true) {
-                  console.log("Response from backend at checkout is", response);
-              }
-          })
+      }).then((response) => {
+            if (response.success === true) {
+                console.log("Response from backend at checkout is", response);
+            }
+        })
   }
   render() {
     return (
