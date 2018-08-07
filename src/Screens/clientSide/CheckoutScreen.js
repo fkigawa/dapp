@@ -14,7 +14,22 @@ class CheckoutScreen extends React.Component{
             cvc: ""
         };
     }
-
+    componentDidMount(){
+        console.log("API KEY", String(process.env.STRIPEKEY));
+        fetch('https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": `Bearer sk_test_lvRIg4KqKKsnzG3SOOWTHtd9`
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                // HERE WE HAVE ACCESS TO THE TOKEN TO SEND IT TO OUR SERVERS
+                // ALONG WITH INSENSITIVE DATA
+                console.log("Data", data);
+            });
+    }
     payment = () => {
       const apiKey = process.env.STRIPE_TEST;
       const client = new Stripe(apiKey);
