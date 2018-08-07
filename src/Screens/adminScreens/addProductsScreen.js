@@ -10,7 +10,8 @@ class addProductsScreen extends React.Component {
       name: '',
       description: '',
       price: '',
-      imageUrl: ''
+      imageUrl: '',
+      category: ''
     })
   }
 
@@ -26,7 +27,8 @@ class addProductsScreen extends React.Component {
           name: this.state.name,
           description: this.state.description,
           price: this.state.price,
-          imageUrl: this.state.imageUrl
+          imageUrl: this.state.imageUrl,
+          category: this.state.category
       })
     }).then((response) => {
       console.log(response);
@@ -66,9 +68,16 @@ class addProductsScreen extends React.Component {
     })
   }
 
+  changeCategory(event){
+    console.log(this.state.category)
+    this.setState({
+      category: event
+    })
+  }
+
   formFilled(){
-      console.log(this.state.name,this.state.description,this.state.price,this.state.imageUrl)
-      if (!this.state.name || !this.state.description || !this.state.price || !this.state.imageUrl){
+      console.log(this.state.name,this.state.description,this.state.price,this.state.imageUrl,this.state.category)
+      if (!this.state.name || !this.state.description || !this.state.price || !this.state.imageUrl || !this.state.category){
           return true
       }
       else {
@@ -114,6 +123,14 @@ class addProductsScreen extends React.Component {
             placeholder="Enter image url of product"
             value={this.state.imageUrl}
             onChangeText={(event)=>this.changeImageUrl(event)}
+          />
+
+          <Text style={styles.textStyle}>Enter category of product: </Text>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="Enter category of product"
+            value={this.state.category}
+            onChangeText={(event)=>this.changeCategory(event)}
           />
 
         </View>

@@ -10,34 +10,6 @@ class ProductButton extends React.Component{
         super(props);
     }
     onPressTile(data){
-      console.log(data)
-      // 
-      // fetch(`${urlLink}/addToCart`, {
-      //   method: "POST",
-      //   headers: {
-      //       "Content-Type": "application/json; charset=utf-8",
-      //   },
-      //   mode: "cors",
-      //   credentials: "same-origin",
-      //   body: JSON.stringify({
-      //       name: this.state.name,
-      //       description: this.state.description,
-      //       price: this.state.price,
-      //       imageUrl: this.state.imageUrl
-      //   })
-      // }).then((response) => {
-      //   console.log(response);
-      //   return response.json();
-      // }).then((response) => {
-      //   console.log(response);
-      //   if (response.success === true) {
-      //     console.log('product created')
-      //   }
-      // }).catch((err) => {
-      //   console.log("The error is", err);
-      //   this.setState({error: true});
-      // })
-
       alert("item added");
       console.log("Data in press tile is", data);
       this.props.addToCart(data);
