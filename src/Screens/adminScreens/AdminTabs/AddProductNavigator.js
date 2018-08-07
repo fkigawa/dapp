@@ -4,14 +4,14 @@ const addProductNavigator = () => {
     Navigation.startTabBasedApp({
         tabs: [
             {
-                label: 'Add Products',
-                screen: 'addProductsScreen', // this is a registered name for a screen
-                title: 'Add Products'
-            },
-            {
                 label: 'Add Category',
                 screen: 'addCategoryScreen',
                 title: 'Add Category'
+            },
+            {
+                label: 'Add Products',
+                screen: 'addProductsScreen', // this is a registered name for a screen
+                title: 'Add Products'
             },
             {
                 label: 'All Orders',

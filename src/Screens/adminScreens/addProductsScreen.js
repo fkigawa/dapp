@@ -91,8 +91,6 @@ class addProductsScreen extends React.Component {
       <View>
         <View style={styles.container}>
 
-          <Text style={styles.welcome}>Add A New Product</Text>
-
           <Text style={styles.textStyle}>Enter name of product: </Text>
           <TextInput
             style={styles.inputStyle}

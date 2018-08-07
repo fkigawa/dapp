@@ -66,9 +66,7 @@ class addCategoryScreen extends React.Component {
       <View>
         <View style={styles.container}>
 
-          <Text style={styles.welcome}>Add A New Product</Text>
-
-          <Text style={styles.textStyle}>Enter name of product: </Text>
+          <Text style={styles.textStyle}>Enter name of category: </Text>
           <TextInput
             style={styles.inputStyle}
             placeholder="Enter name of category"
@@ -76,7 +74,7 @@ class addCategoryScreen extends React.Component {
             onChangeText={(event)=>this.changeName(event)}
           />
 
-          <Text style={styles.textStyle}>Enter image url of product: </Text>
+          <Text style={styles.textStyle}>Enter image url of category: </Text>
           <TextInput
             style={styles.inputStyle}
             placeholder="Enter image url of category"
