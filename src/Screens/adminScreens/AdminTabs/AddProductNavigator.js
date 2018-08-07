@@ -14,6 +14,11 @@ const addProductNavigator = () => {
                 title: 'Add Category'
             },
             {
+                label: 'All Orders',
+                screen: 'allOrdersScreen',
+                title: 'All Orders'
+            },
+            {
                 label: 'My Account',
                 screen: 'AccountScreen',
                 title: 'My Account'
