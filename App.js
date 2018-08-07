@@ -9,6 +9,7 @@ import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 import addProductsScreen from "./src/Screens/adminScreens/addProductsScreen"
+import addCategoryScreen from "./src/Screens/adminScreens/addCategoryScreen"
 
 export let urlLink = "http://localhost:1337";
 
@@ -21,6 +22,7 @@ Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);
 Navigation.registerComponent('addProductsScreen', () => addProductsScreen,store,Provider)
+Navigation.registerComponent('addCategoryScreen', () => addCategoryScreen,store,Provider)
 
 Navigation.startSingleScreenApp({
     screen: {

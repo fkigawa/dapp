@@ -9,9 +9,9 @@ const addProductNavigator = () => {
                 title: 'Add Products'
             },
             {
-                label: 'Cart',
-                screen: 'CartScreen',
-                title: 'Cart'
+                label: 'Add Category',
+                screen: 'addCategoryScreen',
+                title: 'Add Category'
             },
             {
                 label: 'My Account',
