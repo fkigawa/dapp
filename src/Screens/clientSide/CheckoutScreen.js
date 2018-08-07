@@ -3,7 +3,6 @@ import {TextInput, View, StyleSheet, TouchableOpacity, Text, Button} from "react
 import {urlLink} from "../../../App"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import Stripe from 'react-native-stripe-api'
-
 class CheckoutScreen extends React.Component{
     constructor(props){
         super(props);
@@ -20,7 +19,7 @@ class CheckoutScreen extends React.Component{
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Bearer sk_test_lvRIg4KqKKsnzG3SOOWTHtd9`
+                "Authorization": `Bearer ${process.env.STRIPEKEY}`
             }
         })
             .then(resp => resp.json())
@@ -28,6 +27,23 @@ class CheckoutScreen extends React.Component{
                 // HERE WE HAVE ACCESS TO THE TOKEN TO SEND IT TO OUR SERVERS
                 // ALONG WITH INSENSITIVE DATA
                 console.log("Data", data);
+                fetch(`${urlLink}/payments`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({stripeToken: data.id})
+                })
+                    .then(resp => resp.json())
+                    .then(function(response) {
+                        console.log("RESPONSE FROM MY BACKEND", response);
+                        if(response.paid) {
+                            // DO SOMETHING AFTER PAYMENT CONFIRMATION
+                            console.log("Got in paid");
+                        }
+                    }.bind(this)).catch(err => console.error(err));
+
             });
     }
     payment = () => {
