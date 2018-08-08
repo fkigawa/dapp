@@ -35,7 +35,7 @@ class RegistrationScreen extends React.Component{
             })
                 .then((response) => {
                     console.log(response);
-                    if (response.success === true) {
+                    if (response === true) {
                         homeNavigator()
                     }
                 })

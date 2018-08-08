@@ -11,7 +11,9 @@ import {
   Button,
 } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
-import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator'
+import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
+let urlLink = "http://localhost:1337";
+
 
 export default class FBLoginButton extends React.Component {
   constructor(props) {
@@ -67,6 +69,8 @@ export default class FBLoginButton extends React.Component {
                 } else if (result.isCancelled) {
                   console.log("login is cancelled.");
                 } else if (result.grantedPermissions){
+
+
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
                       this.setState({
@@ -74,7 +78,40 @@ export default class FBLoginButton extends React.Component {
                           accessToken: data.accessToken
                         }, () => {
                           console.log('got auth token; rerouting')
-                          this.getProductsScreen()
+                          fetch(`https://graph.facebook.com/v3.1/me?fields=id%2Cname%2Cemail&access_token=${this.state.accessToken}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8",
+                            },
+                          }).then((response) => {
+                              console.log(response);
+                              return response.json();
+                          }).then((resp) => {
+                            var nameArray = resp.name.split(' ')
+                            var firstName = nameArray[0];
+                            var lastName;
+                            if (nameArray[2]) {
+                              lastName = nameArray[2]
+                            } else {
+                              lastName = nameArray[1]
+                            }
+                            fetch(`${urlLink}/facebookLogin`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json; charset=utf-8",
+                                },
+                                credentials: "include",
+                                body: JSON.stringify({
+                                    email: resp.email,
+                                    firstName: firstName,
+                                    lastName: lastName
+                                })
+                            }).then((response) => {
+                                return response.json();
+                            }).then((response) => {
+                                this.getProductsScreen()
+                            })
+                          }).catch(err => console.log(err))
                         })
                       this.saveToken()
                     }

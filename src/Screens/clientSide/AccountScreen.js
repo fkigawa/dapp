@@ -27,10 +27,11 @@ class AccountScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Account boi</Text>
-        {this.props.addingUserId ?
-          <Button title='logout' onPress={() => this.normalLogout()}/> :
+        {/* {this.props.addingUserId ? */}
+          <Button title='logout' onPress={() => this.normalLogout()}/>
+          {/* // : */}
           <LoginButton onLogoutFinished={() => this.logout()} />
-        }
+        {/* // } */}
       </View>
     );
   }
