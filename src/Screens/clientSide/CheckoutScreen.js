@@ -13,9 +13,54 @@ class CheckoutScreen extends React.Component{
             cvc: ""
         };
     }
-    componentDidMount(){
+    payment = () => {
+      const apiKey = process.env.STRIPE_TEST;
+      const client = new Stripe(apiKey);
+      const token = client.createToken('4242424242424242' , '09', '18', '111'
+      ).then((response) => console.log(response)
+      ).catch(err => console.log(err))
+    };
+
+    back = () => {
+      categoryNavigator()
+    };
+
+    changeNumber(event){
+      this.setState({
+        number: event
+      })
+    };
+
+    changeExpmonth(event){
+      this.setState({
+        expmonth: event
+      })
+    };
+
+    changeExpyear(event){
+      this.setState({
+        expyear: event
+      })
+    };
+
+    changeCvc(event){
+      this.setState({
+        cvc: event
+      })
+    }
+
+    formFilled(){
+        if (!this.state.number || !this.state.expmonth || !this.state.expyear || !this.state.cvc){
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    onCheckoutButton(){
         console.log("API KEY", String(process.env.STRIPEKEY));
-        fetch('https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd', {
+        let validURL = 'https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd';
+        fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.state.number}&card[exp_month]=${this.state.expmonth}&card[exp_year]=${this.state.expyear}&card[cvc]=${this.state.cvc}&amount=999&currency=usd`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -46,50 +91,7 @@ class CheckoutScreen extends React.Component{
 
             });
     }
-    payment = () => {
-      const apiKey = process.env.STRIPE_TEST;
-      const client = new Stripe(apiKey);
-      const token = client.createToken('4242424242424242' , '09', '18', '111'
-      ).then((response) => console.log(response)
-      ).catch(err => console.log(err))
-    }
 
-    back = () => {
-      categoryNavigator()
-    }
-
-    changeNumber(event){
-      this.setState({
-        number: event
-      })
-    }
-
-    changeExpmonth(event){
-      this.setState({
-        expmonth: event
-      })
-    }
-
-    changeExpyear(event){
-      this.setState({
-        expyear: event
-      })
-    }
-
-    changeCvc(event){
-      this.setState({
-        cvc: event
-      })
-    }
-
-    formFilled(){
-        if (!this.state.number || !this.state.expmonth || !this.state.expyear || !this.state.cvc){
-            return true
-        }
-        else {
-            return false
-        }
-    }
 
 
     render(){
@@ -134,7 +136,7 @@ class CheckoutScreen extends React.Component{
             <TouchableOpacity
               disabled={this.formFilled()}
               style={this.formFilled() ? styles.buttonFalse : styles.button}
-              onPress={()=>this.payment()}>
+              onPress={()=>this.onCheckoutButton()}>
               <Text style={{color:"white"}}>Submit Card Information</Text>
             </TouchableOpacity>
 

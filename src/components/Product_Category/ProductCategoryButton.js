@@ -47,7 +47,7 @@ export default class ProductCategoryButton extends React.Component{
               {this.state.categories.map((data,i)=>{
                   return (
                       <TouchableOpacity key={i} onPress={()=>this.onPressTile(data.name)} style={styles.button} >
-                          <Image source={data.imageUrl} style={styles.imageSize}/>
+                          <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
                           <Text>{data.name}</Text>
                       </TouchableOpacity>
                   )

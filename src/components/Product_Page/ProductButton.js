@@ -3,8 +3,6 @@ import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {addCart} from "../../store/actions/products";
 import {connect} from "react-redux"
 import {urlLink} from "../../../App"
-
-
 class ProductButton extends React.Component{
     constructor(props){
         super(props);
@@ -20,10 +18,8 @@ class ProductButton extends React.Component{
             {this.props.products.map((data,i)=>{
                 console.log("Data in render is", data);
                 return (
-
                     <View>
-
-                    <Image source={data.imageUrl} style={styles.imageSize}/>
+                    <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
                         <Text>{data.name}</Text>
                         <Text>{data.price}</Text>
                     <TouchableOpacity key={i} onPress={()=>this.onPressTile(data)} style={styles.button} >

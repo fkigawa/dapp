@@ -34,7 +34,7 @@ class ProductsScreen extends Component<Props> {
   }
 
   componentDidMount = () => {
-    fetch(`${urlLink}/products/:${this.props.currentPage}`, {
+    fetch(`${urlLink}/products/${this.props.currentPage}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
