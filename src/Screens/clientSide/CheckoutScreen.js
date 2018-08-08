@@ -3,6 +3,7 @@ import {TextInput, View, StyleSheet, TouchableOpacity, Text, Button} from "react
 import {urlLink} from "../../../App"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import Stripe from 'react-native-stripe-api'
+import {key} from "../../../keys"
 class CheckoutScreen extends React.Component{
     constructor(props){
         super(props);
@@ -10,7 +11,7 @@ class CheckoutScreen extends React.Component{
             number: "",
             expmonth: "",
             expyear: "",
-            cvc: ""
+            cvc: "",
         };
     }
     payment = () => {
@@ -58,21 +59,18 @@ class CheckoutScreen extends React.Component{
         }
     }
     onCheckoutButton(){
-        console.log("API KEY", String(process.env.STRIPEKEY));
-
-        let validURL = 'https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd';
-        fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.state.number}&card[exp_month]=${this.state.expmonth}&card[exp_year]=${this.state.expyear}&card[cvc]=${this.state.cvc}&amount=999&currency=usd`, {
+        let validURL = 'https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[name]=John&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd';
+        fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.state.number}&card[exp_month]=${this.state.expmonth}&card[exp_year]=${this.state.expyear}&card[cvc]=${this.state.cvc}&amount=999&currency=usd&card[name]=Salman&card[address_city]=New York&card[address_country]=USA&card[address_state]=TX&card[address_zip]=78705`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Bearer sk_test_lvRIg4KqKKsnzG3SOOWTHtd9`
+                "Authorization": `Bearer ${key}`,
             }
         })
             .then(resp => resp.json())
             .then(data => {
                 // HERE WE HAVE ACCESS TO THE TOKEN TO SEND IT TO OUR SERVERS
                 // ALONG WITH INSENSITIVE DATA
-
                 console.log("Data", data);
                 fetch(`${urlLink}/payments`, {
                     method: 'POST',
