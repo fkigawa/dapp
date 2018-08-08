@@ -84,9 +84,9 @@ export default class FBLoginButton extends React.Component {
                                 "Content-Type": "application/json; charset=utf-8",
                             },
                           }).then((response) => {
-                              console.log(response);
                               return response.json();
                           }).then((resp) => {
+                            console.log(resp)
                             var nameArray = resp.name.split(' ')
                             var firstName = nameArray[0];
                             var lastName;
@@ -104,11 +104,13 @@ export default class FBLoginButton extends React.Component {
                                 body: JSON.stringify({
                                     email: resp.email,
                                     firstName: firstName,
-                                    lastName: lastName
+                                    lastName: lastName,
+                                    id: resp.id
                                 })
                             }).then((response) => {
                                 return response.json();
                             }).then((response) => {
+                                console.log('this is the response', response)
                                 this.getProductsScreen()
                             })
                           }).catch(err => console.log(err))
