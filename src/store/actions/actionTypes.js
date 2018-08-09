@@ -6,3 +6,4 @@ export const CHANGE_LASTNAME = "CHANGE_LASTNAME";
 export const CHANGE_EMAIL = "CHANGE_EMAIL";
 export const ADD_USERID = "ADD_USERID";
 export const FB_ACCESS_TOKEN = "FB_ACCESS_TOKEN"
+export const DELIVERER = "DELIVERER"

@@ -11,6 +11,7 @@ import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 import CheckoutScreen from "./src/Screens/clientSide/CheckoutScreen";
 import addProductsScreen from "./src/Screens/adminScreens/addProductsScreen"
+import addDriverScreen from "./src/Screens/adminScreens/addDriverScreen"
 import addCategoryScreen from "./src/Screens/adminScreens/addCategoryScreen"
 import allOrdersScreen from "./src/Screens/adminScreens/allOrdersScreen"
 
@@ -27,6 +28,7 @@ Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provide
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);
 Navigation.registerComponent('CheckoutScreen', () => CheckoutScreen ,store,Provider);
 Navigation.registerComponent('addProductsScreen', () => addProductsScreen,store,Provider)
+Navigation.registerComponent('addDriverScreen', () => addDriverScreen,store,Provider)
 Navigation.registerComponent('addCategoryScreen', () => addCategoryScreen,store,Provider)
 Navigation.registerComponent('allOrdersScreen', () => allOrdersScreen,store,Provider)
 

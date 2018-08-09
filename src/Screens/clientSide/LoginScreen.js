@@ -4,7 +4,7 @@ import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
-import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId} from "../../store/actions/products";
+import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
 let urlLink = "http://localhost:1337";
 
@@ -28,6 +28,9 @@ class LoginScreen extends React.Component {
     let json = await result.json()
     if (json.user) {
       this.props.addingUserId(json.user._id)
+      if (json.user.isDeliverer) {
+        this.props.addingDeliverer(json.user.isDeliverer)
+      }
       console.log('here!', json.user)
       categoryNavigator()
     }
@@ -71,6 +74,9 @@ class LoginScreen extends React.Component {
               .then((response) => {
                   if (response.success === true) {
                     this.props.addingUserId(response.userId)
+
+                    console.log('hereeee', response)
+                    this.props.addingDeliverer(response.isDeliverer)
                   }
               })
               .then(() => {
@@ -104,7 +110,8 @@ class LoginScreen extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        addingUserId: (userId)=> dispatch(addingUserId(userId))
+        addingUserId: (userId)=> dispatch(addingUserId(userId)),
+        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer))
     }
 };
 

@@ -1,4 +1,4 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN} from "../actions/actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER} from "../actions/actionTypes"
 
 
 const initialState = {
@@ -9,7 +9,8 @@ const initialState = {
     firstName: "",
     lastName: "",
     userId: "",
-    accessToken: ""
+    accessToken: "",
+    isDeliverer: ""
 };
 
 const reducer = (state=initialState,action) => {
@@ -55,6 +56,11 @@ const reducer = (state=initialState,action) => {
           return{
             ...state,
             accessToken: action.accessToken
+          };
+        case DELIVERER:
+          return{
+            ...state,
+            isDeliverer: action.isDeliverer
           };
         default:
             return state;

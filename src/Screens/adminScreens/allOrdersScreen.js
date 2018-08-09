@@ -1,9 +1,25 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-native';
 import {connect} from 'react-redux'
+import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
+import categoryNavigator from "../clientSide/MainTabs/CategoryNavigator";
 let urlLink = "http://localhost:1337";
 
+let deliveryPortal;
+
 class allOrders extends React.Component {
+
+  backToClientSide = () => {
+    categoryNavigator();
+  }
+
+  isDeliveryPortal = () => {
+    console.log('im heree', this.props.isDeliverer)
+    if (this.props.isDeliverer) {
+      deliveryPortal = <Button title="back" onPress={() => this.backToClientSide()}/>
+      return deliveryPortal
+    }
+  }
 
   updateOrders = () => {
     fetch(`${urlLink}/transactions`, {
@@ -22,29 +38,27 @@ class allOrders extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>All Ordrs</Text>
+        <Text style={styles.welcome}>All Orders</Text>
         <Button title='Update Orders' onPress={() => this.updateOrders()}/>
+        {this.isDeliveryPortal()}
       </View>
     );
   }
 }
 
-export default allOrders
+const mapStateToProps = state => {
+  return{
+    isDeliverer: state.root.isDeliverer,
+  }
+}
 
-// const mapStateToProps = state => {
-//   return{
-//     userId: state.root.userId,
-//     cartItems: state.root.cartItems
-//   }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//     return{
-//         addingUserId: ()=> dispatch(addingUserId()),
-//     }
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(allOrders)
+const mapDispatchToProps = dispatch => {
+    return{
+        addingDeliverer: ()=> dispatch(addingDeliverer()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(allOrders)
 
 const styles = StyleSheet.create({
   container: {

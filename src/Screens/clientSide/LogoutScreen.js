@@ -21,14 +21,6 @@ class LogoutScreen extends React.Component {
       logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
       return logoutButton;
     }
-    // else {
-    //   console.log('in the else', this.props.accessToken, this.props.userId)
-    //   logoutButton = <View>
-    //     <Button title='logout' onPress={() => this.normalLogout()}/>
-    //     <LoginButton onLogoutFinished={() => this.logout()} />
-    //   </View>
-    //   return logoutButton;
-    // }
   }
 
   logout = () => {

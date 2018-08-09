@@ -14,6 +14,11 @@ const addProductNavigator = () => {
                 title: 'Add Products'
             },
             {
+                label: 'Add Driver',
+                screen: 'addDriverScreen', // this is a registered name for a screen
+                title: 'Add Driver'
+            },
+            {
                 label: 'All Orders',
                 screen: 'allOrdersScreen',
                 title: 'All Orders'
