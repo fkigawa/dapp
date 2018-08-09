@@ -45,6 +45,7 @@ class FBLoginButton extends React.Component {
           try {
             let accessToken = await AsyncStorage.getItem('accessToken');
             if (accessToken) {
+              this.props.addingAccessToken(accessToken)
               this.getProductsScreen();
             }
           } catch (error) {

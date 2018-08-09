@@ -3,6 +3,7 @@ import {Navigation} from "react-native-navigation"
 import {Provider} from "react-redux"
 import LoginScreen from './src/Screens/clientSide/LoginScreen';
 import CategoryScreen from './src/Screens/clientSide/CategoryScreen';
+import LogoutScreen from './src/Screens/clientSide/LogoutScreen';
 import CartScreen from './src/Screens/clientSide/CartScreen';
 import AccountScreen from './src/Screens/clientSide/AccountScreen';
 import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
@@ -20,6 +21,7 @@ const store = configureStore();
 Navigation.registerComponent('LoginScreen', () => LoginScreen,store,Provider);
 Navigation.registerComponent("CategoryScreen", ()=> CategoryScreen,store,Provider);
 Navigation.registerComponent('ProductsScreen', () => ProductsScreen,store,Provider);
+Navigation.registerComponent('LogoutScreen', () => LogoutScreen,store,Provider);
 Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);

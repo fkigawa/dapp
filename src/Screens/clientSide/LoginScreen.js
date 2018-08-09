@@ -27,6 +27,7 @@ class LoginScreen extends React.Component {
 
     let json = await result.json()
     if (json.user) {
+      this.props.addingUserId(json.user._id)
       console.log('here!', json.user)
       categoryNavigator()
     }
