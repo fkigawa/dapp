@@ -9,7 +9,7 @@ class CartScreen extends React.Component {
 
   toCheckoutScreen = () => {
     checkoutNavigator()
-  }
+  };
 
   checkoutButtonHandler(){
       fetch(`${urlLink}/checkout`, {
@@ -30,16 +30,16 @@ class CartScreen extends React.Component {
             }
         })
   }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.welcome}>Here's your Cart!</Text>
             {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
-            <Button onPress={() => this.toCheckoutScreen()} title='To Checkout Page'/>
         </View>
 
-        <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.checkoutButtonHandler()}><Text>Checkout</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.toCheckoutScreen()}><Text>Checkout</Text></TouchableOpacity>
       </View>
     );
   }

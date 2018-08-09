@@ -4,6 +4,7 @@ import {urlLink} from "../../../App"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import Stripe from 'react-native-stripe-api'
 import {key} from "../../../keys"
+import {connect} from "react-redux";
 class CheckoutScreen extends React.Component{
     constructor(props){
         super(props);
@@ -12,7 +13,23 @@ class CheckoutScreen extends React.Component{
             expmonth: "",
             expyear: "",
             cvc: "",
+            phoneNumber: "",
+            addressLineOne: "",
+            city:"",
+            state:"",
+            zipCode:"",
+            total: 0,
+            fullName: "",
         };
+    }
+    componentDidMount(){
+        let myTotal = this.state.total;
+        this.props.cartItems.map((data,i)=>{
+            myTotal += data.price
+        });
+        myTotal=parseFloat(Math.round(myTotal * 100) / 100).toFixed(2);
+        console.log("myTotal", myTotal);
+        this.setState({total: myTotal});
     }
     payment = () => {
       const apiKey = process.env.STRIPE_TEST;
@@ -32,6 +49,12 @@ class CheckoutScreen extends React.Component{
       })
     };
 
+    changeName(event){
+      this.setState({
+        fullName: event
+      })
+    };
+
     changeExpmonth(event){
       this.setState({
         expmonth: event
@@ -48,7 +71,37 @@ class CheckoutScreen extends React.Component{
       this.setState({
         cvc: event
       })
-    }
+    };
+
+    changePhoneNumber(event){
+      this.setState({
+        phoneNumber: event
+      })
+    };
+
+    changeAddressLineOne(event){
+      this.setState({
+        addressLineOne: event
+      })
+    };
+
+    changeCity(event){
+      this.setState({
+        city: event
+      })
+    };
+
+    changeState(event){
+      this.setState({
+        state: event
+      })
+    };
+
+    changeZipCode(event){
+      this.setState({
+        zipCode: event
+      })
+    };
 
     formFilled(){
         if (!this.state.number || !this.state.expmonth || !this.state.expyear || !this.state.cvc){
@@ -60,7 +113,7 @@ class CheckoutScreen extends React.Component{
     }
     onCheckoutButton(){
         let validURL = 'https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[exp_month]=1&card[name]=John&card[exp_year]=2020&card[cvc]=123&amount=999&currency=usd';
-        fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.state.number}&card[exp_month]=${this.state.expmonth}&card[exp_year]=${this.state.expyear}&card[cvc]=${this.state.cvc}&amount=999&currency=usd&card[name]=Salman&card[address_city]=New York&card[address_country]=USA&card[address_state]=TX&card[address_zip]=78705`, {
+        fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.state.number}&card[exp_month]=${this.state.expmonth}&card[exp_year]=${this.state.expyear}&card[cvc]=${this.state.cvc}&amount=999&currency=usd&card[name]=${this.state.fullName}&card[address_city]=${this.state.city}&card[address_country]=USA&card[address_state]=${this.state.state}&card[address_zip]=${this.state.zipCode}&card[address_line1]=${this.state.addressLineOne}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -78,7 +131,16 @@ class CheckoutScreen extends React.Component{
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({stripeToken: data.id})
+                    body: JSON.stringify({
+                        stripeToken: data.id,
+                        description: this.props.cartItems,
+                        amount: this.state.total*100,
+                        shippingLineOne: this.state.addressLineOne,
+                        name: this.state.fullName,
+                        zipCode: this.state.zipCode,
+                        state: this.state.state,
+                        city: this.state.city
+                    })
                 })
                     .then(resp => resp.json())
                     .then(function(response) {
@@ -91,15 +153,35 @@ class CheckoutScreen extends React.Component{
 
             });
     }
-
+    getSum(data){
+        let newSum = this.state.total;
+        newSum += data
+        this.setState({total: newSum});
+    }
 
 
     render(){
         return (
           <View>
+              <View>
+                  <Text>
+                      {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}  {"\n"}</Text>)}
+                      Total Amount to Pay ${this.state.total}
+                      </Text>
+              </View>
             <View style={styles.container}>
 
-              <Text style={styles.textStyle}>Enter Number: </Text>
+                {/*ENTERING FULL NAME*/}
+                <Text style={styles.textStyle}>Full Name: </Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Full Name"
+                    value={this.state.fullName}
+                    onChangeText={(event)=>this.changeName(event)}
+                />
+
+
+              <Text style={styles.textStyle}>Enter Credit Card Number:</Text>
               <TextInput
                 style={styles.inputStyle}
                 placeholder="Enter number"
@@ -123,13 +205,54 @@ class CheckoutScreen extends React.Component{
                 onChangeText={(event)=>this.changeExpyear(event)}
               />
 
-              <Text style={styles.textStyle}>Enter CVC: </Text>
+              <Text style={styles.textStyle}>Enter CVC:     </Text>
               <TextInput
                 style={styles.inputStyle}
                 placeholder="Enter cvc"
                 value={this.state.cvc}
                 onChangeText={(event)=>this.changeCvc(event)}
               />
+
+                <Text style={styles.textStyle}>Enter Phone Number </Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Phone Number"
+                    value={this.state.phoneNumber}
+                    onChangeText={(event)=>this.changePhoneNumber(event)}
+                />
+
+                <Text style={styles.textStyle}>Street Address</Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter street "
+                    value={this.state.addressLineOne}
+                    onChangeText={(event)=>this.changeAddressLineOne(event)}
+                />
+
+
+                <Text style={styles.textStyle}>City</Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter City "
+                    value={this.state.city}
+                    onChangeText={(event)=>this.changeCity(event)}
+                />
+
+                <Text style={styles.textStyle}>State</Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter State "
+                    value={this.state.state}
+                    onChangeText={(event)=>this.changeState(event)}
+                />
+
+                <Text style={styles.textStyle}>Zip Code</Text>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Zip Code "
+                    value={this.state.zipCode}
+                    onChangeText={(event)=>this.changeZipCode(event)}
+                />
 
             </View>
 
@@ -147,8 +270,16 @@ class CheckoutScreen extends React.Component{
     }
 }
 
+const mapStateToProps = state => {
+    return{
+        cartItems: state.root.cartItems,
+        firstName: state.root.firstName,
+        lastName: state.root.lastName
+    };
+};
 
-export default CheckoutScreen
+
+export default connect(mapStateToProps)(CheckoutScreen)
 const styles = StyleSheet.create({
     container:{
         padding: 10,
