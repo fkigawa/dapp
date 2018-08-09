@@ -8,8 +8,18 @@ let urlLink = "http://localhost:1337";
 
 class AccountScreen extends React.Component {
 
+  componentDidMount () {
+    console.log(this.props.accessToken)
+  }
+
   logout = () => {
-    homeNavigator();
+    fetch(`${urlLink}/logout`)
+    .then((response) => {
+        return response.json();
+    })
+    .then((resp) => {
+      homeNavigator();
+    })
   }
 
   normalLogout = () => {
@@ -27,11 +37,11 @@ class AccountScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Account boi</Text>
-        {/* {this.props.addingUserId ? */}
-          <Button title='logout' onPress={() => this.normalLogout()}/>
-          {/* // : */}
+          
           <LoginButton onLogoutFinished={() => this.logout()} />
-        {/* // } */}
+
+          <Button title='logout' onPress={() => this.normalLogout()}/>
+
       </View>
     );
   }
@@ -40,13 +50,14 @@ class AccountScreen extends React.Component {
 const mapStateToProps = state => {
   return{
     userId: state.root.userId,
-    cartItems: state.root.cartItems
+    cartItems: state.root.cartItems,
+    accessToken: state.root.accessToken
   }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        addingUserId: ()=> dispatch(addingUserId()),
+        addingUserId: (accessToken)=> dispatch(addingUserId(accessToken)),
     }
 };
 

@@ -1,4 +1,4 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID} from "./actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN} from "./actionTypes"
 export const loggingIn = () => {
   return {
       type: LOGGING_IN
@@ -35,8 +35,16 @@ export const changingLastName = (newLastName) => {
     }
 };
 export const addingUserId = (userId) => {
+  console.log("In adding user id: ", userId);
   return{
     type: ADD_USERID,
     userId: userId
+  }
+};
+export const addingAccessToken = (accessToken) => {
+  console.log('in store', accessToken)
+  return{
+    type: FB_ACCESS_TOKEN,
+    accessToken: accessToken
   }
 }

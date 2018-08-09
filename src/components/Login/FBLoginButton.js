@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Platform,
   AsyncStorage,
   StyleSheet,
   View,
@@ -12,10 +13,12 @@ import {
 } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
+import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken} from "../../store/actions/products";
+import {connect} from "react-redux"
 let urlLink = "http://localhost:1337";
 
 
-export default class FBLoginButton extends React.Component {
+class FBLoginButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
@@ -29,6 +32,10 @@ export default class FBLoginButton extends React.Component {
   }
   saveToken = () => {
     AsyncStorage.setItem('accessToken', this.state.accessToken);
+  }
+
+  try = () => {
+    console.log(this.props.addingAccessToken)
   }
 
   componentDidMount = async () => {
@@ -69,10 +76,9 @@ export default class FBLoginButton extends React.Component {
                 } else if (result.isCancelled) {
                   console.log("login is cancelled.");
                 } else if (result.grantedPermissions){
-
-
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
+                      this.props.addingAccessToken(data.accessToken)
                       this.setState({
                           loggedIn: true,
                           accessToken: data.accessToken
@@ -128,6 +134,15 @@ export default class FBLoginButton extends React.Component {
   }
 };
 
+
+const mapDispatchToProps = dispatch => {
+    return{
+        addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(FBLoginButton)
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -142,5 +157,3 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
-module.exports = FBLoginButton;
