@@ -25,6 +25,6 @@ const productsNavigator = () => {
       navBarComponentAlignment: 'center'
     },
   });
-}
+};
 
 export default productsNavigator

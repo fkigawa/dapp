@@ -1,4 +1,6 @@
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER} from "./actionTypes"
+
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT} from "./actionTypes"
+
 export const loggingIn = () => {
   return {
       type: LOGGING_IN
@@ -9,6 +11,12 @@ export const currentCategory = (category) => {
         type: CURRENT_CATEGORY,
         category: category
     };
+};
+export const currentProduct = (product) => {
+    return {
+        type: CURRENT_PRODUCT,
+        product: product
+    }
 };
 export const addCart = (item) => {
   return {
@@ -46,11 +54,14 @@ export const addingAccessToken = (accessToken) => {
     type: FB_ACCESS_TOKEN,
     accessToken: accessToken
   }
-}
+};
+
 export const addingDeliverer = (isDeliverer) => {
   console.log('deliver1', isDeliverer)
   return{
     type: DELIVERER,
     isDeliverer: isDeliverer
   }
-}
+};
+
+

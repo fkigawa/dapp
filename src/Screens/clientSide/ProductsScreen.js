@@ -9,21 +9,6 @@ import ProductButton from "../../components/Product_Page/ProductButton"
 import {urlLink} from "../../../App"
 type Props = {};
 
-let drinks = [{
-  productName: "Coke",
-    price: 1.99,
-    image: drinkImage
-}];
-let cups = [{
-  productName: "Red Solo Cup",
-    price: 10.99,
-    image: cupImage
-}];
-let snacks = [{
-  productName: "Cliff Bar",
-    price: 2.99,
-    image: snackImage
-}];
 
 class ProductsScreen extends Component<Props> {
   constructor(props) {
@@ -49,18 +34,18 @@ class ProductsScreen extends Component<Props> {
         products: productArray
       })
     })
-  }
+  };
 
   backToCategory = () => {
     categoryNavigator()
-  }
+  };
 
   render() {
 
     return (
       <View style={styles.container}>
         <Button style={styles.button} onPress={()=>this.backToCategory()} title="Back"/>
-          <ProductButton products={this.state.products}/>
+          <ProductButton products={this.state.products} currentProduct={this.state.currentProduct}/>
       </View>
     );
   }
@@ -69,7 +54,8 @@ class ProductsScreen extends Component<Props> {
 
 const mapStateToProps = state => {
   return {
-    currentPage: state.root.currentCategory
+    currentPage: state.root.currentCategory,
+      currentProduct: state.root.currentProduct
   }
 };
 export default connect(mapStateToProps)(ProductsScreen)

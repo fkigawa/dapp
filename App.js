@@ -10,6 +10,7 @@ import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
 import CheckoutScreen from "./src/Screens/clientSide/CheckoutScreen";
+import ProductDetailScreen from "./src/Screens/clientSide/ProductDetailScreen";
 import addProductsScreen from "./src/Screens/adminScreens/addProductsScreen"
 import addDriverScreen from "./src/Screens/adminScreens/addDriverScreen"
 import addCategoryScreen from "./src/Screens/adminScreens/addCategoryScreen"
@@ -19,6 +20,7 @@ export let urlLink = "http://localhost:1337";
 
 const store = configureStore();
 
+Navigation.registerComponent('ProductDetailScreen', () => ProductDetailScreen,store,Provider);
 Navigation.registerComponent('LoginScreen', () => LoginScreen,store,Provider);
 Navigation.registerComponent("CategoryScreen", ()=> CategoryScreen,store,Provider);
 Navigation.registerComponent('ProductsScreen', () => ProductsScreen,store,Provider);
@@ -27,10 +29,12 @@ Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);
 Navigation.registerComponent('CheckoutScreen', () => CheckoutScreen ,store,Provider);
+
 Navigation.registerComponent('addProductsScreen', () => addProductsScreen,store,Provider)
 Navigation.registerComponent('addDriverScreen', () => addDriverScreen,store,Provider)
 Navigation.registerComponent('addCategoryScreen', () => addCategoryScreen,store,Provider)
 Navigation.registerComponent('allOrdersScreen', () => allOrdersScreen,store,Provider)
+
 
 Navigation.startSingleScreenApp({
     screen: {
