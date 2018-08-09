@@ -74,8 +74,6 @@ class LoginScreen extends React.Component {
               .then((response) => {
                   if (response.success === true) {
                     this.props.addingUserId(response.userId)
-
-                    console.log('hereeee', response)
                     this.props.addingDeliverer(response.isDeliverer)
                   }
               })

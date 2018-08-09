@@ -8,12 +8,49 @@ import logoutNavigator from './MainTabs/LogoutNavigator'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 let urlLink = "http://localhost:1337";
 let deliveryPortal;
+var logoutButton;
 
 class AccountScreen extends React.Component {
 
-  logoutPage = () => {
-    logoutNavigator();
+  // logoutPage = () => {
+  //   logoutNavigator();
+  // }
+
+  getButton = () => {
+    console.log(this.props.accessToken)
+    if (this.props.accessToken) {
+      console.log('in the if')
+      logoutButton = <LoginButton onLogoutFinished={() => this.logout()} />;
+      return logoutButton
+    } else if (this.props.userId) {
+      console.log('in the else if')
+      logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
+      return logoutButton;
+    }
   }
+
+  logout = () => {
+    this.props.addingAccessToken('')
+    fetch(`${urlLink}/logout`)
+    .then((response) => {
+        return response.json();
+    })
+    .then((resp) => {
+      homeNavigator();
+    })
+  }
+
+  normalLogout = () => {
+    this.props.addingUserId('');
+    fetch(`${urlLink}/logout`)
+    .then((response) => {
+        return response.json();
+    })
+    .then((resp) => {
+      homeNavigator();
+    })
+  }
+
 
   getDeliveryPortal = () => {
     if (this.props.isDeliverer) {
@@ -27,7 +64,8 @@ class AccountScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Here's your Account boi</Text>
-          <Button title='to logout' onPress={() => this.logoutPage()}/>
+          {/* <Button title='to logout' onPress={() => this.logoutPage()}/> */}
+          {this.getButton()}
           {this.getDeliveryPortal()}
       </View>
     );
@@ -37,12 +75,18 @@ class AccountScreen extends React.Component {
 const mapStateToProps = state => {
   return{
     isDeliverer: state.root.isDeliverer,
+    userId: state.root.userId,
+    cartItems: state.root.cartItems,
+    accessToken: state.root.accessToken,
+    userId: state.root.userId
   }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
         addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer)),
+        addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken)),
+        addingUserId: (userId) => dispatch(addingUserId(userId))
     }
 };
 
