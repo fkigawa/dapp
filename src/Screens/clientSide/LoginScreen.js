@@ -53,7 +53,7 @@ class LoginScreen extends React.Component {
     }
 
     onSignIn() {
-      if (this.state.email === 'Admin' && this.state.password === 'adminpassword') {
+      if (this.state.email === 'admin' && this.state.password === 'adminpassword') {
         addProductNavigator()
         return true;
       }
@@ -92,8 +92,8 @@ class LoginScreen extends React.Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Delivery!</Text>
 
-          <TextInput style={styles.inputStyle} placeholder="Enter Email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)}/>
-          <TextInput style={styles.inputStyle} secureTextEntry={true} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
+          <TextInput style={styles.inputStyle} autoCapitalize='none' placeholder="Enter Email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)}/>
+          <TextInput style={styles.inputStyle} autoCapitalize='none' secureTextEntry={true} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
 
         <TouchableOpacity style={this.isFilled() ? styles.buttonSignInNotFilled : styles.buttonSignIn} disabled={this.isFilled()} onPress={()=>this.onSignIn()}><Text style={styles.text}>Sign in with Email</Text></TouchableOpacity>
           <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Register with Email"/>

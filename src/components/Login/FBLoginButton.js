@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
-import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken} from "../../store/actions/products";
+import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
 let urlLink = "http://localhost:1337";
 
@@ -118,6 +118,9 @@ class FBLoginButton extends React.Component {
                                 return response.json();
                             }).then((response) => {
                                 console.log('this is the response', response)
+                                if (response.isDeliverer) {
+                                  this.props.addingDeliverer(response.isDeliverer)
+                                }
                                 this.getProductsScreen()
                             })
                           }).catch(err => console.log(err))
@@ -138,7 +141,8 @@ class FBLoginButton extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken))
+        addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken)),
+        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer))
     }
 };
 
