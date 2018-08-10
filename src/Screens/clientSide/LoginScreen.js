@@ -31,7 +31,7 @@ class LoginScreen extends React.Component {
       if (json.user.isDeliverer) {
         this.props.addingDeliverer(json.user.isDeliverer)
       }
-      console.log('here!', json.user)
+
       categoryNavigator()
     }
   }

@@ -26,7 +26,7 @@ class CartScreen extends React.Component {
           return response.json();
       }).then((response) => {
             if (response.success === true) {
-                console.log("Response from backend at checkout is", response);
+               // console.log("Response from backend at checkout is", response);
             }
         })
   }
@@ -45,7 +45,6 @@ class CartScreen extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("USER ID IN MAP STATE TO PROPS IS", state.root.userId);
   return{
     cartItems: state.root.cartItems,
       userId: state.root.userId

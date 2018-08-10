@@ -17,17 +17,14 @@ class AccountScreen extends React.Component {
   // }
 
   getButton = () => {
-    console.log(this.props.accessToken)
     if (this.props.accessToken) {
-      console.log('in the if')
       logoutButton = <LoginButton onLogoutFinished={() => this.logout()} />;
       return logoutButton
     } else if (this.props.userId) {
-      console.log('in the else if')
       logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
       return logoutButton;
     }
-  }
+  };
 
   logout = () => {
     this.props.addingAccessToken('')
@@ -54,11 +51,10 @@ class AccountScreen extends React.Component {
 
   getDeliveryPortal = () => {
     if (this.props.isDeliverer) {
-      console.log('in function', this.props.isDeliverer);
       deliveryPortal = <Button title="Delivery Portal" onPress={() => deliveryNavigator()}/>
       return deliveryPortal
     }
-  }
+  };
 
   render() {
     return (

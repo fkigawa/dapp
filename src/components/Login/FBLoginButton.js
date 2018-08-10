@@ -84,7 +84,6 @@ class FBLoginButton extends React.Component {
                           loggedIn: true,
                           accessToken: data.accessToken
                         }, () => {
-                          console.log('got auth token; rerouting')
                           fetch(`https://graph.facebook.com/v3.1/me?fields=id%2Cname%2Cemail&access_token=${this.state.accessToken}`, {
                             method: "GET",
                             headers: {
@@ -93,7 +92,6 @@ class FBLoginButton extends React.Component {
                           }).then((response) => {
                               return response.json();
                           }).then((resp) => {
-                            console.log(resp)
                             var nameArray = resp.name.split(' ')
                             var firstName = nameArray[0];
                             var lastName;
@@ -117,7 +115,7 @@ class FBLoginButton extends React.Component {
                             }).then((response) => {
                                 return response.json();
                             }).then((response) => {
-                                console.log('this is the response', response)
+
                                 if (response.isDeliverer) {
                                   this.props.addingDeliverer(response.isDeliverer)
                                 }

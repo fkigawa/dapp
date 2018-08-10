@@ -12,7 +12,7 @@ class ProductDetailScreen extends React.Component{
         }
     }
     async componentDidMount(){
-        console.log("Got in product detail");
+
         fetch(`${urlLink}/productDetail/${this.props.currentProduct}`, {
             method: "GET",
             headers: {
@@ -22,7 +22,6 @@ class ProductDetailScreen extends React.Component{
         }).then((response) => {
             return response.json();
         }).then((response) => {
-            console.log("RESPONSE ON DETAILED PAGE", response);
             this.setState ({
                  product: response.product,
                 done: true

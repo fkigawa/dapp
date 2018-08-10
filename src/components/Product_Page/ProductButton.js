@@ -13,8 +13,7 @@ class ProductButton extends React.Component{
       this.props.addToCart(data);
     }
     onProductButton = data =>{
-        console.log("Data in product button", data);
-        console.log("Product function", this.props.changeProduct());
+
         this.props.changeProduct(data);
         productsDetailNavigator()
     };

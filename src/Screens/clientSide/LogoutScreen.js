@@ -11,13 +11,13 @@ var logoutButton;
 class LogoutScreen extends React.Component {
 
   getButton = () => {
-    console.log(this.props.accessToken)
+
     if (this.props.accessToken) {
-      console.log('in the if')
+
       logoutButton = <LoginButton onLogoutFinished={() => this.logout()} />;
       return logoutButton
     } else if (this.props.userId) {
-      console.log('in the else if')
+
       logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
       return logoutButton;
     }

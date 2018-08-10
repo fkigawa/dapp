@@ -28,16 +28,9 @@ class CheckoutScreen extends React.Component{
             myTotal += data.price
         });
         myTotal=parseFloat(Math.round(myTotal * 100) / 100).toFixed(2);
-        console.log("myTotal", myTotal);
+
         this.setState({total: myTotal});
     }
-    payment = () => {
-      const apiKey = process.env.STRIPE_TEST;
-      const client = new Stripe(apiKey);
-      const token = client.createToken('4242424242424242' , '09', '18', '111'
-      ).then((response) => console.log(response)
-      ).catch(err => console.log(err))
-    };
 
     back = () => {
       categoryNavigator()
@@ -124,7 +117,6 @@ class CheckoutScreen extends React.Component{
             .then(data => {
                 // HERE WE HAVE ACCESS TO THE TOKEN TO SEND IT TO OUR SERVERS
                 // ALONG WITH INSENSITIVE DATA
-                console.log("Data", data);
                 fetch(`${urlLink}/payments`, {
                     method: 'POST',
                     headers: {
@@ -144,24 +136,20 @@ class CheckoutScreen extends React.Component{
                 })
                     .then(resp => resp.json())
                     .then(function(response) {
-                        console.log("RESPONSE FROM MY BACKEND", response);
+                        console.log("RESPONSE FROM MY BACKEND FOR STRIPE", response);
                         if(response.paid) {
                             // DO SOMETHING AFTER PAYMENT CONFIRMATION
-                            console.log("Got in paid");
                         }
                     }.bind(this)).catch(err => console.error(err));
 
             });
     }
-    getSum(data){
-        let newSum = this.state.total;
-        newSum += data
-        this.setState({total: newSum});
-    }
+
 
 
     render(){
         return (
+
           <View>
               <View>
                   <Text>
