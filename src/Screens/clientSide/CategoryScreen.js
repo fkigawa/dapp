@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
 import {currentCategory} from "../../store/actions/products";
+import mapNavigator from "./MainTabs/MapNavigator";
 import {connect} from "react-redux";
 import geolib from "geolib";
 import Geocode from "react-geocode";
@@ -81,18 +82,23 @@ class CategoryScreen extends Component<Props> {
       );
     }
 
+    toMap = () => {
+      mapNavigator();
+    }
+
     changeCategoryHandler = category =>{
         this.props.changeCategory(category)
     };
     render() {
         return (
-
-            <View style={styles.container}>
-              <View>
-                <Button title={this.state.myAddress}/>
-              </View>
-                <ProductCategoryButton changeCategory={this.changeCategoryHandler}/>
+          <View>
+            <View>
+              <Button title={this.state.myAddress} onPress={() => this.toMap()}/>
             </View>
+            <View style={styles.container}>
+              <ProductCategoryButton changeCategory={this.changeCategoryHandler}/>
+            </View>
+          </View>
         );
     }
 }
