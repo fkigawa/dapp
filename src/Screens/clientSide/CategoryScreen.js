@@ -7,25 +7,33 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
 import {currentCategory} from "../../store/actions/products";
 import {connect} from "react-redux";
 import geolib from "geolib";
 import Geocode from "react-geocode";
+var key='AIzaSyDV-dm_VtPJu_JLTA14w2JMWRvLofM4mDE'
 
 type Props = {};
 
 var options = {
-  enableHighAccuracy: true,
+  enableHighAccuracy: false,
   timeout: 5000,
   maximumAge: 0
 };
 
 let latInput;
 let longInput;
+let currentAddress;
 
 class CategoryScreen extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      myAddress: ''
+    })
+  }
 
     componentDidMount() {
       Geocode.fromAddress("Twitch").then(
@@ -33,7 +41,6 @@ class CategoryScreen extends Component<Props> {
           const { lat, lng } = response.results[0].geometry.location;
           latInput = lat;
           longInput = lng;
-          console.log('hereeee', lat, lng);
         },
         error => {
           console.error('heree', error);
@@ -43,25 +50,36 @@ class CategoryScreen extends Component<Props> {
       navigator.geolocation.requestAuthorization()
 
       navigator.geolocation.getCurrentPosition(
-            function(position) {
-              var distance = geolib.getDistance(position.coords, {
-                  latitude: latInput,
-                  longitude: longInput
-              })
-              distance *= 0.000621371
-              if (distance > 2) {
-                alert('you are too far from a valid delivery location.')
-              }
-            },
-            function() {
-                alert('Position could not be determined.')
-            },
-            {
-                enableHighAccuracy: true
-            }
-        );
+          (position) => {
+            Geocode.setApiKey(key);
 
-      }
+            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
+              response => {
+                const address = response.results[0].formatted_address;
+                this.setState({
+                  myAddress: address
+                })
+                console.log(this.state.myAddress)
+              },
+              error => {
+                console.error(error);
+              }
+            );
+
+            var distance = geolib.getDistance(position.coords, {
+                latitude: latInput,
+                longitude: longInput
+            })
+            distance *= 0.000621371
+            if (distance > 2) {
+              alert('you are too far from a valid delivery location.')
+            }
+          },
+          function() {
+              alert('Position could not be determined.')
+          }, options
+      );
+    }
 
     changeCategoryHandler = category =>{
         this.props.changeCategory(category)
@@ -70,6 +88,9 @@ class CategoryScreen extends Component<Props> {
         return (
 
             <View style={styles.container}>
+              <View>
+                <Button title={this.state.myAddress}/>
+              </View>
                 <ProductCategoryButton changeCategory={this.changeCategoryHandler}/>
             </View>
         );
