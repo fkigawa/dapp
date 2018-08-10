@@ -13,11 +13,11 @@ import {currentCategory} from "../../store/actions/products";
 import {connect} from "react-redux";
 import geolib from "geolib";
 import Geocode from "react-geocode";
-var key='AIzaSyDV-dm_VtPJu_JLTA14w2JMWRvLofM4mDE'
+import geoKey from "../../../keys"
 
 type Props = {};
 
-var options = {
+let options = {
   enableHighAccuracy: false,
   timeout: 5000,
   maximumAge: 0
@@ -51,7 +51,7 @@ class CategoryScreen extends Component<Props> {
 
       navigator.geolocation.getCurrentPosition(
           (position) => {
-            Geocode.setApiKey(key);
+            Geocode.setApiKey(geoKey);
 
             Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
               response => {
