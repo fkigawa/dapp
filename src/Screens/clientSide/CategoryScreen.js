@@ -84,7 +84,7 @@ class CategoryScreen extends Component<Props> {
 
     toMap = () => {
       mapNavigator();
-    }
+    };
 
     changeCategoryHandler = category =>{
         this.props.changeCategory(category)

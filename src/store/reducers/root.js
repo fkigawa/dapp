@@ -1,5 +1,5 @@
 
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT} from "../actions/actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS} from "../actions/actionTypes"
 
 
 const initialState = {
@@ -12,7 +12,9 @@ const initialState = {
     userId: "",
     accessToken: "",
     isDeliverer: "",
-    currentProduct: ""
+    currentProduct: "",
+    productList: [],
+    productQuantity:{}
 };
 
 const reducer = (state=initialState,action) => {
@@ -69,6 +71,30 @@ const reducer = (state=initialState,action) => {
             ...state,
             currentProduct: action.product
           };
+        case CHANGE_QUANTITY:
+            console.log("Went inside");
+            let objectCopy = {...state.productQuantity};
+            for (let key in objectCopy)
+            {
+                if(key===action.name){
+                    objectCopy[key] = action.quantity;
+                    break;
+                }
+                objectCopy[action.name] = action.quantity
+            }
+            console.log("Object Copy", objectCopy);
+            return{
+                ...state,
+                productQuantity: objectCopy
+            };
+
+        case INITIALIZE_PRODUCTS:
+            let myObjectCopy = {...state.productQuantity};
+            myObjectCopy[action.name] = 0;
+            return {
+                ...state,
+                productQuantity: myObjectCopy
+            };
         default:
             return state;
     }

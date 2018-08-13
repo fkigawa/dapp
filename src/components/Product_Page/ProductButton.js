@@ -1,6 +1,6 @@
 import React from "react"
 import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {addCart,currentProduct} from "../../store/actions/products";
+import {addCart,currentProduct,changingQuantity} from "../../store/actions/products";
 import {connect} from "react-redux"
 import {urlLink} from "../../../App"
 
@@ -8,9 +8,47 @@ import productsDetailNavigator from "../../Screens/clientSide/MainTabs/ProductDe
 class ProductButton extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            productQuantity: [],
+            counter: 0
+        }
     }
     onPressTile(data){
-      this.props.addToCart(data);
+        console.log("DATA IN PRESS TILE", data);
+        this.props.addToCart(data);
+        let productQuantityCopy = {...this.props.productQuantity};
+        let count = 0;
+        for(let key in productQuantityCopy){
+            if(key === data.name){
+                let quantity = productQuantityCopy[key];
+                quantity++;
+                this.props.changeQuantity(quantity, key)
+            }
+        }
+        // if(this.props.cartItems.length === 0){
+        //     data["quantity"] = 1;
+        //     this.props.addToCart(data);
+        //     this.props.changeProductQuantity(data.quantity,data.name);
+        // }
+        // else{
+        //     // let flag = false;
+        //     this.props.cartItems.map((item,i)=>{
+        //         //changes the quantity if it is already in the cart items
+        //        if((item.name === data.name)){
+        //            let count = item.quantity + 1;
+        //            this.props.changeQuantity(count,i);
+        //            this.props.changeProductQuantity(count,item.name);
+        //            // flag = true;
+        //        }
+        //        //adds the product to the cart with the quantity set as 1
+        //        else if(item.name !== data.name && data.quantity === 0){
+        //            // flag = true;
+        //            data["quantity"] = 1;
+        //            this.props.addToCart(data);
+        //            this.props.changeProductQuantity(data.quantity, data.name);
+        //        }
+        //     });
+        // }
     }
     onProductButton = data =>{
 
@@ -47,14 +85,16 @@ class ProductButton extends React.Component{
 
 const mapStateToProps = state =>{
     return{
-        cartItems: state.root.cartItems
+        cartItems: state.root.cartItems,
+        productQuantity: state.root.productQuantity
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         addToCart: (item) => dispatch(addCart(item)),
-        changeProduct: (product) => dispatch(currentProduct(product))
+        changeProduct: (product) => dispatch(currentProduct(product)),
+        changeQuantity: (quantity,name)=> dispatch(changingQuantity(quantity,name))
     }
 };
 

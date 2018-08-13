@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import categoryNavigator from "./MainTabs/CategoryNavigator"
 import {connect} from "react-redux"
-import drinkImage from "../../assets/can-of-coke.png"
-import cupImage from "../../assets/solo-cup.png"
-import snackImage from "../../assets/snacks.png"
 import ProductButton from "../../components/Product_Page/ProductButton"
 import {urlLink} from "../../../App"
 type Props = {};
-
+import {initializingProducts,changingQuantity} from "../../store/actions/products";
 
 class ProductsScreen extends Component<Props> {
   constructor(props) {
@@ -17,7 +14,6 @@ class ProductsScreen extends Component<Props> {
       products: []
     })
   }
-
   componentDidMount = () => {
     fetch(`${urlLink}/products/${this.props.currentPage}`, {
         method: "GET",
@@ -28,11 +24,24 @@ class ProductsScreen extends Component<Props> {
     }).then((response) => {
         return response.json();
     }).then((response) => {
-      var productArray = this.state.products.slice()
-      productArray = response.products
+      let productArray = this.state.products.slice();
+      productArray = response.products;
+      // this.props.updatingProductList(response.products);
       this.setState ({
         products: productArray
-      })
+      },()=>{
+          let flag = true;
+          for(let key in this.props.productQuantity){
+              if(this.props.productQuantity[key]>0){
+                  flag = false;
+              }
+          }
+          if(flag) {
+              this.state.products.map((item) => {
+                  this.props.updatingProductQuant(item.name);
+              });
+          }
+      });
     })
   };
 
@@ -40,25 +49,44 @@ class ProductsScreen extends Component<Props> {
     categoryNavigator()
   };
 
+  changeProductQuantity = (quantity,name) =>{
+
+      let mappedCartItems = this.props.products.map((item,i)=>{
+          if(item.name===name){
+              item = {...item, quantity: quantity}
+          }
+          return item;
+      });
+      this.props.updatingProductList(mappedCartItems);
+
+  };
   render() {
 
     return (
       <View style={styles.container}>
         <Button style={styles.button} onPress={()=>this.backToCategory()} title="Back"/>
-          <ProductButton products={this.state.products} currentProduct={this.state.currentProduct}/>
+          <ProductButton products={this.state.products} currentProduct={this.props.currentProduct} changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}/>
       </View>
     );
   }
 }
-
+const mapDispatchToProps = dispatch =>{
+    return {
+        updatingProductQuant: (name)=> dispatch(initializingProducts(name)),
+        changeQuantity: (quantity,name)=> dispatch(changingQuantity(quantity,name))
+    }
+};
 
 const mapStateToProps = state => {
   return {
     currentPage: state.root.currentCategory,
-      currentProduct: state.root.currentProduct
+      currentProduct: state.root.currentProduct,
+      products: state.root.productList,
+      productQuantity: state.root.productQuantity
   }
 };
-export default connect(mapStateToProps)(ProductsScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(ProductsScreen)
+
 
 const styles = StyleSheet.create({
   container: {
