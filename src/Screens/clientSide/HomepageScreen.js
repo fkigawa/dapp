@@ -2,6 +2,7 @@ import React from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
+import LoginWithEmailNavigator from "./MainTabs/LoginWithEmailNavigator"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
@@ -91,12 +92,12 @@ class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Delivery!</Text>
+        <FBLoginButton />
+        <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Sign up with Email"/>
+        <Button onPress={()=>LoginWithEmailNavigator()} title="Already have an account? Sign in."/>
 
-          <TextInput style={styles.inputStyle} autoCapitalize='none' placeholder="Enter Email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)}/>
-          <TextInput style={styles.inputStyle} autoCapitalize='none' secureTextEntry={true} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
 
-        <TouchableOpacity style={this.isFilled() ? styles.buttonSignInNotFilled : styles.buttonSignIn} disabled={this.isFilled()} onPress={()=>this.onSignIn()}><Text style={styles.text}>Sign in with Email</Text></TouchableOpacity>
-          <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Don't have an account? Sign up with your Email"/>
+
       </View>
     );
   }

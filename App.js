@@ -6,6 +6,7 @@ import CategoryScreen from './src/Screens/clientSide/CategoryScreen';
 import LogoutScreen from './src/Screens/clientSide/LogoutScreen';
 import CartScreen from './src/Screens/clientSide/CartScreen';
 import AccountScreen from './src/Screens/clientSide/AccountScreen';
+import HomepageScreen from './src/Screens/clientSide/HomepageScreen';
 import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
@@ -28,6 +29,7 @@ Navigation.registerComponent('ProductsScreen', () => ProductsScreen,store,Provid
 Navigation.registerComponent('LogoutScreen', () => LogoutScreen,store,Provider);
 Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
+Navigation.registerComponent('HomepageScreen', () => HomepageScreen ,store,Provider);
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);
 Navigation.registerComponent('CheckoutScreen', () => CheckoutScreen ,store,Provider);
 Navigation.registerComponent('GeolocationScreen', () => GeolocationScreen ,store,Provider);
@@ -39,7 +41,7 @@ Navigation.registerComponent('allOrdersScreen', () => allOrdersScreen,store,Prov
 
 Navigation.startSingleScreenApp({
     screen: {
-        screen: 'LoginScreen', // unique ID registered with Navigation.registerScreen
+        screen: 'HomepageScreen', // unique ID registered with Navigation.registerScreen
         title: 'Welcome', // title of the screen as appears in the nav bar (optional)
         navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
         navigatorButtons: {} // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
