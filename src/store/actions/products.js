@@ -1,5 +1,5 @@
 
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT} from "./actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS} from "./actionTypes"
 
 export const loggingIn = () => {
   return {
@@ -62,6 +62,23 @@ export const addingDeliverer = (isDeliverer) => {
     type: DELIVERER,
     isDeliverer: isDeliverer
   }
+};
+
+export const changingQuantity = (newQuantity, name)=>{
+    console.log("New Quantity", newQuantity);
+    console.log("Name", name);
+    return {
+        type: CHANGE_QUANTITY,
+        quantity: newQuantity,
+        name: name
+    }
+};
+
+export const initializingProducts = (name)=>{
+    return {
+        type: INITIALIZE_PRODUCTS,
+        name: name
+    }
 };
 
 
