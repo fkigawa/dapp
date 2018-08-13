@@ -1,5 +1,6 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
+import FBCustomLogin from '../../components/Login/FBCustomLogin'
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
 import LoginWithEmailNavigator from "./MainTabs/LoginWithEmailNavigator"
@@ -92,7 +93,7 @@ class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Delivery!</Text>
-        <FBLoginButton />
+        <FBCustomLogin />
         <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Sign up with Email"/>
         <Button onPress={()=>LoginWithEmailNavigator()} title="Already have an account? Sign in."/>
 
