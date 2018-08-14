@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
 import FBCustomLogin from '../../components/Login/FBCustomLogin'
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
@@ -92,13 +92,17 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Delivery!</Text>
+        <Text style={styles.text}>Plug</Text>
         <FBCustomLogin />
-        <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Sign up with Email"/>
-        <Button onPress={()=>LoginWithEmailNavigator()} title="Already have an account? Sign in."/>
-
-
-
+        <TouchableOpacity style={styles.button}
+          raised
+          onPress={()=>this.onPhoneNumberButton()}>
+          <Text style={styles.signIn}>Sign Up With Email</Text>
+        </TouchableOpacity>
+          <View style={styles.touchable}>
+            <Text style={styles.existing}>Already have an account?</Text>
+            <TouchableOpacity style={styles.submitButton} onPress={()=>LoginWithEmailNavigator()}><Text style={styles.signIn}>Sign in.</Text></TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -116,50 +120,36 @@ export default connect(null, mapDispatchToProps)(LoginScreen)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  welcome: {
+  button: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    color: "dodgerblue",
+    marginBottom: 100,
+    fontFamily: "AvenirNext-DemiBold"
   },
-    button:{
-      backgroundColor: "#3b5998",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: 189,
-        margin: 10
-    },
-    text:{
-      color: "white"
-    },
-    inputStyle:{
-        borderWidth: 4,
-        borderColor: "black",
-        padding: 10,
-        height: 40,
-        width: "50%",
-        alignItems: "center",
-        flexDirection: "row",
-        margin: 5
-    },
-    buttonSignIn:{
-        backgroundColor: "#3b5998",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: "90%",
-        margin: 10
-    },
-    buttonSignInNotFilled:{
-        backgroundColor: "gray",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: "90%",
-        margin: 10
-    },
+  existing: {
+    fontSize: 16
+  },
+  signIn: {
+    color: 'dodgerblue',
+    fontSize: 16,
+    fontFamily: "AvenirNext-DemiBold"
+  },
+  submitButton: {
+    marginLeft: 5
+  },
+  text: {
+    marginTop: -100,
+    marginBottom: 150,
+    fontSize: 60,
+    color: "black",
+    fontFamily: "AvenirNext-DemiBold"
+  },
+  touchable: {
+    fontSize: 25,
+    marginBottom: -275,
+    flexDirection: 'row'
+  }
 });
