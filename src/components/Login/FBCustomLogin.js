@@ -135,8 +135,6 @@ class FBLoginButton extends React.Component {
       <View>
         <TouchableOpacity style={styles.touchable} onPress={this.fbAuth} activeOpacity={0.9}>
           <View style={styles.button}>
-
-            <Text style={styles.text}>Log In with Facebook</Text>
             <Text style={styles.text}>Continue with Facebook</Text>
           </View>
         </TouchableOpacity>
