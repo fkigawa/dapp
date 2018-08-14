@@ -126,14 +126,16 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 20,
     color: "dodgerblue",
-    marginBottom: 100
+    marginBottom: 100,
+    fontFamily: "AvenirNext-DemiBold"
   },
   existing: {
     fontSize: 16
   },
   signIn: {
     color: 'dodgerblue',
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: "AvenirNext-DemiBold"
   },
   submitButton: {
     marginLeft: 5

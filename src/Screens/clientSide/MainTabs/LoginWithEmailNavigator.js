@@ -3,7 +3,7 @@ const LoginWithEmailNavigator = () => {
     Navigation.startSingleScreenApp({
         screen: {
             screen: 'LoginScreen', // unique ID registered with Navigation.registerScreen
-            title: 'Enter Number', // title of the screen as appears in the nav bar (optional)
+            title: 'Login', // title of the screen as appears in the nav bar (optional)
         },
     });
 }

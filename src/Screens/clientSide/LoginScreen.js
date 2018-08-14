@@ -1,11 +1,15 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
+// import {Platform, StyleSheet, Text, View, Button, TouchableOpacity,TextInput} from 'react-native';
+import {View, TextInput, Text, Button, TouchableOpacity} from 'react-native-ui-lib';
+import {StyleSheet} from 'react-native';
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
+import homeNavigator from "./MainTabs/HomeNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
+import Icon from 'react-native-vector-icons/Feather';
 let urlLink = "http://localhost:1337";
 
 class LoginScreen extends React.Component {
@@ -89,14 +93,13 @@ class LoginScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Delivery!</Text>
-
-          <TextInput style={styles.inputStyle} autoCapitalize='none' placeholder="Enter Email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)}/>
-          <TextInput style={styles.inputStyle} autoCapitalize='none' secureTextEntry={true} placeholder="Enter Password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)}/>
-
-        <TouchableOpacity style={this.isFilled() ? styles.buttonSignInNotFilled : styles.buttonSignIn} disabled={this.isFilled()} onPress={()=>this.onSignIn()}><Text style={styles.text}>Sign in with Email</Text></TouchableOpacity>
-          <Button style={styles.button} onPress={()=>this.onPhoneNumberButton()} title="Don't have an account? Sign up with your Email"/>
+      <View flex paddingH-25 paddingT-120>
+        <Icon style={styles.icon} name="x" onPress={() => homeNavigator()}></Icon>
+        <TextInput text50 autoCapitalize='none' placeholder="email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)} dark10/>
+        <TextInput text50  autoCapitalize='none' secureTextEntry={true} placeholder="password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)} secureTextEntry dark10/>
+        <View marginT-270 center>
+          <Button text70 white background-orange30 disabled={this.isFilled()} onPress={()=>this.onSignIn()} label="Login"/>
+        </View>
       </View>
     );
   }
@@ -114,50 +117,12 @@ export default connect(null, mapDispatchToProps)(LoginScreen)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-    button:{
-      backgroundColor: "#3b5998",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: 189,
-        margin: 10
-    },
-    text:{
-      color: "white"
-    },
-    inputStyle:{
-        borderWidth: 4,
-        borderColor: "black",
-        padding: 10,
-        height: 40,
-        width: "50%",
-        alignItems: "center",
-        flexDirection: "row",
-        margin: 5
-    },
-    buttonSignIn:{
-        backgroundColor: "#3b5998",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: "90%",
-        margin: 10
-    },
-    buttonSignInNotFilled:{
-        backgroundColor: "gray",
-        alignItems: 'center',
-        padding:5,
-        height: 30,
-        width: "90%",
-        margin: 10
-    },
+  icon: {
+    fontSize: 40,
+    marginBottom: 70,
+    marginTop: -70
+  }
 });
