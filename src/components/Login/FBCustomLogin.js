@@ -15,7 +15,7 @@ import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
-import Icon from 'react-native-vector-icons/Feather'
+// import Icon from 'react-native-vector-icons/Feather'
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
@@ -131,11 +131,10 @@ class FBLoginButton extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity style={styles.touchable} onPress={this.fbAuth} activeOpacity={0.9}>
           <View style={styles.button}>
-            <Icon name={"facebook"} size={25} color={"white"}/>
-            <Text style={styles.text}>Log In with Facebook</Text>
+            <Text style={styles.text}>Continue with Facebook</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -161,26 +160,28 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 3,
-    paddingRight: 20,
-    paddingLeft: 20,
+    // alignItems: "center",
+    // justifyContent: "center",
+    padding: 8,
+    paddingRight: 40,
+    paddingLeft: 40,
     borderRadius: 100,
     backgroundColor: "#3b5998",
-    width: "100%",
+    width: "90%",
     // shadowRadius: 10,
     // shadowOpacity: 0.8,
     // shadowOffset:{  width: -5,  height: 10,  },
     // shadowColor: 'black',
   },
   text: {
-    marginLeft: 10,
-    fontSize: 25,
+    marginLeft: 0,
+    fontSize: 22,
     color: "white",
-    fontFamily: "AvenirNext-Regular"
+    fontFamily: "Avenir Next"
   },
   touchable: {
+    marginTop: 100,
+    marginBottom: 20,
     width: "100%",
     alignItems: "center"
   }
