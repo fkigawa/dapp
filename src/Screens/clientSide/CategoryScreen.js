@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
 import {currentCategory} from "../../store/actions/products";
 import mapNavigator from "./MainTabs/MapNavigator";
@@ -59,7 +59,7 @@ class CategoryScreen extends Component<Props> {
                 const address = response.results[0].formatted_address;
                 this.setState({
                   myAddress: address
-                })
+                });
                 console.log(this.state.myAddress)
               },
               error => {
@@ -67,10 +67,10 @@ class CategoryScreen extends Component<Props> {
               }
             );
 
-            var distance = geolib.getDistance(position.coords, {
+            let distance = geolib.getDistance(position.coords, {
                 latitude: latInput,
                 longitude: longInput
-            })
+            });
             distance *= 0.000621371
             if (distance > 2) {
               alert('you are too far from a valid delivery location.')
@@ -93,10 +93,12 @@ class CategoryScreen extends Component<Props> {
         return (
           <View>
             <View>
-              <Button title={this.state.myAddress} onPress={() => this.toMap()}/>
+                <TouchableOpacity onPress={() => this.toMap()} style={styles.addressBox}>
+                    <Text>{this.state.myAddress}    ></Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.container}>
-              <ProductCategoryButton changeCategory={this.changeCategoryHandler}/>
+              <ProductCategoryButton changeCategory={this.changeCategoryHandler} key={Math.random()}/>
             </View>
           </View>
         );
@@ -116,8 +118,12 @@ const mapDispatchToProps = dispatch =>{
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryScreen)
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'space-between',
         flexDirection: "row"
+    },
+    addressBox:{
+        backgroundColor: "rgba(236, 133, 29, .8)",
+        padding: 5,
+        alignItems: "center"
     }
 });

@@ -146,6 +146,7 @@ const mapStateToProps = state => {
     }
 };
 
+
 const mapDispatchToProps = dispatch =>{
     return{
         changeQuantity: (quantity, name) => dispatch(changingQuantity(quantity,name)),

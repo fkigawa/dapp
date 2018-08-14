@@ -131,6 +131,4 @@ const styles = StyleSheet.create({
         fontSize: 11,
         alignItems: "center"
     }
-
-
 });

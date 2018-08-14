@@ -15,7 +15,7 @@ import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
-import Icon from 'react-native-vector-icons/Feather'
+
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
@@ -134,7 +134,7 @@ class FBLoginButton extends React.Component {
       <View style={styles.container}>
         <TouchableOpacity style={styles.touchable} onPress={this.fbAuth} activeOpacity={0.9}>
           <View style={styles.button}>
-            <Icon name={"facebook"} size={25} color={"white"}/>
+
             <Text style={styles.text}>Log In with Facebook</Text>
           </View>
         </TouchableOpacity>
