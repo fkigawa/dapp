@@ -94,7 +94,9 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View flex paddingH-25 paddingT-120>
-        <Icon style={styles.icon} name="x" onPress={() => homeNavigator()}></Icon>
+        <View style={styles.icon}>
+          <Icon size={40} color='grey' name="x" onPress={() => homeNavigator()}/>
+        </View>
         <TextInput text50 autoCapitalize='none' placeholder="email" value={this.state.email} onChangeText={(event)=>this.changeEmail(event)} dark10/>
         <TextInput text50  autoCapitalize='none' secureTextEntry={true} placeholder="password" value={this.state.password} onChangeText={(event)=>this.changePassword(event)} secureTextEntry dark10/>
         <View marginT-270 center>
@@ -121,8 +123,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    fontSize: 40,
     marginBottom: 70,
-    marginTop: -70
+    marginTop: -60,
+    marginLeft: -12,
+    alignItems: 'flex-start',
   }
 });
