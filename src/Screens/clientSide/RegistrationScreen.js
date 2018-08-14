@@ -78,7 +78,9 @@ class RegistrationScreen extends React.Component{
     render(){
         return (
             <View flex paddingH-25 paddingT-70>
-              <Icon style={styles.icon} name="x" onPress={() => homeNavigator()}></Icon>
+              <View style={styles.icon}>
+                <Icon size={40} color='grey' name="x" onPress={() => homeNavigator()}/>
+              </View>
               {this.state.formFilled === "false" ? <Text>Password doesn't match</Text> : null}
               <TextInput text50 autoCapitalize='none' placeholder="first name" value={this.props.firstName} onChangeText={(event)=>this.changeFirstName(event)} dark10/>
               <TextInput text50 autoCapitalize='none' placeholder="last name" value={this.props.lastName} onChangeText={(event)=>this.changeLastName(event)} dark10/>
@@ -117,9 +119,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    fontSize: 40,
     marginBottom: 40,
-    marginTop: -40
-
+    marginTop: -50,
+    marginLeft: -10,
+    alignItems: 'flex-start'
   }
 });
