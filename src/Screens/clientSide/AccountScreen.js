@@ -3,22 +3,32 @@ import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-nati
 import {connect} from 'react-redux'
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import homeNavigator from './MainTabs/HomeNavigator'
+import addressNavigator from './MainTabs/AddressNavigator'
 import deliveryNavigator from './MainTabs/DeliveryNavigator'
 import logoutNavigator from './MainTabs/LogoutNavigator'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
-let urlLink = "http://localhost:1337";
+let urlLink = "https://39e059b2.ngrok.io";
 let deliveryPortal;
 var logoutButton;
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginManager,
+} = FBSDK;
 
 class AccountScreen extends React.Component {
 
-  // logoutPage = () => {
-  //   logoutNavigator();
-  // }
+  payment = () => {
+    logoutNavigator();
+  }
+
+  address = () => {
+    addressNavigator();
+  }
 
   getButton = () => {
     if (this.props.accessToken) {
-      logoutButton = <LoginButton onLogoutFinished={() => this.logout()} />;
+      logoutButton =
+        <LoginButton onLogoutFinished={() => this.logout()} />;
       return logoutButton
     } else if (this.props.userId) {
       logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
@@ -59,8 +69,22 @@ class AccountScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Here's your Account boi</Text>
-          {/* <Button title='to logout' onPress={() => this.logoutPage()}/> */}
+          <Button title="Payment" onPress={()=>this.props.navigator.showModal({
+            screen: "LogoutScreen", // unique ID registered with Navigation.registerScreen
+            title: "Payment", // title of the screen as appears in the nav bar (optional)
+            passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+            navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+            animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+          })
+          }/>
+          <Button title="Addresses" onPress={()=>this.props.navigator.showModal({
+            screen: "AddressScreen", // unique ID registered with Navigation.registerScreen
+            title: "Addresses", // title of the screen as appears in the nav bar (optional)
+            passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+            navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+            animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+          })
+          }/>
           {this.getButton()}
           {this.getDeliveryPortal()}
       </View>
@@ -99,4 +123,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  logout: {
+    margin: 470,
+  }
 });

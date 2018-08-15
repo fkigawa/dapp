@@ -8,7 +8,7 @@ import categoryNavigator from "./MainTabs/CategoryNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
-let urlLink = "http://localhost:1337";
+let urlLink = "https://39e059b2.ngrok.io";
 
 class LoginScreen extends React.Component {
   constructor(props){
@@ -96,12 +96,26 @@ class LoginScreen extends React.Component {
         <FBCustomLogin />
         <TouchableOpacity style={styles.button}
           raised
-          onPress={()=>this.onPhoneNumberButton()}>
+          onPress={()=>this.props.navigator.showModal({
+            screen: "RegistrationScreen", // unique ID registered with Navigation.registerScreen
+            title: "Login", // title of the screen as appears in the nav bar (optional)
+            passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+            navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+            animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+          })
+          }>
           <Text style={styles.signIn}>Sign Up With Email</Text>
         </TouchableOpacity>
           <View style={styles.touchable}>
             <Text style={styles.existing}>Already have an account?</Text>
-            <TouchableOpacity style={styles.submitButton} onPress={()=>LoginWithEmailNavigator()}><Text style={styles.signIn}>Sign in.</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.submitButton} onPress={()=>this.props.navigator.showModal({
+              screen: "LoginScreen", // unique ID registered with Navigation.registerScreen
+              title: "Login", // title of the screen as appears in the nav bar (optional)
+              passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+              navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+              animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+            })
+            }><Text style={styles.signIn}>Sign in.</Text></TouchableOpacity>
           </View>
       </View>
     );

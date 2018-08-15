@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, View, ListView, TouchableOpacity} from 'react-native';
+// import {StyleSheet, Text, TextInput, View, ListView, TouchableOpacity} from 'react-native';
+import {View, TextInput, Text, Button, TouchableOpacity} from 'react-native-ui-lib';
 import {urlLink} from "../../../App"
 
 
@@ -88,97 +89,19 @@ class addProductsScreen extends React.Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
 
-          <Text style={styles.textStyle}>Enter name of product: </Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Enter name of product"
-            value={this.state.name}
-            onChangeText={(event)=>this.changeName(event)}
-          />
-
-          <Text style={styles.textStyle}>Enter description of product: </Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Enter description of product"
-            value={this.state.description}
-            onChangeText={(event)=>this.changeDescription(event)}
-          />
-
-          <Text style={styles.textStyle}>Enter price of product: </Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Enter price of product"
-            value={this.state.price}
-            onChangeText={(event)=>this.changePrice(event)}
-          />
-
-          <Text style={styles.textStyle}>Enter image url of product: </Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Enter image url of product"
-            value={this.state.imageUrl}
-            onChangeText={(event)=>this.changeImageUrl(event)}
-          />
-
-          <Text style={styles.textStyle}>Enter category of product: </Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="Enter category of product"
-            value={this.state.category}
-            onChangeText={(event)=>this.changeCategory(event)}
-          />
-
+      <View flex paddingH-25 paddingT-120>
+        <TextInput text50 autoCapitalize='none' placeholder="Product name" value={this.state.name} onChangeText={(event)=>this.changeName(event)} dark10/>
+        <TextInput text50  autoCapitalize='none' placeholder="Product description" value={this.state.description} onChangeText={(event)=>this.changeDescription(event)} dark10/>
+        <TextInput text50  autoCapitalize='none' placeholder="Price" value={this.state.price} onChangeText={(event)=>this.changePrice(event)} dark10/>
+        <TextInput text50  autoCapitalize='none' placeholder="Image url" value={this.state.imageUrl} onChangeText={(event)=>this.changeImageUrl(event)} dark10/>
+        <TextInput text50  autoCapitalize='none' placeholder="Product category" value={this.state.category} onChangeText={(event)=>this.changeCategory(event)} dark10/>
+        <View marginT-150 center>
+          <Button text70 white background-orange30 disabled={this.formFilled()} onPress={()=>this.submitHandler()} label="Create Product"/>
         </View>
-
-        <TouchableOpacity
-          disabled={this.formFilled()}
-          style={this.formFilled() ? styles.buttonFalse : styles.button}
-          onPress={()=>this.submitHandler()}>
-          <Text style={{color:"white"}}>Submit Product</Text>
-        </TouchableOpacity>
-
       </View>
     );
   }
 }
 
 export default addProductsScreen
-
-const styles = StyleSheet.create({
-    container:{
-        padding: 10,
-        flexDirection: "row",
-        flexWrap: "wrap"
-    },
-    inputStyle:{
-        borderWidth: 4,
-        borderColor: "black",
-        padding: 10,
-        height: 40,
-        width: "50%",
-        alignItems: "center",
-        flexDirection: "row"
-    },
-    button:{
-        backgroundColor: "#3b5998",
-        alignItems: 'center',
-        padding: 5,
-        margin: 10,
-        height: 30,
-    },
-    textStyle:{
-        alignItems: "center",
-        fontSize: 20,
-        margin: 10
-    },
-    buttonFalse:{
-        backgroundColor: "gray",
-        alignItems: 'center',
-        padding: 5,
-        margin: 10,
-        height: 30,
-    }
-});

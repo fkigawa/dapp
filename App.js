@@ -7,6 +7,7 @@ import LogoutScreen from './src/Screens/clientSide/LogoutScreen';
 import CartScreen from './src/Screens/clientSide/CartScreen';
 import AccountScreen from './src/Screens/clientSide/AccountScreen';
 import HomepageScreen from './src/Screens/clientSide/HomepageScreen';
+import AddressScreen from './src/Screens/clientSide/AddressScreen';
 import RegistrationScreen from './src/Screens/clientSide/RegistrationScreen';
 import configureStore from "./src/store/configureStore"
 import ProductsScreen from "./src/Screens/clientSide/ProductsScreen";
@@ -18,7 +19,7 @@ import addDriverScreen from "./src/Screens/adminScreens/addDriverScreen"
 import addCategoryScreen from "./src/Screens/adminScreens/addCategoryScreen"
 import allOrdersScreen from "./src/Screens/adminScreens/allOrdersScreen"
 
-export let urlLink = "http://localhost:1337";
+export let urlLink = "https://39e059b2.ngrok.io";
 
 const store = configureStore();
 
@@ -28,6 +29,7 @@ Navigation.registerComponent("CategoryScreen", ()=> CategoryScreen,store,Provide
 Navigation.registerComponent('ProductsScreen', () => ProductsScreen,store,Provider);
 Navigation.registerComponent('LogoutScreen', () => LogoutScreen,store,Provider);
 Navigation.registerComponent('CartScreen', () => CartScreen,store,Provider);
+Navigation.registerComponent('AddressScreen', () => AddressScreen ,store,Provider);
 Navigation.registerComponent('AccountScreen', () => AccountScreen ,store,Provider);
 Navigation.registerComponent('HomepageScreen', () => HomepageScreen ,store,Provider);
 Navigation.registerComponent('RegistrationScreen', () => RegistrationScreen ,store,Provider);

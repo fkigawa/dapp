@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {TextInput} from 'react-native-ui-lib';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
 import {currentCategory} from "../../store/actions/products";
 import mapNavigator from "./MainTabs/MapNavigator";
@@ -84,8 +85,8 @@ class CategoryScreen extends Component<Props> {
       );
     }
 
-    toMap = () => {
-      mapNavigator();
+    changeAddress = (myAddress) => {
+      this.setState({myAddress})
     };
 
     changeCategoryHandler = category =>{
@@ -94,10 +95,8 @@ class CategoryScreen extends Component<Props> {
     render() {
         return (
           <View>
-            <View>
-                <TouchableOpacity onPress={() => this.toMap()} style={styles.addressBox}>
-                    <Text>{this.state.myAddress}    ></Text>
-                </TouchableOpacity>
+            <View style={styles.address}>
+              <TextInput clearButtonMode="while-editing" placeholder="Enter your address" value={this.state.myAddress} onChangeText={(event)=>this.changeAddress(event)}/>
             </View>
             <View style={styles.container}>
               <ProductCategoryButton changeCategory={this.changeCategoryHandler} key={Math.random()}/>
@@ -119,15 +118,14 @@ const mapDispatchToProps = dispatch =>{
     }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryScreen)
+
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'space-between',
         flexDirection: "row"
     },
-    addressBox:{
-        backgroundColor: "rgba(236, 133, 29, .8)",
-        padding: 5,
-        alignItems: "center"
+    address:{
+      padding: 15
     },
     loader:{
         flex:1,
