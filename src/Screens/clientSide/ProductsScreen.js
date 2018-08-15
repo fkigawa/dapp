@@ -63,7 +63,7 @@ class ProductsScreen extends Component<Props> {
 
   };
   static navigatorStyle = {
-        drawUnderNavBar: true,
+        drawUnderNavBar: false,
         navBarTranslucent: true,
         navBarTransparent: true,
         navBarBackgroundColor: "#ec851d"
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
   container: {
       justifyContent: 'space-between',
       flexDirection: "row",
-      padding: 15,
       marginTop: 15
   },
     loader:{
