@@ -4,7 +4,7 @@ import {View, TextInput, Text, Button} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
 import {connect} from "react-redux";
 import {changingFirstName,changingLastName,changingEmail,loggingIn} from "../../store/actions/products"
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 import Icon from 'react-native-vector-icons/Feather';
 import homeNavigator from "./MainTabs/HomeNavigator";
 class RegistrationScreen extends React.Component{

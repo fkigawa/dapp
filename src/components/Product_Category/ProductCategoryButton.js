@@ -1,7 +1,7 @@
 import React from "react"
 import {Platform, Text, View, StyleSheet, TouchableOpacity, Image,FlatList,ScrollView} from 'react-native';
 import productsNavigator from "../../Screens/clientSide/MainTabs/ProductsNavigator"
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 import {Spinner} from "nachos-ui";
 
 var categoryArray = [];

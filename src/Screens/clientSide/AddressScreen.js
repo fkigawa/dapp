@@ -7,7 +7,7 @@ import homeNavigator from './MainTabs/HomeNavigator'
 import categoryNavigator from './MainTabs/CategoryNavigator'
 import {addingUserId, addingAccessToken} from "../../store/actions/products";
 import Icon from 'react-native-vector-icons/Feather';
-let urlLink = "https://39e059b2.ngrok.io";
+import {urlLink} from "../../../keys"
 
 var logoutButton;
 

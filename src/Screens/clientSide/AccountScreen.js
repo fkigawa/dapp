@@ -7,7 +7,7 @@ import addressNavigator from './MainTabs/AddressNavigator'
 import deliveryNavigator from './MainTabs/DeliveryNavigator'
 import logoutNavigator from './MainTabs/LogoutNavigator'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
-let urlLink = "https://39e059b2.ngrok.io";
+import {urlLink} from "../../../keys";
 let deliveryPortal;
 var logoutButton;
 const FBSDK = require('react-native-fbsdk');

@@ -8,7 +8,7 @@ import categoryNavigator from "./MainTabs/CategoryNavigator";
 import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
-let urlLink = "https://39e059b2.ngrok.io";
+import {urlLink} from "../../../keys"
 
 class LoginScreen extends React.Component {
   constructor(props){

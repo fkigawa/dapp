@@ -1,7 +1,7 @@
 import React from 'react';
 // import {StyleSheet, Text, TextInput, View, ListView, TouchableOpacity} from 'react-native';
 import {View, TextInput, Text, Button, TouchableOpacity} from 'react-native-ui-lib';
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 
 
 class addCategoryScreen extends React.Component {

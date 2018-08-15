@@ -3,7 +3,7 @@ import {StyleSheet, Text, ListView, TouchableOpacity} from 'react-native';
 import {View, Button} from 'react-native-ui-lib';
 import {connect} from "react-redux"
 import {addCart} from "../../store/actions/products";
-let urlLink = "https://39e059b2.ngrok.io";
+import {urlLink} from "../../../keys"
 import checkoutNavigator from "./MainTabs/CheckoutNavigator";
 
 class CartScreen extends React.Component {

@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import {View,Text,Button} from "react-native"
 import productsNavigator from "./MainTabs/ProductsNavigator";
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 import {changingQuantity, addCart, changingProductList} from "../../store/actions";
 class ProductDetailScreen extends React.Component{
     constructor(props){

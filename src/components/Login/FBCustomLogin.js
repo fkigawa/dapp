@@ -21,7 +21,7 @@ const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
 } = FBSDK;
-let urlLink = "https://39e059b2.ngrok.io";
+import {urlLink} from "../../../keys"
 
 
 class FBLoginButton extends React.Component {

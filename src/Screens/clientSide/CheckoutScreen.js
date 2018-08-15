@@ -2,7 +2,7 @@ import React from "react"
 // import {TextInput, View, StyleSheet, TouchableOpacity, Text, Button} from "react-native";
 import {View, TextInput, Text, Button} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 import categoryNavigator from "./MainTabs/CategoryNavigator";
 import Icon from 'react-native-vector-icons/Feather';
 import Stripe from 'react-native-stripe-api'

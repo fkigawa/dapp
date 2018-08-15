@@ -2,7 +2,7 @@ import React from "react"
 import {Text, View, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {addCart,currentProduct,changingQuantity} from "../../store/actions/products";
 import {connect} from "react-redux"
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 //import Icon from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Feather';
 

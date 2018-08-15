@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 import categoryNavigator from "./MainTabs/CategoryNavigator"
 import {connect} from "react-redux"
 import ProductButton from "../../components/Product_Page/ProductButton"
-import {urlLink} from "../../../App"
+import {urlLink} from "../../../keys"
 type Props = {};
 import {initializingProducts,changingQuantity} from "../../store/actions/products";
 import {Spinner} from "nachos-ui";
