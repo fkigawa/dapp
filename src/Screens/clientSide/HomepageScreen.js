@@ -29,6 +29,9 @@ class LoginScreen extends React.Component {
 
     let json = await result.json()
     if (json.user) {
+      console.log(json.user)
+      this.props.changingFirstName(json.user.firstName);
+      this.props.changingLastName(json.user.lastName);
       this.props.addingUserId(json.user._id)
       if (json.user.isDeliverer) {
         this.props.addingDeliverer(json.user.isDeliverer)
@@ -125,7 +128,9 @@ class LoginScreen extends React.Component {
 const mapDispatchToProps = dispatch => {
     return{
         addingUserId: (userId)=> dispatch(addingUserId(userId)),
-        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer))
+        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer)),
+        changingFirstName: (firstName)=> dispatch(changingFirstName(firstName)),
+        changingLastName: (lastName)=> dispatch(changingLastName(lastName))
     }
 };
 

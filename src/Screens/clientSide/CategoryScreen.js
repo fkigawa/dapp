@@ -28,6 +28,7 @@ let options = {
 let latInput;
 let longInput;
 let currentAddress;
+let tooFar = false;
 
 class CategoryScreen extends Component<Props> {
   constructor(props) {
@@ -39,7 +40,7 @@ class CategoryScreen extends Component<Props> {
   }
 
     componentDidMount() {
-      Geocode.fromAddress("Twitch").then(
+      Geocode.fromAddress("New York").then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;
           latInput = lat;
@@ -76,7 +77,8 @@ class CategoryScreen extends Component<Props> {
             });
             distance *= 0.000621371
             if (distance > 2) {
-              alert('you are too far from a valid delivery location.')
+              tooFar = true
+              alert('Not within delivery radius')
             }
           },
           function() {
@@ -95,9 +97,15 @@ class CategoryScreen extends Component<Props> {
     render() {
         return (
           <View>
+            {(tooFar) ?
+            <View style={styles.address}>
+              <TextInput clearButtonMode="while-editing" placeholder="Enter your address" value='Sorry, we do not deliver to your location yet!' onChangeText={(event)=>this.changeAddress(event)}/>
+            </View>
+            :
             <View style={styles.address}>
               <TextInput clearButtonMode="while-editing" placeholder="Enter your address" value={this.state.myAddress} onChangeText={(event)=>this.changeAddress(event)}/>
             </View>
+            }
             <View style={styles.container}>
               <ProductCategoryButton changeCategory={this.changeCategoryHandler} key={Math.random()}/>
             </View>

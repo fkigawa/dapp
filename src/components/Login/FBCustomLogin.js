@@ -76,7 +76,8 @@ class FBLoginButton extends React.Component {
                     }).then((response) => {
                         return response.json();
                     }).then((response) => {
-
+                        this.props.changingFirstName(response.firstName)
+                        this.props.changingLastName(response.lastName)
                         if (response.isDeliverer) {
                           this.props.addingDeliverer(response.isDeliverer)
                         }
@@ -143,11 +144,19 @@ class FBLoginButton extends React.Component {
   }
 };
 
+const mapStateToProps = state => {
+    return {
+        firstName: state.root.firstName,
+        lastName: state.root.lastName
+    }
+};
 
 const mapDispatchToProps = dispatch => {
     return{
         addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken)),
-        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer))
+        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer)),
+        changingFirstName: (firstName)=> dispatch(changingFirstName(firstName)),
+        changingLastName: (lastName)=> dispatch(changingLastName(lastName))
     }
 };
 
