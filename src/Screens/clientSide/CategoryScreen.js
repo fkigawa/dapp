@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {TextInput} from 'react-native-ui-lib';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
 import {currentCategory} from "../../store/actions/products";
 import mapNavigator from "./MainTabs/MapNavigator";
@@ -84,8 +85,8 @@ class CategoryScreen extends Component<Props> {
       );
     }
 
-    toMap = () => {
-      mapNavigator();
+    changeAddress = (e) => {
+      this.setState({e})
     };
 
     changeCategoryHandler = category =>{
@@ -95,9 +96,7 @@ class CategoryScreen extends Component<Props> {
         return (
           <View>
             <View>
-                <TouchableOpacity onPress={() => this.toMap()} style={styles.addressBox}>
-                    <Text>{this.state.myAddress}    ></Text>
-                </TouchableOpacity>
+              <TextInput clearButtonMode="while-editing" placeholder="Enter your address" value={this.state.myAddress} onChangeText={(event)=>this.changeAddress(event)}/>
             </View>
             <View style={styles.container}>
               <ProductCategoryButton changeCategory={this.changeCategoryHandler} key={Math.random()}/>
