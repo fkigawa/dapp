@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, AsyncStorage, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux'
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import homeNavigator from './MainTabs/HomeNavigator'
@@ -25,18 +25,8 @@ class AccountScreen extends React.Component {
     addressNavigator();
   }
 
-  getButton = () => {
-    if (this.props.accessToken) {
-      logoutButton =
-        <LoginButton onLogoutFinished={() => this.logout()} />;
-      return logoutButton
-    } else if (this.props.userId) {
-      logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
-      return logoutButton;
-    }
-  };
-
-  logout = () => {
+  fbAuth = () => {
+    LoginManager.logOut();
     this.props.addingAccessToken('')
     fetch(`${urlLink}/logout`)
     .then((response) => {
@@ -46,6 +36,21 @@ class AccountScreen extends React.Component {
       homeNavigator();
     })
   }
+
+  getButton = () => {
+    if (this.props.accessToken) {
+      logoutButton =  <TouchableOpacity style={styles.touchable} onPress={this.fbAuth} activeOpacity={0.9}>
+          <View style={styles.button}>
+            <Text style={styles.text}>Logout</Text>
+          </View>
+        </TouchableOpacity>
+        {/* <LoginButton onLogoutFinished={() => this.logout()} /> */}
+      return logoutButton
+    } else if (this.props.userId) {
+      logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
+      return logoutButton;
+    }
+  };
 
   normalLogout = () => {
     this.props.addingUserId('');
@@ -85,8 +90,8 @@ class AccountScreen extends React.Component {
             animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
           })
           }/>
-          {this.getButton()}
           {this.getDeliveryPortal()}
+          {this.getButton()}
       </View>
     );
   }
@@ -125,5 +130,32 @@ const styles = StyleSheet.create({
   },
   logout: {
     margin: 470,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+    paddingRight: 40,
+    paddingLeft: 40,
+    borderRadius: 100,
+    backgroundColor: "#3b5998",
+    width: "90%",
+    // shadowRadius: 10,
+    // shadowOpacity: 0.8,
+    // shadowOffset:{  width: -5,  height: 10,  },
+    // shadowColor: 'black',
+  },
+  text: {
+    marginLeft: 0,
+    fontSize: 22,
+    color: "white",
+    fontFamily: "Avenir Next"
+  },
+  touchable: {
+    marginTop: 250,
+    marginBottom: 20,
+    width: "100%",
+    alignItems: "center"
   }
 });
