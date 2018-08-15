@@ -2,6 +2,7 @@ import React from "react"
 import {Platform, Text, View, StyleSheet, TouchableOpacity, Image,FlatList,ScrollView} from 'react-native';
 import productsNavigator from "../../Screens/clientSide/MainTabs/ProductsNavigator"
 import {urlLink} from "../../../App"
+import {Spinner} from "nachos-ui";
 
 var categoryArray = [];
 
@@ -34,14 +35,8 @@ export default class ProductCategoryButton extends React.Component{
 
     onPressTile(name){
         this.props.changeCategory(name)
-        productsNavigator()
+        productsNavigator(name)
     }
-    changeNumber = () =>{
-        if(this.state.buttonNumber === 1){
-            this.setState({buttonNumber: 2})
-        }
-        this.setState({})
-    };
     buttonStyle = (i) =>{
         if(i%3===1){
             return styles.button2;

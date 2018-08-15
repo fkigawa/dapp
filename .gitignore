@@ -2,7 +2,7 @@
 #
 .DS_Store
 #Ignore env.sh
-
+ios/plugTests/
 env.sh
 keys.js
 # Xcode

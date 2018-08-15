@@ -15,7 +15,7 @@ import {connect} from "react-redux";
 import geolib from "geolib";
 import Geocode from "react-geocode";
 import geoKey from "../../../keys"
-
+import {Spinner} from "nachos-ui"
 type Props = {};
 
 let options = {
@@ -32,7 +32,8 @@ class CategoryScreen extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = ({
-      myAddress: ''
+      myAddress: '',
+        done: false
     })
   }
 
@@ -58,7 +59,8 @@ class CategoryScreen extends Component<Props> {
               response => {
                 const address = response.results[0].formatted_address;
                 this.setState({
-                  myAddress: address
+                  myAddress: address,
+                    done: true
                 });
                 console.log(this.state.myAddress)
               },
@@ -100,6 +102,7 @@ class CategoryScreen extends Component<Props> {
             <View style={styles.container}>
               <ProductCategoryButton changeCategory={this.changeCategoryHandler} key={Math.random()}/>
             </View>
+
           </View>
         );
     }
@@ -125,5 +128,13 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(236, 133, 29, .8)",
         padding: 5,
         alignItems: "center"
-    }
+    },
+    loader:{
+        flex:1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        transform:[{rotate:"270deg"}],
+        alignItems: "center",
+        justifyContent: "center"
+    },
 });

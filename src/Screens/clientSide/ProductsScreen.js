@@ -6,12 +6,14 @@ import ProductButton from "../../components/Product_Page/ProductButton"
 import {urlLink} from "../../../App"
 type Props = {};
 import {initializingProducts,changingQuantity} from "../../store/actions/products";
-
+import {Spinner} from "nachos-ui";
+import Icon from 'react-native-vector-icons/Feather';
 class ProductsScreen extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = ({
-      products: []
+      products: [],
+        done: false
     })
   }
   componentDidMount = () => {
@@ -60,13 +62,24 @@ class ProductsScreen extends Component<Props> {
       this.props.updatingProductList(mappedCartItems);
 
   };
+  static navigatorStyle = {
+        drawUnderNavBar: true,
+        navBarTranslucent: true,
+        navBarTransparent: true,
+        navBarBackgroundColor: "#ec851d"
+    };
   render() {
 
     return (
-      <View style={styles.container}>
-        <Button style={styles.button} onPress={()=>this.backToCategory()} title="Back"/>
-          <ProductButton products={this.state.products} currentProduct={this.props.currentProduct} changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}/>
-      </View>
+
+
+          <View style={styles.container}>
+                {/*<Button title='B' onPress={()=>this.backToCategory()} style={styles.button}/>*/}
+
+          <ProductButton key={Math.random()} products={this.state.products} currentProduct={this.props.currentProduct} changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}/>
+          </View>
+
+
     );
   }
 }
@@ -90,11 +103,19 @@ export default connect(mapStateToProps,mapDispatchToProps)(ProductsScreen)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: '#F5FCFF',
+      justifyContent: 'space-between',
+      flexDirection: "row",
+      padding: 15,
+      marginTop: 15
   },
+    loader:{
+        flex:1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        transform:[{rotate:"270deg"}],
+        alignItems: "center",
+        justifyContent: "center"
+    },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -106,6 +127,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
     button:{
-    alignItems: "flex-start"
+    alignItems: "flex-start",
     }
 });

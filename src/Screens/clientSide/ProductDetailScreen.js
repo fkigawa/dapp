@@ -40,7 +40,7 @@ class ProductDetailScreen extends React.Component{
     }
 
     onBack() {
-        productsNavigator()
+        productsNavigator(this.props.currentPage)
     }
 
     onAddToCart(){
@@ -93,7 +93,7 @@ class ProductDetailScreen extends React.Component{
                 {this.state.done ?
                     <ProductDetailScreen2
                         product={this.state.product}
-                        onBack={()=>this.onBack()}
+                        onBack={(category)=>this.onBack(category)}
                         currentProduct={this.props.currentProduct}
                         incNum={()=>this.increaseNumber()}
                         decNum={()=>this.decreaseNumber()}
@@ -142,7 +142,8 @@ const mapStateToProps = state => {
     return{
         currentProduct: state.root.currentProduct,
         cartItems: state.root.cartItems,
-        productQuantity: state.root.productQuantity
+        productQuantity: state.root.productQuantity,
+        currentPage: state.root.currentCategory,
     }
 };
 

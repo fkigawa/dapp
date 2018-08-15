@@ -1,8 +1,12 @@
 import React from "react"
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {addCart,currentProduct,changingQuantity} from "../../store/actions/products";
 import {connect} from "react-redux"
 import {urlLink} from "../../../App"
+//import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Feather';
+
+
 
 import productsDetailNavigator from "../../Screens/clientSide/MainTabs/ProductDetailNavigator";
 class ProductButton extends React.Component{
@@ -55,31 +59,36 @@ class ProductButton extends React.Component{
         this.props.changeProduct(data);
         productsDetailNavigator()
     };
+
     render(){
         return (
-        <View style={styles.container}>
+            <ScrollView>
+        <View style={styles.container} key={this.props.key}>
+
             {this.props.products.map((data,i)=>{
                 return (
-                    <View>
-                        <View>
-                            <TouchableOpacity key={i} onPress={()=>this.onProductButton(data.name)} >
+                    <View key={Math.random()} style={styles.buttonContainer}>
+                        <View style={styles.addToCart}>
+                            <TouchableOpacity onPress={()=>this.onPressTile(data)} style={styles.button} >
+                                {/*<Text style={styles.addToCartText}> + </Text>*/}
+                                <Icon name={"plus-circle"}  size={25} color={"#ec851d"}/>
+                            </TouchableOpacity>
+                        </View>
+                            <TouchableOpacity onPress={()=>this.onProductButton(data.name)} style={styles.button1} >
                                 <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
-                            </TouchableOpacity>
-                        </View>
+                                <Text style={{fontSize: 11}}>${data.price} each</Text>
+                                <Text style={{fontSize: 11}}>{data.name}, {data.description}</Text>
 
-                        <View>
-                            <Text>{data.name}</Text>
-                            <Text>{data.price}</Text>
-                            <TouchableOpacity key={i} onPress={()=>this.onPressTile(data)} style={styles.button} >
-                                <Text style={styles.addToCart}> Add To Cart </Text>
                             </TouchableOpacity>
 
-                        </View>
+
 
                     </View>
                 )
             })}
+
         </View>
+            </ScrollView>
     )};
 };
 
@@ -102,33 +111,41 @@ export default connect(mapStateToProps,mapDispatchToProps)(ProductButton)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
-        justifyContent: 'space-between',
+        flex:1,
         flexDirection: "row",
         flexWrap: "wrap",
-        borderColor: "black",
-        borderWidth: 2,
-        margin: 10
+        justifyContent: "space-between",
+        padding: 5,
     },
-    productImage:{
-        backgroundColor: '#859a9b',
-        height: 20,
-        width:110,
+    buttonContainer:{
+        height: 190,
+        width: "30%",
         alignItems: "center",
+    },
+    button1: {
+        flex: 6,
+        backgroundColor: 'white',
+        height: "100%",
+        width: "100%",
+        alignItems: "flex-start",
     },
     button: {
-        backgroundColor: '#859a9b',
-        height: 20,
-        width:110,
-        alignItems: "center",
+        backgroundColor: 'white',
+        height: "100%"
     },
     imageSize:{
-        height: 100,
-        width: 50,
-        alignItems: "center"
+        height: "80%",
+        width: "80%",
+        alignItems: "center",
+    },
+    addToCartText:{
+        fontSize: 7,
     },
     addToCart:{
-        fontSize: 11,
-        alignItems: "center"
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        flex:1,
+        width: "100%",
+        height: "100%"
     }
 });
