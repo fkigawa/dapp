@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-nati
 import {connect} from 'react-redux'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import categoryNavigator from "../clientSide/MainTabs/CategoryNavigator";
-let urlLink = "http://localhost:1337";
+let urlLink = "https://39e059b2.ngrok.io";
 
 let deliveryPortal;
 

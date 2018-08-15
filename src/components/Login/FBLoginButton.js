@@ -15,7 +15,7 @@ import { LoginButton, AccessToken } from 'react-native-fbsdk';
 import startNavigator from '../../Screens/clientSide/MainTabs/MainNavigator';
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
-let urlLink = "http://localhost:1337";
+let urlLink = "https://39e059b2.ngrok.io";
 
 
 class FBLoginButton extends React.Component {

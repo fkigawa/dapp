@@ -10,7 +10,7 @@ import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
 import Icon from 'react-native-vector-icons/Feather';
-let urlLink = "http://localhost:1337";
+let urlLink = "https://39e059b2.ngrok.io";
 
 class LoginScreen extends React.Component {
   constructor(props){
