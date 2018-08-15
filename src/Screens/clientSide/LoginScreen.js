@@ -73,6 +73,9 @@ class LoginScreen extends React.Component {
                   password: this.state.password
               })
           }).then((response) => {
+            if (response._bodyInit === "Unauthorized") {
+              return alert('Incorrect email or password')
+            }
               return response.json();
           })
               .then((response) => {

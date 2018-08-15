@@ -18,6 +18,10 @@ class RegistrationScreen extends React.Component{
         };
     }
     submitHandler(){
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(String(this.props.email).toLowerCase())) {
+          return alert('Invalid email!');
+        }
         if(this.state.password === this.state.repeatPassword) {
             fetch(`${urlLink}/registration`, {
                 method: "POST",
@@ -33,11 +37,13 @@ class RegistrationScreen extends React.Component{
                     password: this.state.password
                 })
             }).then((response) => {
-                console.log(response);
+                if (response._bodyInit === 'exists') {
+                  return alert('This email is already in use')
+                };
                 return response.json();
             })
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     if (response === true) {
                         homeNavigator()
                     }
@@ -49,6 +55,7 @@ class RegistrationScreen extends React.Component{
         }
         else{
             this.setState({formFilled: "false"})
+            return alert('Passwords do not match')
         }
     }
     changeFirstName(newFirstName){
@@ -58,7 +65,7 @@ class RegistrationScreen extends React.Component{
         this.props.changeLastName(newLastName)
     }
     changeEmail(newEmail){
-        this.props.changeEmail(newEmail)
+      this.props.changeEmail(newEmail)
     }
     onPassword(password){
         this.setState({password})
@@ -81,7 +88,7 @@ class RegistrationScreen extends React.Component{
               <View style={styles.icon}>
                 <Icon size={40} color='grey' name="x" onPress={() => homeNavigator()}/>
               </View>
-              {this.state.formFilled === "false" ? <Text>Password doesn't match</Text> : null}
+              {/* {this.state.formFilled === "false" ? <Text>Password doesn't match</Text> : null} */}
               <TextInput text50 autoCapitalize='none' placeholder="first name" value={this.props.firstName} onChangeText={(event)=>this.changeFirstName(event)} dark10/>
               <TextInput text50 autoCapitalize='none' placeholder="last name" value={this.props.lastName} onChangeText={(event)=>this.changeLastName(event)} dark10/>
               <TextInput text50 autoCapitalize='none' placeholder="email" value={this.props.email} onChangeText={(event)=>this.changeEmail(event)} dark10/>

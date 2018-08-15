@@ -9,7 +9,13 @@ import checkoutNavigator from "./MainTabs/CheckoutNavigator";
 class CartScreen extends React.Component {
 
   toCheckoutScreen = () => {
-    checkoutNavigator()
+    this.props.navigator.showModal({
+      screen: "CheckoutScreen", // unique ID registered with Navigation.registerScreen
+      title: "Checkout", // title of the screen as appears in the nav bar (optional)
+      passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+      navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+      animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+    });
   };
 
   checkoutButtonHandler(){
