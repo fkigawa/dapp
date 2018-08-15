@@ -38,7 +38,6 @@ class allOrders extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>All Orders</Text>
         <Button title='Update Orders' onPress={() => this.updateOrders()}/>
         {this.isDeliveryPortal()}
       </View>

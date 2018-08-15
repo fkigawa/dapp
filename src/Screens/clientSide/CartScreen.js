@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, ListView, TouchableOpacity, Button} from 'react-native';
+import {StyleSheet, Text, ListView, TouchableOpacity} from 'react-native';
+import {View, Button} from 'react-native-ui-lib';
 import {connect} from "react-redux"
 import {addCart} from "../../store/actions/products";
 let urlLink = "http://localhost:1337";
@@ -33,13 +34,13 @@ class CartScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Here's your Cart!</Text>
+      <View flex paddingH-25 paddingT-70>
+        <View flex marginT-20 center>
             {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
         </View>
-
-        <TouchableOpacity style={styles.checkoutButton} onPress={()=>this.toCheckoutScreen()}><Text>Checkout</Text></TouchableOpacity>
+        <View flex marginT-200 center>
+          <Button text70 white background-orange30  onPress={()=>this.toCheckoutScreen()} label="Checkout"/>
+        </View>
       </View>
     );
   }

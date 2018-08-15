@@ -85,8 +85,8 @@ class CategoryScreen extends Component<Props> {
       );
     }
 
-    changeAddress = (e) => {
-      this.setState({e})
+    changeAddress = (myAddress) => {
+      this.setState({myAddress})
     };
 
     changeCategoryHandler = category =>{

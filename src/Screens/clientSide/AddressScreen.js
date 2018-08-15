@@ -11,15 +11,15 @@ let urlLink = "http://localhost:1337";
 
 var logoutButton;
 
-class LogoutScreen extends React.Component {
+class AddressScreen extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-          number: "",
-          expmonth: "",
-          expyear: "",
-          cvc: "",
-          fullName: "",
+        phoneNumber: "",
+        addressLineOne: "",
+        city:"",
+        state:"",
+        zipCode:"",
       };
   }
   submitHandler(){
@@ -56,37 +56,33 @@ class LogoutScreen extends React.Component {
           this.setState({formFilled: "false"})
       }
   }
-  changeNumber(event){
+
+  changeAddressLineOne(event){
     this.setState({
-      number: event
+      addressLineOne: event
     })
   };
 
-  changeName(event){
+  changeCity(event){
     this.setState({
-      fullName: event
+      city: event
     })
   };
 
-  changeExpmonth(event){
+  changeState(event){
     this.setState({
-      expmonth: event
+      state: event
     })
   };
 
-  changeExpyear(event){
+  changeZipCode(event){
     this.setState({
-      expyear: event
+      zipCode: event
     })
   };
 
-  changeCvc(event){
-    this.setState({
-      cvc: event
-    })
-  };
   formFilled(){
-      if (!this.state.number || !this.state.expmonth || !this.state.expyear || !this.state.cvc){
+      if (!this.state.addressLineOne || !this.state.city || !this.state.state || !this.state.zipCode){
           return true
       }
       else {
@@ -142,13 +138,13 @@ class LogoutScreen extends React.Component {
         </View>
         {this.state.formFilled === "false" ? <Text>Password doesn't match</Text> : null}
 
-        <TextInput text50 autoCapitalize='none' placeholder="Full name" value={this.state.fullName} onChangeText={(event)=>this.changeName(event)} dark10/>
-        <TextInput text50 autoCapitalize='none' placeholder="Credit card number" value={this.state.number} onChangeText={(event)=>this.changeNumber(event)} dark10/>
-        <TextInput text50 autoCapitalize='none' placeholder="Expiration month" value={this.state.expmonth} onChangeText={(event)=>this.changeExpmonth(event)} dark10/>
-        <TextInput text50 autoCapitalize='none' placeholder="Expiration year" value={this.state.expyear} onChangeText={(event)=>this.changeExpyear(event)} dark10/>
+        <TextInput text50 autoCapitalize='none' placeholder="Street Address" value={this.state.addressLineOne} onChangeText={(event)=>this.changeAddressLineOne(event)} dark10/>
+        <TextInput text50 autoCapitalize='none' placeholder="City" value={this.state.city} onChangeText={(event)=>this.changeCity(event)} dark10/>
+        <TextInput text50 autoCapitalize='none' placeholder="State" value={this.state.state} onChangeText={(event)=>this.changeState(event)} dark10/>
+        <TextInput text50 autoCapitalize='none' placeholder="Zip Code" value={this.state.zipCode} onChangeText={(event)=>this.changeZipCode(event)} dark10/>
         <TextInput text50 autoCapitalize='none' placeholder="Enter CVC" value={this.state.cvc} onChangeText={(event)=>this.changeCvc(event)} dark10/>
         <View marginT-150 center>
-          <Button text70 white background-orange30 disabled={this.formFilled()} onPress={()=>this.onCheckoutButton()} label="Save Card Information"/>
+          <Button text70 white background-orange30 disabled={this.formFilled()} onPress={()=>this.onCheckoutButton()} label="Save Address"/>
         </View>
       </View>
     );
@@ -171,7 +167,7 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogoutScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AddressScreen)
 
 const styles = StyleSheet.create({
   container: {
