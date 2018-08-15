@@ -78,7 +78,7 @@ class AccountScreen extends React.Component {
           })
           }/>
           <Button title="Addresses" onPress={()=>this.props.navigator.showModal({
-            screen: "LogoutScreen", // unique ID registered with Navigation.registerScreen
+            screen: "AddressScreen", // unique ID registered with Navigation.registerScreen
             title: "Addresses", // title of the screen as appears in the nav bar (optional)
             passProps: {}, // simple serializable object that will pass as props to the modal (optional)
             navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)

@@ -136,13 +136,11 @@ class AddressScreen extends React.Component {
         <View style={styles.icon}>
           <Icon size={40} color='grey' name="x" onPress={() => categoryNavigator()}/>
         </View>
-        {this.state.formFilled === "false" ? <Text>Password doesn't match</Text> : null}
 
         <TextInput text50 autoCapitalize='none' placeholder="Street Address" value={this.state.addressLineOne} onChangeText={(event)=>this.changeAddressLineOne(event)} dark10/>
         <TextInput text50 autoCapitalize='none' placeholder="City" value={this.state.city} onChangeText={(event)=>this.changeCity(event)} dark10/>
         <TextInput text50 autoCapitalize='none' placeholder="State" value={this.state.state} onChangeText={(event)=>this.changeState(event)} dark10/>
         <TextInput text50 autoCapitalize='none' placeholder="Zip Code" value={this.state.zipCode} onChangeText={(event)=>this.changeZipCode(event)} dark10/>
-        <TextInput text50 autoCapitalize='none' placeholder="Enter CVC" value={this.state.cvc} onChangeText={(event)=>this.changeCvc(event)} dark10/>
         <View marginT-150 center>
           <Button text70 white background-orange30 disabled={this.formFilled()} onPress={()=>this.onCheckoutButton()} label="Save Address"/>
         </View>

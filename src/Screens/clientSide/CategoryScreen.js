@@ -95,7 +95,7 @@ class CategoryScreen extends Component<Props> {
     render() {
         return (
           <View>
-            <View>
+            <View style={styles.address}>
               <TextInput clearButtonMode="while-editing" placeholder="Enter your address" value={this.state.myAddress} onChangeText={(event)=>this.changeAddress(event)}/>
             </View>
             <View style={styles.container}>
@@ -118,15 +118,14 @@ const mapDispatchToProps = dispatch =>{
     }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryScreen)
+
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'space-between',
         flexDirection: "row"
     },
-    addressBox:{
-        backgroundColor: "rgba(236, 133, 29, .8)",
-        padding: 5,
-        alignItems: "center"
+    address:{
+      padding: 15
     },
     loader:{
         flex:1,
