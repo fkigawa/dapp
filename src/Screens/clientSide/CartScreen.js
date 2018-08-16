@@ -1,13 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text, ListView, TouchableOpacity} from 'react-native';
-import {View, Button} from 'react-native-ui-lib';
+import {StyleSheet, Text, ListView, TouchableOpacity,View, Image, TouchableHighlight} from 'react-native';
+import {Button} from 'react-native-ui-lib';
 import {connect} from "react-redux"
 import {addCart} from "../../store/actions/products";
 import {urlLink} from "../../../keys"
+import Icon from "react-native-vector-icons/Feather"
 import checkoutNavigator from "./MainTabs/CheckoutNavigator";
-
+let itemTracker = [];
 class CartScreen extends React.Component {
-
+    constructor(props){
+        super(props);
+        this.state={
+            itemTracker: []
+        }
+    }
   toCheckoutScreen = () => {
     this.props.navigator.showModal({
       screen: "CheckoutScreen", // unique ID registered with Navigation.registerScreen
@@ -38,23 +44,69 @@ class CartScreen extends React.Component {
         })
   }
 
+
+    increaseNumber(){
+        let incNum = this.state.itemAmount + 1;
+        this.setState({itemAmount: incNum})
+    }
+
+    decreaseNumber(){
+        let decNum = this.state.itemAmount - 1;
+        this.setState({itemAmount: decNum})
+    }
   render() {
     return (
-      <View flex paddingH-25 paddingT-70>
-        <View flex marginT-20 center>
-            {this.props.cartItems.map((data,i)=> <Text style={styles.welcome} key={i}>{data.name} {data.price}</Text>)}
-        </View>
-        <View flex marginT-200 center>
+      <View style={styles.container}>
+          <View style={styles.container1}>
+              {this.props.cartItems.map((data,i)=> {
+                  return (
+                      <View style={styles.container3}>
+                      <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
+                      <Text>{data.name} </Text>
+                      <Text>${data.price}</Text>
+                          <View style={styles.container2}>
+                          <TouchableOpacity onPress={()=>this.decreaseNumber()} style={styles.minusButton}>
+                              <Icon name={"minus-circle"} size={20} color={"#ec851d"} />
+                          </TouchableOpacity>
+
+
+                          <Text style={styles.quantity}>{this.props.quantity[data.name]}</Text>
+                          <TouchableOpacity onPress={()=>this.increaseNumber()} style={styles.plusButton}>
+                              <Icon name={"plus-circle"} size={20} color={"#ec851d"}/>
+                          </TouchableOpacity>
+
+
+                          <TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>
+                              <Text style={styles.addToCartText}> Add to Cart</Text>
+                          </TouchableHighlight>
+                          </View>
+                      </View>
+                      )
+                  }
+              )}
+          </View >
+        <View style={styles.container4}>
           <Button text70 white background-orange30  onPress={()=>this.toCheckoutScreen()} label="Checkout"/>
         </View>
       </View>
     );
   }
 }
+class RenderItems extends React.Component{
+    render(){
+        return(
+            <Text>
+                {this.props.data.name}
+                {this.props.data.price}
+            </Text>
+        )
+    }
+}
 const mapStateToProps = state => {
   return{
     cartItems: state.root.cartItems,
-      userId: state.root.userId
+      userId: state.root.userId,
+      quantity: state.root.productQuantity
   };
 };
 
@@ -68,10 +120,37 @@ export default connect(mapStateToProps,mapDispatchToProps)(CartScreen)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+        flex: 1,
+        backgroundColor: '#F5FCFF',
+        flexDirection: "row"
   },
+    container1: {
+        flex:1,
+        width: "100%",
+        height: "100%",
+
+  },
+    container2: {
+        flex:1,
+        width: "50%",
+        height: "100%",
+        alignItems: "center",
+        flexDirection: "row"
+  },
+    container3:{
+        flex:1,
+        width: "100%",
+        height: "100%",
+        flexDirection:"row",
+        alignItems: "center"
+    },
+    container4:{
+        flex:1,
+        width: "100%",
+        height: "100%",
+        flexDirection:"row",
+        alignItems: "flex-end"
+    },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -79,12 +158,41 @@ const styles = StyleSheet.create({
   },
     checkoutButton:{
         backgroundColor: "#3b5998",
-        alignItems: 'center',
         padding:5,
         height: 30,
         width: "90%",
         margin: 10,
-        position: "absolute",
-        bottom: 0
+    },
+    imageSize:{
+        height: "40%",
+        width: "30%",
+    },plusButton:{
+        marginLeft: 10
+    },
+    minusButton:{
+        marginLeft: 10
+    },
+    quantity:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 20,
+        fontWeight: "bold",
+        marginLeft: 10
+    },
+    addToCart:{
+        backgroundColor: "#ec851d",
+        padding: 5,
+        borderRadius: 8,
+        marginLeft: 5,
+    },
+    icon: {
+        marginLeft: -60,
+        alignItems: 'flex-start',
+        width: "100%"
+    },
+    addToCartText:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 10,
+        fontWeight: "bold",
+        color: "white"
     }
 });
