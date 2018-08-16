@@ -9,6 +9,7 @@ import addProductNavigator from "../adminScreens/AdminTabs/AddProductNavigator"
 import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUserId, addingDeliverer} from "../../store/actions/products";
 import {connect} from "react-redux"
 import {urlLink} from "../../../keys"
+import SplashScreen from 'react-native-splash-screen'
 
 class LoginScreen extends React.Component {
   constructor(props){
@@ -39,6 +40,7 @@ class LoginScreen extends React.Component {
 
       categoryNavigator()
     }
+    SplashScreen.hide();
   }
 
     onPhoneNumberButton(){

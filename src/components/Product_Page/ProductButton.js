@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import {urlLink} from "../../../keys"
 //import Icon from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Feather';
-
+import FastImage from 'react-native-fast-image'
 
 
 import productsDetailNavigator from "../../Screens/clientSide/MainTabs/ProductDetailNavigator";
@@ -81,7 +81,15 @@ class ProductButton extends React.Component{
                             </TouchableOpacity>
                         </View>
                             <TouchableOpacity onPress={()=>this.onProductButton(data.name)} style={styles.button1} >
-                                <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
+                              <FastImage
+                                  source={{
+                                    uri:data.imageUrl,
+                                    headers:{Authorization: 'someAuthToken'},
+                                    priority:FastImage.priority.high
+                                  }}
+                                  style={styles.imageSize}
+
+                              />
                                 <Text style={styles.price}>${data.price} each</Text>
                                 <Text style={styles.description}>{data.name}, {data.description}</Text>
                             </TouchableOpacity>

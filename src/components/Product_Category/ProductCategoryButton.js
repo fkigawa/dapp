@@ -3,6 +3,7 @@ import {Platform, Text, View, StyleSheet, TouchableOpacity, Image,FlatList,Scrol
 import productsNavigator from "../../Screens/clientSide/MainTabs/ProductsNavigator"
 import {urlLink} from "../../../keys"
 import {Spinner} from "nachos-ui";
+import FastImage from 'react-native-fast-image'
 
 var categoryArray = [];
 
@@ -72,9 +73,14 @@ export default class ProductCategoryButton extends React.Component{
                                 onPress={()=>this.onPressTile(data.name)}
                                 style={this.buttonStyle(i)}
                             >
-                                <Image
-                                    source={{uri:data.imageUrl}}
+                                <FastImage
+                                    source={{
+                                      uri:data.imageUrl,
+                                      headers:{Authorization: 'someAuthToken'},
+                                      priority:FastImage.priority.high
+                                    }}
                                     style={styles.imageSize}
+
                                 />
                                 <Text style={styles.textFormat}>
                                     {data.name}
