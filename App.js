@@ -19,7 +19,7 @@ import addDriverScreen from "./src/Screens/adminScreens/addDriverScreen"
 import addCategoryScreen from "./src/Screens/adminScreens/addCategoryScreen"
 import allOrdersScreen from "./src/Screens/adminScreens/allOrdersScreen"
 
-export let urlLink = "https://39e059b2.ngrok.io";
+export let urlLink = "https://46e5a70c.ngrok.io";
 
 const store = configureStore();
 
