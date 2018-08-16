@@ -76,9 +76,8 @@ export default class ProductCategoryButton extends React.Component{
                                     source={{uri:data.imageUrl}}
                                     style={styles.imageSize}
                                 />
-                                <Text>
+                                <Text style={styles.textFormat}>
                                     {data.name}
-
                                 </Text>
 
                             </TouchableOpacity>
@@ -174,6 +173,10 @@ const styles = StyleSheet.create({
         height: "70%",
         width: "75%",
         margin: 15
+    },
+    textFormat:{
+       fontFamily: "Helvetica Neue",
+        fontWeight: "bold"
     }
 
 
