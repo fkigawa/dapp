@@ -76,7 +76,7 @@ class FBLoginButton extends React.Component {
                     }).then((response) => {
                         return response.json();
                     }).then((response) => {
-                        console.log(response)
+                        console.log('this is the response', response)
                         this.props.changingFirstName(response.firstName)
                         this.props.changingLastName(response.lastName)
                         if (response.isDeliverer) {

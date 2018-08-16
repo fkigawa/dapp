@@ -80,13 +80,15 @@ class LoginScreen extends React.Component {
           })
               .then((response) => {
                   if (response.success === true) {
+                    this.props.changingFirstName(response.firstName);
+                    this.props.changingLastName(response.lastName);
                     this.props.addingUserId(response.userId)
                     this.props.addingDeliverer(response.isDeliverer)
                   }
               })
               .then(() => {
                   categoryNavigator()
-              })
+                })
               .catch((err) => {
                   console.log("The error is", err);
                   this.setState({error: true});
@@ -110,10 +112,19 @@ class LoginScreen extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+    return {
+        firstName: state.root.firstName,
+        lastName: state.root.lastName
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return{
         addingUserId: (userId)=> dispatch(addingUserId(userId)),
-        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer))
+        addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer)),
+        changingFirstName: (firstName)=> dispatch(changingFirstName(firstName)),
+        changingLastName: (lastName)=>  dispatch(changingLastName(lastName))
     }
 };
 

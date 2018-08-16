@@ -10,13 +10,14 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import {TextInput} from 'react-native-ui-lib';
 import ProductCategoryButton from "../../components/Product_Category/ProductCategoryButton";
-import {currentCategory} from "../../store/actions/products";
+import {currentCategory, changingFirstName, changingLastName} from "../../store/actions/products";
 import mapNavigator from "./MainTabs/MapNavigator";
 import {connect} from "react-redux";
 import geolib from "geolib";
 import Geocode from "react-geocode";
 import geoKey from "../../../keys"
 import {Spinner} from "nachos-ui"
+import {urlLink} from "../../../keys"
 type Props = {};
 
 let options = {
@@ -116,13 +117,17 @@ class CategoryScreen extends Component<Props> {
 }
 const mapStateToProps = state => {
     return {
-        categoryPage: state.root.currentCategory
+        categoryPage: state.root.currentCategory,
+        firstName: state.root.firstName,
+        lastName: state.root.lastName
     }
 };
 
 const mapDispatchToProps = dispatch =>{
     return{
-        changeCategory: (category)=> dispatch(currentCategory(category))
+        changeCategory: (category)=> dispatch(currentCategory(category)),
+        changingFirstName: (firstName)=> dispatch(changingFirstName(firstName)),
+        changingLastName: (lastName)=>  dispatch(changingLastName(lastName))
     }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryScreen)
