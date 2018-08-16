@@ -77,8 +77,8 @@ class CategoryScreen extends Component<Props> {
             });
             distance *= 0.000621371
             if (distance > 2) {
-              tooFar = true
-              alert('Not within delivery radius')
+              return tooFar = true
+              // return alert('Not within delivery radius')
             }
           },
           function() {

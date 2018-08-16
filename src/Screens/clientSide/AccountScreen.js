@@ -6,7 +6,7 @@ import homeNavigator from './MainTabs/HomeNavigator'
 import addressNavigator from './MainTabs/AddressNavigator'
 import deliveryNavigator from './MainTabs/DeliveryNavigator'
 import logoutNavigator from './MainTabs/LogoutNavigator'
-import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
+import {addingUserId, addingAccessToken, addingDeliverer, changingFirstName, changingLastName} from "../../store/actions/products";
 import {urlLink} from "../../../keys";
 let deliveryPortal;
 var logoutButton;
@@ -47,7 +47,11 @@ class AccountScreen extends React.Component {
         {/* <LoginButton onLogoutFinished={() => this.logout()} /> */}
       return logoutButton
     } else if (this.props.userId) {
-      logoutButton =  <Button title='logout' onPress={() => this.normalLogout()}/>
+      logoutButton =  <TouchableOpacity style={styles.touchable} onPress={this.normalLogout} activeOpacity={0.9}>
+          <View style={styles.button}>
+            <Text style={styles.text}>Logout</Text>
+          </View>
+        </TouchableOpacity>
       return logoutButton;
     }
   };
@@ -66,7 +70,18 @@ class AccountScreen extends React.Component {
 
   getDeliveryPortal = () => {
     if (this.props.isDeliverer) {
-      deliveryPortal = <Button title="Delivery Portal" onPress={() => deliveryNavigator()}/>
+      deliveryPortal = <TouchableOpacity style={styles.delivery} onPress={()=>this.props.navigator.showModal({
+        screen: "allOrdersScreen", // unique ID registered with Navigation.registerScreen
+        title: "All Orders", // title of the screen as appears in the nav bar (optional)
+        passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+        navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+        animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+      })
+      } activeOpacity={0.9}>
+          <View style={styles.buttonDelivery}>
+            <Text style={styles.textDelivery}>Delivery Portal</Text>
+          </View>
+        </TouchableOpacity>
       return deliveryPortal
     }
   };
@@ -74,7 +89,15 @@ class AccountScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          <Button title="Payment" onPress={()=>this.props.navigator.showModal({
+        <View style={styles.nameHolder}>
+          <Text style={styles.text2}>{this.props.firstName + " " + this.props.lastName}</Text>
+        </View>
+          {/* <TextInput text50
+            autoCapitalize='none'
+            placeholder={this.props.firstName + " " + this.props.lastName}
+            value={this.state.fullName}
+            onChangeText={(event)=>this.changeName(event)} dark10/> */}
+          {/* <Button title="Payment" onPress={()=>this.props.navigator.showModal({
             screen: "LogoutScreen", // unique ID registered with Navigation.registerScreen
             title: "Payment", // title of the screen as appears in the nav bar (optional)
             passProps: {}, // simple serializable object that will pass as props to the modal (optional)
@@ -89,7 +112,7 @@ class AccountScreen extends React.Component {
             navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
             animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
           })
-          }/>
+          }/> */}
           {this.getDeliveryPortal()}
           {this.getButton()}
       </View>
@@ -103,7 +126,9 @@ const mapStateToProps = state => {
     userId: state.root.userId,
     cartItems: state.root.cartItems,
     accessToken: state.root.accessToken,
-    userId: state.root.userId
+    userId: state.root.userId,
+    firstName: state.root.firstName,
+    lastName: state.root.lastName
   }
 }
 
@@ -111,7 +136,9 @@ const mapDispatchToProps = dispatch => {
     return{
         addingDeliverer: (isDeliverer)=> dispatch(addingDeliverer(isDeliverer)),
         addingAccessToken: (accessToken)=> dispatch(addingAccessToken(accessToken)),
-        addingUserId: (userId) => dispatch(addingUserId(userId))
+        addingUserId: (userId) => dispatch(addingUserId(userId)),
+        changingFirstName: (firstName) => dispatch(changingFirstName(firstName)),
+        changingLastName: (lastName) => dispatch(changingLastName(lastName)),
     }
 };
 
@@ -121,7 +148,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    // backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
@@ -129,7 +156,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   logout: {
-    margin: 470,
+    flex: 3
   },
   button: {
     flexDirection: "row",
@@ -146,16 +173,50 @@ const styles = StyleSheet.create({
     // shadowOffset:{  width: -5,  height: 10,  },
     // shadowColor: 'black',
   },
+  buttonDelivery: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+    paddingRight: 40,
+    paddingLeft: 40,
+    borderRadius: 100,
+    width: "90%",
+    // shadowRadius: 10,
+    // shadowOpacity: 0.8,
+    // shadowOffset:{  width: -5,  height: 10,  },
+    // shadowColor: 'black',
+  },
   text: {
-    marginLeft: 0,
     fontSize: 22,
     color: "white",
-    fontFamily: "Avenir Next"
+    fontFamily: "Avenir Next",
+  },
+  textDelivery: {
+    fontSize: 34,
+    color: "black",
+    fontFamily: "Avenir Next",
+  },
+  text2: {
+    fontSize: 40,
+    color: "black",
+    fontFamily: "Avenir Next",
+    paddingTop: '10%',
+    alignItems: "center",
   },
   touchable: {
-    marginTop: 250,
-    marginBottom: 20,
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    // flex: 3
+  },
+  nameHolder: {
+    flex: .9
+  },
+  delivery: {
+    flex: 1,
+    paddingBottom: '10%',
+    fontSize: 40,
+    width: "100%",
+    alignItems: "center",
   }
 });
