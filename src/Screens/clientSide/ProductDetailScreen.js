@@ -1,9 +1,11 @@
 import React from "react"
 import {connect} from "react-redux"
-import {View,Text,Button} from "react-native"
+import {View, Text, Button, Image, TouchableOpacity, StyleSheet,TouchableHighlight} from "react-native"
 import productsNavigator from "./MainTabs/ProductsNavigator";
 import {urlLink} from "../../../keys"
 import {changingQuantity, addCart, changingProductList} from "../../store/actions";
+import Icon from "react-native-vector-icons/Feather"
+import homeNavigator from "./MainTabs/HomeNavigator";
 class ProductDetailScreen extends React.Component{
     constructor(props){
         super(props);
@@ -40,7 +42,7 @@ class ProductDetailScreen extends React.Component{
     }
 
     onBack() {
-        productsNavigator(this.props.currentPage)
+        productsNavigator(this.props.currentPage,"slide-down")
     }
 
     onAddToCart(){
@@ -89,7 +91,7 @@ class ProductDetailScreen extends React.Component{
     }
     render(){
         return (
-            <View>
+            <View style={styles.container}>
                 {this.state.done ?
                     <ProductDetailScreen2
                         product={this.state.product}
@@ -100,12 +102,10 @@ class ProductDetailScreen extends React.Component{
                         currentNum={this.state.itemAmount}
                         cartHandler={()=>this.onAddToCart()}
                     />
-
                     :
                     null
                 }
             </View>
-
         )
     }
 }
@@ -114,25 +114,36 @@ class ProductDetailScreen2 extends React.Component{
     render(){
         return(
             <View>
-                <Button title="Back" onPress={()=>this.props.onBack()}/>
 
-                <Text>
-                    Current Product: {this.props.currentProduct}
-                </Text>
+                <View style={styles.icon}>
+                    <Icon size={40} color='grey' name="x" onPress={() => this.props.onBack()}/>
+                </View>
+                <Image source={{uri:this.props.product.imageUrl}} style={styles.imageSize}/>
 
-                <Text>
-                    Description: {this.props.product.description} {"\n"}
-                    Price: {this.props.product.price}
-                </Text>
+                <Text style={styles.productName}>{this.props.currentProduct} </Text>
 
-                <Button title="-" onPress={()=>this.props.decNum()}/>
+                <Text style={styles.price}>${this.props.product.price}</Text>
 
-                <Text>{this.props.currentNum}</Text>
+                <Text style={styles.description}>{this.props.product.description}</Text>
 
-                <Button title="+" onPress={()=>this.props.incNum()}/>
+                <View style={styles.addToCartItems}>
 
-                <Button title="Add to Cart" onPress={()=>this.props.cartHandler()}/>
+                    <TouchableOpacity onPress={()=>this.props.decNum()} style={styles.minusButton}>
+                        <Icon name={"minus-circle"} size={50} color={"#ec851d"} />
+                    </TouchableOpacity>
 
+                <Text style={styles.quantity}>{this.props.currentNum}</Text>
+                    <TouchableOpacity onPress={()=>this.props.incNum()} style={styles.plusButton}>
+                        <Icon name={"plus-circle"} size={50} color={"#ec851d"}/>
+                    </TouchableOpacity>
+
+
+                    <TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>
+                        <Text style={styles.addToCartText}> Add to Cart</Text>
+                    </TouchableHighlight>
+                {/*<Button title="Add to Cart" onPress={()=>this.props.cartHandler()}/>*/}
+
+                </View>
             </View>
         )
     }
@@ -158,3 +169,77 @@ const mapDispatchToProps = dispatch =>{
 
 export default connect(mapStateToProps,mapDispatchToProps)(ProductDetailScreen)
 
+const styles = StyleSheet.create({
+    container: {
+        flex:1,
+        alignItems:"center",
+        flexDirection: "row",
+        justifyContent: "center",
+        backgroundColor: "white",
+
+    },
+    container1: {
+        flex:1,
+        alignItems:"center",
+        flexDirection: "row",
+        justifyContent: "center",
+        backgroundColor: "white",
+    },
+    addToCartItems:{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%"
+    },
+    imageSize:{
+        width: "100%",
+        height: "50%",
+    },
+    productName:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 30,
+        fontWeight: "bold",
+        alignSelf: "center",
+        marginBottom: 7
+    },
+    price:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 20,
+        alignSelf: "center",
+        marginBottom: 7
+    },
+    description:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 20,
+        alignSelf: "center",
+        fontWeight: "bold"
+    },
+    plusButton:{
+        marginLeft: 10
+    },
+    minusButton:{
+        marginRight: 10
+    },
+    quantity:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 30,
+        fontWeight: "bold",
+    },
+    addToCart:{
+        backgroundColor: "#ec851d",
+        padding: 10,
+        borderRadius: 8,
+        marginLeft: 10,
+    },
+    icon: {
+        marginLeft: -60,
+        alignItems: 'flex-start',
+        width: "100%"
+    },
+    addToCartText:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "white"
+    }
+});

@@ -18,7 +18,7 @@ const CustomButton = () =>
         </View>;
 
 Navigation.registerComponent('CustomButton', () => CustomButton);
-const productsNavigator = (name) => {
+const productsNavigator = (name, slide) => {
   console.log('Navigation.startTabBasedApp PRODUCTS')
   Navigation.startTabBasedApp({
     tabs: [
@@ -50,6 +50,7 @@ const productsNavigator = (name) => {
       tabBarTextFontSize: 20,
       navBarComponentAlignment: 'center'
     },
+      animationType: slide
   });
 };
 
