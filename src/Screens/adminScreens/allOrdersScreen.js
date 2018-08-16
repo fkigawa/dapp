@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-nati
 import {connect} from 'react-redux'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import categoryNavigator from "../clientSide/MainTabs/CategoryNavigator";
+import Icon from 'react-native-vector-icons/Feather';
 import {urlLink} from "../../../keys"
 
 let deliveryPortal;
@@ -16,7 +17,11 @@ class allOrders extends React.Component {
   isDeliveryPortal = () => {
     console.log('im heree', this.props.isDeliverer)
     if (this.props.isDeliverer) {
-      deliveryPortal = <Button title="back" onPress={() => this.backToClientSide()}/>
+      deliveryPortal = <View style={styles.icon}>
+        <Icon size={40} color='grey' name="x" onPress={() => this.props.navigator.dismissModal({
+          animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+        })}/>
+      </View>
       return deliveryPortal
     }
   }
@@ -38,8 +43,8 @@ class allOrders extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button title='Update Orders' onPress={() => this.updateOrders()}/>
         {this.isDeliveryPortal()}
+        <Button title='Update Orders' onPress={() => this.updateOrders()}/>
       </View>
     );
   }
