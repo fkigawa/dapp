@@ -76,7 +76,13 @@ class ProductsScreen extends Component<Props> {
           <View style={styles.container}>
                 {/*<Button title='B' onPress={()=>this.backToCategory()} style={styles.button}/>*/}
 
-          <ProductButton key={Math.random()} products={this.state.products} currentProduct={this.props.currentProduct} changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}/>
+          <ProductButton
+              key={Math.random()}
+              products={this.state.products}
+              currentProduct={this.props.currentProduct}
+              changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}
+              navigator={this.props.navigator}
+          />
           </View>
 
 

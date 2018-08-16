@@ -57,7 +57,13 @@ class ProductButton extends React.Component{
     onProductButton = data =>{
 
         this.props.changeProduct(data);
-        productsDetailNavigator()
+        this.props.navigator.showModal({
+            screen: "ProductDetailScreen", // unique ID registered with Navigation.registerScreen
+            title: data.name, // title of the screen as appears in the nav bar (optional)
+            passProps: {}, // simple serializable object that will pass as props to the modal (optional)
+            navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+            animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+        })
     };
 
     render(){
@@ -76,11 +82,19 @@ class ProductButton extends React.Component{
                         </View>
                             <TouchableOpacity onPress={()=>this.onProductButton(data.name)} style={styles.button1} >
                                 <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
-                                <Text style={{fontSize: 11}}>${data.price} each</Text>
-                                <Text style={{fontSize: 11}}>{data.name}, {data.description}</Text>
-
+                                <Text style={styles.price}>${data.price} each</Text>
+                                <Text style={styles.description}>{data.name}, {data.description}</Text>
                             </TouchableOpacity>
-
+                        {/*<TouchableOpacity style={styles.button1}*/}
+                                          {/*raised*/}
+                                          {/*onPress={()=>{*/}
+                                              {/*// this.props.changeProduct(data)*/}
+                                              {/**/}
+                                          {/*}}>*/}
+                            {/*<Image source={{uri:data.imageUrl}} style={styles.imageSize}/>*/}
+                            {/*<Text style={styles.price}>${data.price} each</Text>*/}
+                            {/*<Text style={styles.description}>{data.name}, {data.description}</Text>*/}
+                        {/*</TouchableOpacity>*/}
 
 
                     </View>
@@ -147,5 +161,14 @@ const styles = StyleSheet.create({
         flex:1,
         width: "100%",
         height: "100%"
-    }
+    },
+    price:{
+        fontFamily:"Helvetica Neue",
+        fontSize: 11,
+        fontWeight: "bold"
+    },
+    description:{
+        fontFamily:"Helvetica Neue",
+        fontSize: 11,
+    },
 });
