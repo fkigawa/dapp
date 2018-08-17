@@ -11,9 +11,21 @@ class CartScreen extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            itemTracker: []
+            itemTracker: [],
+            total: 0
         }
     }
+
+  componentDidMount() {
+    let myTotal = this.state.total;
+    this.props.cartItems.map((data,i)=>{
+        myTotal += data.price*data.quantity
+    });
+    myTotal=parseFloat(Math.round(myTotal * 100) / 100).toFixed(2);
+
+    this.setState({total: myTotal});
+  }
+
   toCheckoutScreen = () => {
     this.props.navigator.showModal({
       screen: "CheckoutScreen", // unique ID registered with Navigation.registerScreen
@@ -51,6 +63,11 @@ class CartScreen extends React.Component {
         let singleItem = {...data};
         singleItem["quantity"] = quantity;
         this.props.addToCart(singleItem);
+        let newTotal = Number(this.state.total) + Number(data.price)
+        newTotal=parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);
+        this.setState ({
+          total: newTotal
+        })
     }
 
     decreaseNumber(data){
@@ -59,40 +76,51 @@ class CartScreen extends React.Component {
         let singleItem = {...data};
         singleItem["quantity"] = quantity;
         this.props.addToCart(singleItem);
+        let newTotal = Number(this.state.total) - Number(data.price)
+        newTotal=parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);
+        this.setState ({
+          total: newTotal
+        })
     }
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.container1}>
+          <View style={styles.containerCart}>
               {this.props.cartItems.map((data,i)=> {
                   return (
-                      <View style={styles.container3}>
-                      <Text>{data.name} </Text>
-                      <Text>${data.price}</Text>
-                          <View style={styles.container2}>
-                          <TouchableOpacity onPress={()=>this.decreaseNumber(data)} style={styles.minusButton}>
-                              <Icon name={"minus-circle"} size={20} color={"#ec851d"} />
+                      <View  style={styles.item} key={Math.random()}>
+                        <View style={styles.itemName}>
+                          <Text style={styles.text}>{data.name} </Text>
+                        </View>
+                        <View style={styles.quantity}>
+                          <TouchableOpacity onPress={()=>this.decreaseNumber(data)} >
+                              <Icon name={"minus-circle"} size={30} color={"#ec851d"} />
                           </TouchableOpacity>
 
 
-                          <Text style={styles.quantity}>{data.quantity}</Text>
+                          <Text style={styles.text}>{data.quantity}</Text>
 
-                          <TouchableOpacity onPress={()=>this.increaseNumber(data)} style={styles.plusButton}>
-                              <Icon name={"plus-circle"} size={20} color={"#ec851d"}/>
+                          <TouchableOpacity onPress={()=>this.increaseNumber(data)} >
+                              <Icon name={"plus-circle"} size={30} color={"#ec851d"}/>
                           </TouchableOpacity>
+                        </View>
+                        <View style={styles.price}>
+                          <Text style={styles.text}>${parseFloat(Math.round((data.price*data.quantity) * 100) / 100).toFixed(2)}</Text>
+                        </View>
 
-
-                          {/*<TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>*/}
-                              {/*<Text style={styles.addToCartText}> Add to Cart</Text>*/}
-                          {/*</TouchableHighlight>*/}
-                          </View>
-                      </View>
+                            {/*<TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>*/}
+                                {/*<Text style={styles.addToCartText}> Add to Cart</Text>*/}
+                            {/*</TouchableHighlight>*/}
+                        </View>
                       )
                   }
               )}
-          </View >
-        <View style={styles.container4}>
-          <Button text70 white background-orange30  onPress={()=>this.toCheckoutScreen()} label="Checkout"/>
+          </View>
+          <View style={styles.total}>
+            <Text style={styles.text}>Total: {this.state.total}</Text>
+          </View>
+        <View style={styles.containerCheckout}>
+          <Button text70 white style={styles.checkout}  onPress={()=>this.toCheckoutScreen()} label="Checkout"/>
         </View>
       </View>
     );
@@ -117,79 +145,56 @@ export default connect(mapStateToProps,mapDispatchToProps)(CartScreen)
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-        flexDirection: "row"
+    flex: 1,
+    flexDirection: "column",
+    // borderWidth: 2
   },
-    container1: {
-        flex:1,
-        width: "100%",
-        height: "100%",
-
+  containerCart: {
+    flex: 9,
+    // borderWidth: 2
   },
-    container2: {
-        flex:1,
-        width: "50%",
-        height: "100%",
-        alignItems: "center",
-        flexDirection: "row"
+  containerCheckout: {
+    flex: 1,
+    // borderWidth: 2,
+    padding: 10
   },
-    container3:{
-        flex:1,
-        width: "100%",
-        height: "100%",
-        flexDirection:"row",
-        alignItems: "center"
-    },
-    container4:{
-        flex:1,
-        width: "100%",
-        height: "100%",
-        flexDirection:"row",
-        alignItems: "flex-end"
-    },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  item: {
+    height: 60,
+    flexDirection: "row",
   },
-    checkoutButton:{
-        backgroundColor: "#3b5998",
-        padding:5,
-        height: 30,
-        width: "90%",
-        margin: 10,
-    },
-    imageSize:{
-        height: "40%",
-        width: "30%",
-    },plusButton:{
-        marginLeft: 10
-    },
-    minusButton:{
-        marginLeft: 10
-    },
-    quantity:{
-        fontFamily: "Helvetica Neue",
-        fontSize: 20,
-        fontWeight: "bold",
-        marginLeft: 10
-    },
-    addToCart:{
-        backgroundColor: "#ec851d",
-        padding: 5,
-        borderRadius: 8,
-        marginLeft: 5,
-    },
-    icon: {
-        marginLeft: -60,
-        alignItems: 'flex-start',
-        width: "100%"
-    },
-    addToCartText:{
-        fontFamily: "Helvetica Neue",
-        fontSize: 10,
-        fontWeight: "bold",
-        color: "white"
-    }
+  itemName: {
+    flex: 1,
+    // borderWidth: 2,
+    padding: 10,
+    alignItems: "center",
+    // justifyContent: "center",
+  },
+  quantity: {
+    flex: 1,
+    // borderWidth:2,
+    flexDirection: 'row',
+    padding: 10,
+    // alignItems: "center",
+    justifyContent: "space-between"
+  },
+  price: {
+    flex: 1,
+    // borderWidth: 2,
+    padding: 10,
+    alignItems: "center",
+    // justifyContent: "center"
+  },
+  text: {
+    fontFamily: "AvenirNext-DemiBold",
+    fontSize: 24
+  },
+  checkout: {
+    backgroundColor: '#ec851d'
+  },
+  total: {
+    flex: 1,
+    // borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

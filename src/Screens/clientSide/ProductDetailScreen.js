@@ -51,6 +51,7 @@ class ProductDetailScreen extends React.Component{
             singleItem["quantity"] = this.state.itemAmount;
             this.setState({product:singleItem}, ()=>{
                 this.props.addToCart(this.state.product)
+                productsNavigator(this.props.currentPage,"slide-down")
             });
         }
         else {
@@ -146,6 +147,7 @@ class ProductDetailScreen extends React.Component{
                         decNum={()=>this.decreaseNumber()}
                         currentNum={this.state.itemAmount}
                         cartHandler={()=>this.onAddToCart()}
+                        key={Math.random()}
                     />
                     :
                     null
@@ -158,7 +160,9 @@ class ProductDetailScreen extends React.Component{
 class ProductDetailScreen2 extends React.Component{
     render(){
         return(
-            <View>
+            <View style={styles.container}
+              key={Math.random()}
+              >
 
                 <View style={styles.icon}>
                     <Icon size={40} color='grey' name="x" onPress={() => this.props.onBack()}/>
@@ -217,11 +221,6 @@ export default connect(mapStateToProps,mapDispatchToProps)(ProductDetailScreen)
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        alignItems:"center",
-        flexDirection: "row",
-        justifyContent: "center",
-        backgroundColor: "white",
-
     },
     container1: {
         flex:1,
@@ -234,6 +233,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: 'center',
         width: "100%"
     },
     imageSize:{
@@ -277,9 +277,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     icon: {
-        marginLeft: -60,
+        justifyContent: 'flex-start',
+        // borderWidth: 2,
+        padding: 10,
         alignItems: 'flex-start',
-        width: "100%"
+        width: "110%"
     },
     addToCartText:{
         fontFamily: "Helvetica Neue",

@@ -29,7 +29,7 @@ class CheckoutScreen extends React.Component{
     componentDidMount(){
         let myTotal = this.state.total;
         this.props.cartItems.map((data,i)=>{
-            myTotal += data.price
+            myTotal += (data.price*data.quantity)
         });
         myTotal=parseFloat(Math.round(myTotal * 100) / 100).toFixed(2);
 
