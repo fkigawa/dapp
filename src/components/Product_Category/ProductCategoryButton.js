@@ -16,6 +16,10 @@ export default class ProductCategoryButton extends React.Component{
       })
     }
 
+    componentWillUnmount() {
+      this.isCancelled = true;
+  }
+
     componentDidMount = () => {
       fetch(`${urlLink}/categories`, {
           method: "GET",
@@ -28,7 +32,7 @@ export default class ProductCategoryButton extends React.Component{
       }).then((response) => {
           categoryArray = this.state.categories.slice()
           categoryArray = response.categories
-          this.setState ({
+          !this.isCancelled && this.setState ({
             categories: categoryArray
           })
       })
