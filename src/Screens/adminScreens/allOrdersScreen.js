@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, AsyncStorage,ListView,TouchableHighlight} from 'react-native';
 import {connect} from 'react-redux'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import categoryNavigator from "../clientSide/MainTabs/CategoryNavigator";
@@ -43,34 +43,36 @@ class allOrders extends React.Component {
       return response.json()
     }).then((response, err) => {
       let transactionsArray = [];
-      for (var i = 0; i < response.transactions.length; i++) {
-        for (var j = 0; j < response.transactions[i].products.length; j++) {
-          transactionsArray.push(response.transactions[i].products[j])
-        };
-      }
-
-      let itemsArray = [];
-      for (var i = 0; i < response.transactions.length; i++) {
-        for (key in transactionsArray[i]) {
-          itemsArray.push(key + ": " + transactionsArray[i][key]);
-        }
-      }
-
-      console.log(itemsArray)
-
+      console.log("Response", response.transactions);
+      let itemsArray = response.transactions;
       this.setState({
-        transactions: itemsArray
-      })
+        transactions: itemsArray,
+      });
       console.log(this.state.transactions[0])
     })
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
         {this.isDeliveryPortal()}
-        <Button title='Update Orders' onPress={() => this.updateOrders()}/>
-        {this.state.transactions.map(each => <Text style={styles.text}>{each}</Text>)}
+          <TouchableHighlight onPress={()=>this.updateOrders()} style={styles.addToCart}>
+              <Text style={styles.addToCartText}>Update Orders</Text>
+          </TouchableHighlight>
+        {this.state.transactions.map(each => {
+          return (
+              <View style={styles.container2}>
+                  <Text style={styles.text}>Deliver To: {each.fullName} {"\n"}At: {each.address}</Text>
+                  <Text style={styles.text}>Contact: {each.phoneNumber} </Text>
+                <Text style={styles.text}>Items Bought:</Text>
+                  {each.products.map((item,i) =>{
+                      return (<View>
+                          <Text style={styles.text}> - {item.name} x {item.quantity}</Text>
+                      </View>)
+                  })}
+          </View>)
+        })}
+
       </View>
     );
   }
@@ -80,7 +82,7 @@ const mapStateToProps = state => {
   return{
     isDeliverer: state.root.isDeliverer,
   }
-}
+};
 
 const mapDispatchToProps = dispatch => {
     return{
@@ -94,7 +96,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+      padding: 10
   },
+    container2:{
+        width:"100%",
+        alignItems:"flex-start",
+        borderBottomWidth: 1,
+        borderColor: "#eee",
+        marginBottom: 5,
+        paddingBottom: 5
+    },
+    icon:{
+        alignSelf: 'flex-start'
+    },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -103,5 +117,20 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     padding: 2
-  }
+  },
+    addToCart:{
+        backgroundColor: "#ec851d",
+        padding: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 8,
+        marginLeft: 10,
+        marginBottom: 20
+    },
+    addToCartText:{
+        fontFamily: "Helvetica Neue",
+        fontSize: 15,
+        fontWeight: "bold",
+        color: "white",
+    }
 });

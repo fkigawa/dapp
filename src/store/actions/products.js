@@ -1,5 +1,5 @@
 
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS} from "./actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_EMAIL,CHANGE_FIRSTNAME,CHANGE_LASTNAME,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS, EMPTY_CART} from "./actionTypes"
 
 export const loggingIn = () => {
   return {
@@ -23,6 +23,11 @@ export const addCart = (item) => {
       type: ADD_CART,
       item: item
   };
+};
+export const emptyCart = () =>{
+    return {
+        type: EMPTY_CART
+    }
 };
 export const changingEmail = (newEmail) => {
     return {
@@ -80,5 +85,7 @@ export const initializingProducts = (name)=>{
         name: name
     }
 };
+
+
 
 

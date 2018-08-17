@@ -12,5 +12,4 @@ const checkoutNavigator = () => {
   });
 
 };
-
 export default checkoutNavigator

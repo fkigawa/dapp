@@ -11,6 +11,8 @@ import {connect} from "react-redux";
 import dance from "../../assets/dancing.gif";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Spinner} from "nachos-ui"
+import {emptyCart} from "../../store/actions";
+
 class CheckoutScreen extends React.Component{
     constructor(props){
         super(props);
@@ -159,13 +161,16 @@ class CheckoutScreen extends React.Component{
                                     products: this.props.cartItems,
                                     amount: this.state.total*100,
                                     shipping: this.state.addressLineOne + " " + this.state.city  + " " +this.state.state + " " +this.state.zipCode,
+                                    fullName: this.state.fullName,
+                                    phoneNumber: this.state.phoneNumber
                                 })
                             })
                                 .then(resp => resp.json())
                                 .then(function(response){
                                     console.log(response);
-                                });
 
+                                });
+                            this.props.emptyingCart();
                             this.setState({paid: true,loading:false});
                         }
                     }.bind(this)).catch(err => console.error(err));
@@ -226,6 +231,12 @@ const mapStateToProps = state => {
     };
 };
 
+const mapDispatchToProps = dispatch => {
+    return{
+        emptyingCart: () => dispatch(emptyCart())
+    }
+};
+
 class Paid extends React.Component{
     render(){
         return (
@@ -233,7 +244,8 @@ class Paid extends React.Component{
                 {/*<View style={styles.containerIcon2}>*/}
             <View style={styles.exitButton}>
                     <Icon size={40} color='grey' name="x" onPress={() => this.props.navigator.dismissModal({
-                        animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+                        animationType: 'slide-down', // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+                        passProps: {}
                     })}/>
 
             </View>
@@ -248,7 +260,7 @@ class Paid extends React.Component{
     }
 }
 
-export default connect(mapStateToProps)(CheckoutScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen)
 
 
 const styles = StyleSheet.create({

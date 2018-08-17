@@ -1,5 +1,5 @@
 
-import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS} from "../actions/actionTypes"
+import {LOGGING_IN,CURRENT_CATEGORY,ADD_CART,CHANGE_LASTNAME,CHANGE_FIRSTNAME,CHANGE_EMAIL,ADD_USERID,FB_ACCESS_TOKEN,DELIVERER,CURRENT_PRODUCT,CHANGE_QUANTITY,INITIALIZE_PRODUCTS,EMPTY_CART} from "../actions/actionTypes"
 
 
 const initialState = {
@@ -44,6 +44,12 @@ const reducer = (state=initialState,action) => {
             return{
                 ...state,
                 cartItems: newArray
+            };
+        case EMPTY_CART:
+            let emptyArray = [];
+            return{
+                ...state,
+                cartItems: emptyArray
             };
         case CHANGE_EMAIL:
             return{
