@@ -25,9 +25,9 @@ const startNavigator = () => {
       Navigation.startTabBasedApp({
         tabs: [
           {
-            label: 'Categories',
+            label: 'Browse',
             screen: 'CategoryScreen', // this is a registered name for a screen
-            title: 'Categories'
+            title: 'Browse'
           },
           {
             label: 'Cart',
