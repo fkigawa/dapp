@@ -45,21 +45,64 @@ class ProductDetailScreen extends React.Component{
         productsNavigator(this.props.currentPage,"slide-down")
     }
 
-    onAddToCart(){
-        let cartArray = new Array(this.state.itemAmount).fill(this.state.product);
-        let singleItem = {...cartArray[0]};
-        for(let i = 0; i < this.state.itemAmount; i++){
-            this.props.addToCart(singleItem)
+    onAddToCart() {
+        if(this.props.cartItems.length === 0){
+            let singleItem = {...this.state.product};
+            singleItem["quantity"] = this.state.itemAmount;
+            this.setState({product:singleItem}, ()=>{
+                this.props.addToCart(this.state.product)
+            });
         }
+        else {
+            var self = this
+            let isInCart = false;
+            this.props.cartItems.map((cartItem,i)=> {
+                if (cartItem.name === this.state.product.name ) {
+                    console.log("in here");
+                    isInCart = true;
+                    let singleItem = {...cartItem};
+                    console.log("Single Item", singleItem);
+                    let quantity = singleItem["quantity"];
+                    quantity = quantity + this.state.itemAmount;
+                    singleItem["quantity"] = quantity;
+                    this.setState({product: singleItem},()=>{
+                        this.props.addToCart(this.state.product)
+                        productsNavigator(this.props.currentPage,"slide-down")
+                    })
 
-        let productQuantityCopy = {...this.props.productQuantity};
-        for(let key in productQuantityCopy){
-            if(key === singleItem.name){
-                let quantity = productQuantityCopy[key];
-                quantity = quantity + this.state.itemAmount;
-                this.props.changeQuantity(quantity, key)
+                }
+            });
+            if(!isInCart){
+                let singleItem = {...this.state.product};
+                singleItem["quantity"] = this.state.itemAmount;
+                this.setState({product:singleItem}, ()=>{
+                    this.props.addToCart(this.state.product)
+                    productsNavigator(this.props.currentPage,"slide-down")
+                });
             }
         }
+    }
+
+
+
+        //Below code was changing the productQuantity object.,
+        // let cartArray = new Array(this.state.itemAmount).fill(this.state.product);
+        // let singleItem = {...cartArray[0]};
+        // for(let i = 0; i < this.state.itemAmount; i++){
+        //     this.props.addToCart(singleItem)
+        // }
+        //
+        // let productQuantityCopy = {...this.props.productQuantity};
+        // for(let key in productQuantityCopy){
+        //     if(key === singleItem.name){
+        //         let quantity = productQuantityCopy[key];
+        //         quantity = quantity + this.state.itemAmount;
+        //         this.props.changeQuantity(quantity, key)
+        //     }
+        // }
+
+
+
         // let cartArray = new Array(this.state.itemAmount).fill(this.state.product);
         // let singleItem = {...cartArray[0]};
         // let added = false;
@@ -88,10 +131,12 @@ class ProductDetailScreen extends React.Component{
         //         })
         //     }
         // }
-    }
+
     render(){
         return (
             <View style={styles.container}>
+                {console.log("Current Product",this.props.currentProduct )}
+                {console.log("Product Product",this.state.product )}
                 {this.state.done ?
                     <ProductDetailScreen2
                         product={this.state.product}

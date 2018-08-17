@@ -19,7 +19,13 @@ class ProductButton extends React.Component{
     }
     onPressTile(data){
         console.log("DATA IN PRESS TILE", data);
+        console.log("Cart Items ", this.props.cartItems);
         this.props.addToCart(data);
+        this.props.cartItems.map((cartItem,i)=>{
+            if(cartItem.name !== data.name){
+
+            }
+        });
         let productQuantityCopy = {...this.props.productQuantity};
         let count = 0;
         for(let key in productQuantityCopy){
@@ -74,12 +80,12 @@ class ProductButton extends React.Component{
             {this.props.products.map((data,i)=>{
                 return (
                     <View key={Math.random()} style={styles.buttonContainer}>
-                        <View style={styles.addToCart}>
-                            <TouchableOpacity onPress={()=>this.onPressTile(data)} style={styles.button} >
-                                {/*<Text style={styles.addToCartText}> + </Text>*/}
-                                <Icon name={"plus-circle"}  size={25} color={"#ec851d"}/>
-                            </TouchableOpacity>
-                        </View>
+                        {/*<View style={styles.addToCart}>*/}
+                            {/*<TouchableOpacity onPress={()=>this.onPressTile(data)} style={styles.button} >*/}
+                                {/*/!*<Text style={styles.addToCartText}> + </Text>*!/*/}
+                                {/*<Icon name={"plus-circle"}  size={25} color={"#ec851d"}/>*/}
+                            {/*</TouchableOpacity>*/}
+                        {/*</View>*/}
                             <TouchableOpacity onPress={()=>this.onProductButton(data.name)} style={styles.button1} >
                               <FastImage
                                   source={{

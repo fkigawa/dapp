@@ -45,14 +45,20 @@ class CartScreen extends React.Component {
   }
 
 
-    increaseNumber(){
-        let incNum = this.state.itemAmount + 1;
-        this.setState({itemAmount: incNum})
+    increaseNumber(data){
+        let quantity = data.quantity;
+        quantity++;
+        let singleItem = {...data};
+        singleItem["quantity"] = quantity;
+        this.props.addToCart(singleItem);
     }
 
-    decreaseNumber(){
-        let decNum = this.state.itemAmount - 1;
-        this.setState({itemAmount: decNum})
+    decreaseNumber(data){
+        let quantity = data.quantity;
+        quantity--;
+        let singleItem = {...data};
+        singleItem["quantity"] = quantity;
+        this.props.addToCart(singleItem);
     }
   render() {
     return (
@@ -61,24 +67,24 @@ class CartScreen extends React.Component {
               {this.props.cartItems.map((data,i)=> {
                   return (
                       <View style={styles.container3}>
-                      <Image source={{uri:data.imageUrl}} style={styles.imageSize}/>
                       <Text>{data.name} </Text>
                       <Text>${data.price}</Text>
                           <View style={styles.container2}>
-                          <TouchableOpacity onPress={()=>this.decreaseNumber()} style={styles.minusButton}>
+                          <TouchableOpacity onPress={()=>this.decreaseNumber(data)} style={styles.minusButton}>
                               <Icon name={"minus-circle"} size={20} color={"#ec851d"} />
                           </TouchableOpacity>
 
 
-                          <Text style={styles.quantity}>{this.props.quantity[data.name]}</Text>
-                          <TouchableOpacity onPress={()=>this.increaseNumber()} style={styles.plusButton}>
+                          <Text style={styles.quantity}>{data.quantity}</Text>
+
+                          <TouchableOpacity onPress={()=>this.increaseNumber(data)} style={styles.plusButton}>
                               <Icon name={"plus-circle"} size={20} color={"#ec851d"}/>
                           </TouchableOpacity>
 
 
-                          <TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>
-                              <Text style={styles.addToCartText}> Add to Cart</Text>
-                          </TouchableHighlight>
+                          {/*<TouchableHighlight onPress={()=>this.props.cartHandler()} style={styles.addToCart}>*/}
+                              {/*<Text style={styles.addToCartText}> Add to Cart</Text>*/}
+                          {/*</TouchableHighlight>*/}
                           </View>
                       </View>
                       )
@@ -92,16 +98,7 @@ class CartScreen extends React.Component {
     );
   }
 }
-class RenderItems extends React.Component{
-    render(){
-        return(
-            <Text>
-                {this.props.data.name}
-                {this.props.data.price}
-            </Text>
-        )
-    }
-}
+
 const mapStateToProps = state => {
   return{
     cartItems: state.root.cartItems,

@@ -31,7 +31,16 @@ const reducer = (state=initialState,action) => {
             };
         case ADD_CART:
             let newArray = state.cartItems.slice();
-            newArray.push(action.item);
+            let isInCart = false;
+            newArray.map((cartItem,i)=>{
+                if(cartItem.name === action.item.name){
+                    isInCart = true;
+                    cartItem.quantity = action.item.quantity;
+                }
+            });
+            if(!isInCart){
+                newArray.push(action.item);
+            }
             return{
                 ...state,
                 cartItems: newArray
