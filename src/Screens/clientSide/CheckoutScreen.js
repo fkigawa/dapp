@@ -138,7 +138,7 @@ class CheckoutScreen extends React.Component{
                     body: JSON.stringify({
                         stripeToken: data.id,
                         description: this.props.cartItems,
-                        amount: this.state.total*100,
+                        amount: Math.round(this.state.total*100),
                         shippingLineOne: this.state.addressLineOne,
                         name: this.state.fullName,
                         zipCode: this.state.zipCode,

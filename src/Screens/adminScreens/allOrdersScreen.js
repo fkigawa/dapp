@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, AsyncStorage,ListView,TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, AsyncStorage,ListView,TouchableHighlight, ScrollView} from 'react-native';
 import {connect} from 'react-redux'
 import {addingUserId, addingAccessToken, addingDeliverer} from "../../store/actions/products";
 import categoryNavigator from "../clientSide/MainTabs/CategoryNavigator";
@@ -54,7 +54,9 @@ class allOrders extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+        <ScrollView >
+        <View style={styles.container}>
+
         {this.isDeliveryPortal()}
           <TouchableHighlight onPress={()=>this.updateOrders()} style={styles.addToCart}>
               <Text style={styles.addToCartText}>Update Orders</Text>
@@ -70,10 +72,13 @@ class allOrders extends React.Component {
                           <Text style={styles.text}> - {item.name} x {item.quantity}</Text>
                       </View>)
                   })}
-          </View>)
+              </View>
+          )
         })}
 
-      </View>
+
+        </View>
+        </ScrollView>
     );
   }
 }
