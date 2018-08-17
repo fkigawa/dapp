@@ -53,3 +53,5 @@ Navigation.startSingleScreenApp({
     },
     animationType: 'slide-down' // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
 });
+
+console.disableYellowBox = true;

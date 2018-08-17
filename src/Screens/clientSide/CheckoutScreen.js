@@ -233,6 +233,7 @@ class Paid extends React.Component{
                 {/*<View style={styles.containerIcon2}>*/}
             <View style={styles.exitButton}>
                     <Icon size={40} color='grey' name="x" onPress={() => this.props.navigator.dismissModal({
+                        screen: 'CategoryScreen',
                         animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
                     })}/>
 
