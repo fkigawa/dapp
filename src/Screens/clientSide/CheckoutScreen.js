@@ -179,7 +179,7 @@ class CheckoutScreen extends React.Component{
         return (
 
           <KeyboardAwareScrollView >
-              {this.state.paid ? <View ><Paid /></View> :
+              {this.state.paid ? <View ><Paid navigator={this.props.navigator}/></View> :
                   <View>
                {this.state.loading ?
                    <View style={styles.loader}>
@@ -230,10 +230,16 @@ class Paid extends React.Component{
     render(){
         return (
             <View style={styles.containerIcon}>
-                <View style={styles.containerIcon2}>
+                {/*<View style={styles.containerIcon2}>*/}
+            <View style={styles.exitButton}>
+                    <Icon size={40} color='grey' name="x" onPress={() => this.props.navigator.dismissModal({
+                        animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+                    })}/>
+
+            </View>
                 <Icon name={"shopping-cart"} size={50}/>
                 <Text style={styles.paidText}> Your order is on the way! </Text>
-                </View>
+                {/*</View>*/}
                 <View style={styles.image}>
                 <Image source={dance} style={styles.imageSize}/>
                 </View>
@@ -266,8 +272,11 @@ const styles = StyleSheet.create({
       fontSize: 30
     },
     containerIcon:{
-    flexDirection: "column"
-    },containerIcon2:{
+    flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    containerIcon2:{
     flexDirection: "row",
         alignItems: "center",
         justifyContent:"center",
@@ -278,5 +287,9 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "flex-start",
         justifyContent: "flex-end",
+    },
+    exitButton:{
+        width: "100%",
+        padding: 10
     }
 });

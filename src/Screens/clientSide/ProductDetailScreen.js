@@ -138,6 +138,10 @@ class ProductDetailScreen extends React.Component{
             <View style={styles.container}>
                 {console.log("Current Product",this.props.currentProduct )}
                 {console.log("Product Product",this.state.product )}
+                <View style={styles.icon}>
+                <Icon size={40} color='grey' name="x" onPress={() => this.onBack()}/>
+            </View>
+                <Image source={{uri:this.state.product.imageUrl}} style={styles.imageSize}/>
                 {this.state.done ?
                     <ProductDetailScreen2
                         product={this.state.product}
@@ -164,10 +168,8 @@ class ProductDetailScreen2 extends React.Component{
               key={Math.random()}
               >
 
-                <View style={styles.icon}>
-                    <Icon size={40} color='grey' name="x" onPress={() => this.props.onBack()}/>
-                </View>
-                <Image source={{uri:this.props.product.imageUrl}} style={styles.imageSize}/>
+
+                {/*<Image source={{uri:this.props.product.imageUrl}} style={styles.imageSize}/>*/}
 
                 <Text style={styles.productName}>{this.props.currentProduct} </Text>
 

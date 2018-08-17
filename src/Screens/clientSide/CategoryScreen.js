@@ -40,9 +40,6 @@ class CategoryScreen extends Component<Props> {
     })
   }
 
-    componentDidMount() {
-    }
-
     changeAddress = (myAddress) => {
       this.setState({myAddress})
     };

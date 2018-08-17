@@ -12,7 +12,8 @@ export default class ProductCategoryButton extends React.Component{
       super(props);
       this.state = ({
         categories: [],
-          buttonNumber: 1
+          buttonNumber: 1,
+          done: false
       })
     }
 
@@ -30,16 +31,17 @@ export default class ProductCategoryButton extends React.Component{
       }).then((response) => {
           return response.json();
       }).then((response) => {
-          categoryArray = this.state.categories.slice()
-          categoryArray = response.categories
+          categoryArray = this.state.categories.slice();
+          categoryArray = response.categories;
           !this.isCancelled && this.setState ({
-            categories: categoryArray
+            categories: categoryArray,
+              done: true
           })
       })
     };
 
     onPressTile(name){
-        this.props.changeCategory(name)
+        this.props.changeCategory(name);
         productsNavigator(name)
     }
     buttonStyle = (i) =>{
@@ -68,65 +70,49 @@ export default class ProductCategoryButton extends React.Component{
 
     render() {
         return (
-            <ScrollView>
-            <View style={styles.container}>
-                {this.state.categories.map((data,i)=>{
-                    return (
-                        <View key={i} style={this.buttonContainer(i)}>
-                            <TouchableOpacity
-                                onPress={()=>this.onPressTile(data.name)}
-                                style={this.buttonStyle(i)}
-                            >
-                                <FastImage
-                                    source={{
-                                      uri:data.imageUrl,
-                                      headers:{Authorization: 'someAuthToken'},
-                                      priority:FastImage.priority.high
-                                    }}
-                                    style={styles.imageSize}
+            <ScrollView style={{flex:1}}>
+                {this.state.done ? <View style={styles.container}>
+                    {this.state.categories.map((data,i)=>{
+                        return (
+                            <View key={i} style={this.buttonContainer(i)}>
+                                <TouchableOpacity
+                                    onPress={()=>this.onPressTile(data.name)}
+                                    style={this.buttonStyle(i)}
+                                >
+                                    <FastImage
+                                        source={{
+                                            uri:data.imageUrl,
+                                            headers:{Authorization: 'someAuthToken'},
+                                            priority:FastImage.priority.high
+                                        }}
+                                        style={styles.imageSize}
 
-                                />
-                                <Text style={styles.textFormat}>
-                                    {data.name}
-                                </Text>
+                                    />
+                                    <Text style={styles.textFormat}>
+                                        {data.name}
+                                    </Text>
 
-                            </TouchableOpacity>
-                        </View>
-
-                    )
-
-                })}
-
-                {/*<FlatList*/}
-
-                    {/*horizontal={false}*/}
-                    {/*columnWrapperStyle={styles.container}*/}
-                    {/*data={this.state.categories}*/}
-                    {/*renderItem={({item,index}) => (*/}
-                        {/*<View key={index} style={this.buttonContainer(index)}>*/}
-                        {/*<TouchableOpacity*/}
-                            {/*onPress={()=>this.onPressTile(item.name)}*/}
-                            {/*style={this.buttonStyle(index)}*/}
-                        {/*>*/}
-                            {/*<Image*/}
-                                {/*source={{uri:item.imageUrl}}*/}
-                                {/*style={styles.imageSize}*/}
-                            {/*/>*/}
-                            {/*<Text>*/}
-                                {/*{item.name}*/}
-
-                            {/*</Text>*/}
-
-                        {/*</TouchableOpacity>*/}
-                    {/*</View>)}*/}
-                {/*/>*/}
-            </View>
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    })}
+                </View> :
+                    <Loader />
+                }
             </ScrollView>
         )
     }
 }
+class Loader extends React.Component{
+    render(){
+        return (
 
-
+            <View style={styles.loader}>
+                <Spinner size={25} color={"#ec851d"}/>
+            </View>
+        )
+    }
+}
 const styles = StyleSheet.create({
     container: {
         flex:1,
@@ -187,7 +173,13 @@ const styles = StyleSheet.create({
     textFormat:{
        fontFamily: "Helvetica Neue",
         fontWeight: "bold"
+    },
+    loader:{
+        transform: [{ rotate: "90deg"}],
+        height: "100%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        flexDirection: "column",
     }
-
-
 });

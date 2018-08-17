@@ -60,7 +60,8 @@ class ProductsScreen extends Component<Props> {
       productArray = response.products;
       // this.props.updatingProductList(response.products);
       this.setState ({
-        products: productArray
+        products: productArray,
+          done: true
       },()=>{
           let flag = true;
           for(let key in this.props.productQuantity){
@@ -105,14 +106,16 @@ class ProductsScreen extends Component<Props> {
 
           <View style={styles.container}>
                 {/*<Button title='B' onPress={()=>this.backToCategory()} style={styles.button}/>*/}
+              {this.state.done ? <ProductButton
+                  key={Math.random()}
+                  products={this.state.products}
+                  currentProduct={this.props.currentProduct}
+                  changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}
+                  navigator={this.props.navigator}
+                  /> : <View style={styles.loader}>
+                  <Spinner size={25} color={"#ec851d"}/>
+                  </View> }
 
-          <ProductButton
-              key={Math.random()}
-              products={this.state.products}
-              currentProduct={this.props.currentProduct}
-              changeProductQuantity={(quantity,name)=>this.changeProductQuantity(quantity,name)}
-              navigator={this.props.navigator}
-          />
           </View>
 
 
@@ -141,16 +144,16 @@ const styles = StyleSheet.create({
   container: {
       justifyContent: 'space-between',
       flexDirection: "row",
-      marginTop: 15
+      marginTop: 15,
   },
-    loader:{
-        flex:1,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        transform:[{rotate:"270deg"}],
-        alignItems: "center",
-        justifyContent: "center"
-    },
+    // loader:{
+    //     flex:1,
+    //     flexDirection: "row",
+    //     flexWrap: "wrap",
+    //     transform:[{rotate:"270deg"}],
+    //     alignItems: "center",
+    //     justifyContent: "center"
+    // },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -163,5 +166,11 @@ const styles = StyleSheet.create({
   },
     button:{
     alignItems: "flex-start",
+    },
+    loader:{
+        transform: [{ rotate: "270deg"}],
+        flex: 1,
+        alignItems: "flex-start",
+        justifyContent: "flex-end",
     }
 });
