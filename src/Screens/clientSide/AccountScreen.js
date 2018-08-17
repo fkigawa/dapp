@@ -19,11 +19,11 @@ class AccountScreen extends React.Component {
 
   payment = () => {
     logoutNavigator();
-  }
+  };
 
   address = () => {
     addressNavigator();
-  }
+  };
 
   fbAuth = () => {
     LoginManager.logOut();

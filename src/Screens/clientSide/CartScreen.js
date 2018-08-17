@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import {addCart} from "../../store/actions/products";
 import {urlLink} from "../../../keys"
 import Icon from "react-native-vector-icons/Feather"
-import checkoutNavigator from "./MainTabs/CheckoutNavigator";
+import categoryNavigator from "./MainTabs/CategoryNavigator";
 let itemTracker = [];
 class CartScreen extends React.Component {
     constructor(props){
@@ -22,7 +22,6 @@ class CartScreen extends React.Component {
         myTotal += data.price*data.quantity
     });
     myTotal=parseFloat(Math.round(myTotal * 100) / 100).toFixed(2);
-
     this.setState({total: myTotal});
   }
 
@@ -35,27 +34,6 @@ class CartScreen extends React.Component {
       animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
     });
   };
-
-  checkoutButtonHandler(){
-      fetch(`${urlLink}/checkout`, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json; charset=utf-8",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-              cartItems: this.props.cartItems,
-              userId: this.props.userId
-          })
-      }).then((response) => {
-          return response.json();
-      }).then((response) => {
-            if (response.success === true) {
-               // console.log("Response from backend at checkout is", response);
-            }
-        })
-  }
-
 
     increaseNumber(data){
         let quantity = data.quantity;
@@ -137,7 +115,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (item) => dispatch(addCart(item))
+    addToCart: (item) => dispatch(addCart(item)),
   };
 };
 
