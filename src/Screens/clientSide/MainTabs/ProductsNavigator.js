@@ -23,9 +23,9 @@ const productsNavigator = (name, slide) => {
   Navigation.startTabBasedApp({
     tabs: [
       {
-        label: 'Categories',
+        label: 'Browse',
         screen: 'ProductsScreen', // this is a registered name for a screen
-        title: name,
+        title: "Products",
           // navigatorButtons:{
           //     leftButtons: [
           //         {

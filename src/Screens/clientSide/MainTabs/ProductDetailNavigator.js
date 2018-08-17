@@ -5,7 +5,7 @@ const productsDetailNavigator = () => {
     Navigation.startTabBasedApp({
         tabs: [
             {
-                label: 'Categories',
+                label: 'Browse',
                 screen: 'ProductDetailScreen', // this is a registered name for a screen
                 title: 'Product Details'
             },

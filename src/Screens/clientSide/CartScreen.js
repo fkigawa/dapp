@@ -117,7 +117,7 @@ class CartScreen extends React.Component {
               )}
           </View>
           <View style={styles.total}>
-            <Text style={styles.text}>Total: {this.state.total}</Text>
+            <Text style={styles.text}>Total: ${this.state.total}</Text>
           </View>
         <View style={styles.containerCheckout}>
           <Button text70 white style={styles.checkout}  onPress={()=>this.toCheckoutScreen()} label="Checkout"/>
@@ -167,6 +167,8 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     padding: 10,
     alignItems: "center",
+      borderBottomWidth: 1,
+      borderColor: "#eee"
     // justifyContent: "center",
   },
   quantity: {
@@ -175,25 +177,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     // alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+      borderBottomWidth: 1,
+      borderColor: "#eee"
   },
   price: {
     flex: 1,
     // borderWidth: 2,
     padding: 10,
     alignItems: "center",
-    // justifyContent: "center"
+    // justifyContent: "center",
+      borderBottomWidth: 1,
+      borderColor: "#eee"
   },
   text: {
     fontFamily: "AvenirNext-DemiBold",
     fontSize: 24
   },
   checkout: {
-    backgroundColor: '#ec851d'
+    backgroundColor: '#ec851d',
+      fontFamily: "AvenirNext-DemiBold",
+      fontWeight: "bold"
   },
   total: {
     flex: 1,
-    // borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center'
   }

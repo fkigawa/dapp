@@ -12,7 +12,7 @@ class ProductDetailScreen extends React.Component{
         this.state={
             product: {},
             done: false,
-            itemAmount: 0
+            itemAmount: 1
         }
     }
     async componentDidMount(){
