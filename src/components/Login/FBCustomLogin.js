@@ -178,14 +178,13 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     borderRadius: 100,
     backgroundColor: "#3b5998",
-    width: "90%",
+    width: "100%",
     // shadowRadius: 10,
     // shadowOpacity: 0.8,
     // shadowOffset:{  width: -5,  height: 10,  },
     // shadowColor: 'black',
   },
   text: {
-    marginLeft: 0,
     fontSize: 22,
     color: "white",
     fontFamily: "Avenir Next"

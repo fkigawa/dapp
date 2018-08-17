@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity, Button, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity, Button, TextInput, Image} from 'react-native';
 import FBCustomLogin from '../../components/Login/FBCustomLogin'
 import FBLoginButton from '../../components/Login/FBLoginButton'
 import RegistrationNavigator from "./MainTabs/RegistrationNavigator"
@@ -10,6 +10,7 @@ import {changingEmail, changingFirstName, changingLastName, loggingIn, addingUse
 import {connect} from "react-redux"
 import {urlLink} from "../../../keys"
 import SplashScreen from 'react-native-splash-screen'
+import logo from '../../assets/Plug.png'
 
 class LoginScreen extends React.Component {
   constructor(props){
@@ -97,7 +98,16 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Plug</Text>
+        <View style={styles.imageView}>
+          <Image
+            style={[{width: 300, height: 100}]}
+            source={logo}
+            resizeMode={'contain'}
+          />
+        </View>
+
+        {/* <Text style={styles.text}>Plug</Text> */}
+        <View style={styles.loginView}>
         <FBCustomLogin />
         <TouchableOpacity style={styles.button}
           raised
@@ -120,8 +130,9 @@ class LoginScreen extends React.Component {
               navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
               animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
             })
-            }><Text style={styles.signIn}>Sign in.</Text></TouchableOpacity>
+          }><Text style={styles.signInBottom}>Sign in.</Text></TouchableOpacity>
           </View>
+        </View>
       </View>
     );
   }
@@ -142,13 +153,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   button: {
     fontSize: 20,
     color: "dodgerblue",
-    marginBottom: 100,
-    fontFamily: "AvenirNext-DemiBold"
+    fontFamily: "AvenirNext-DemiBold",
   },
   existing: {
     fontSize: 16
@@ -156,21 +166,43 @@ const styles = StyleSheet.create({
   signIn: {
     color: 'dodgerblue',
     fontSize: 16,
-    fontFamily: "AvenirNext-DemiBold"
+    fontFamily: "AvenirNext-DemiBold",
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 2,
+    textAlign: 'center'
+  },
+  signInBottom: {
+    color: 'dodgerblue',
+    fontSize: 16,
+    fontFamily: "AvenirNext-DemiBold",
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 2
   },
   submitButton: {
     marginLeft: 5
   },
   text: {
-    marginTop: -100,
-    marginBottom: 150,
     fontSize: 60,
     color: "black",
     fontFamily: "AvenirNext-DemiBold"
   },
   touchable: {
+    flex: 1,
     fontSize: 25,
-    marginBottom: -275,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  loginView: {
+    flex: 2,
+    // borderWidth: 2
+  },
+  imageView: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
